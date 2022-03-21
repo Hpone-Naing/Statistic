@@ -21133,3 +21133,66 @@ div.tagsinput {
   flex-grow: 1; }
 
 /*# sourceMappingURL=maps/style.css.map */
+
+
+/* my own css */
+body {
+  padding-top: 30px;
+  background-color: lightblue;
+  font-family: 'Play', serif;
+  font-size: 18px;
+  background: url(https://s20.postimg.org/tzp5916a5/macbook.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.btn-danger {
+  background-color: #887C7B;
+  border-color: #343436;
+  width: 65px;
+  height: 55px;
+  font-size: 1.25em;
+}
+
+.rectangle {
+  width: 315px;
+  height: 450px;
+  border: 25px solid #1a1a1a;
+  border-radius: 35px;
+  box-shadow: 10px 10px 20px 10px;
+  padding-top: 0px;
+  background-color: #1a1a1a;
+}
+
+.col-xs-3 {
+  padding-left: 1px;
+}
+
+.col-xs-12 {
+  padding-left: 0px;
+}
+
+.screenInput {
+  width: 265px;
+  height: 61px;
+  background-color: #ffff80;
+  border-color: #1a1a1a;
+  border-radius: 10px;
+  font-size: 1.5em;
+  text-align: right;
+}
+
+.copyright {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border: 1px;
+}
+
+.gist {
+  background-color: #99ccff;
+  border: 5px solid #1a1a1a;
+  border-radius: 10px;
+  padding: 10px;
+}
