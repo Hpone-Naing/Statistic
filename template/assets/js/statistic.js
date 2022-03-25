@@ -50,3 +50,84 @@ $(document).ready(function(){
 		$(".add-new").removeAttr("disabled");
     });
 });
+
+
+
+
+$(document).ready(function(){
+	let searchString = "";
+	var table = $('.statistic-table');
+	var tableClone = table.clone();
+	var searchBtn = $('input[name="search-statistic"]');
+	var tableTitleDiv = $('.table-title');
+	var cardBodyDiv = $('.card-body');
+	searchBtn.keyup(function(){	
+		$('h1[name="errorSatus"]').remove()
+		var searchKey = searchBtn.val();
+		console.log("search key val:" + searchKey);
+		var table = $('.statistic-table');
+		var div = $('.table-responsive');
+		table.remove();
+		if(searchKey.length === 0) {
+			 tableTitleDiv.appendTo(div);
+			 tableClone.appendTo(div);
+		}
+	    $("document").ready(function() {
+		/* var tb = $('.statistic-table:eq(0) tbody');
+		 var size = tb.find("tr").length;
+		 console.log("Number of rows : " + size);*/
+		  tableClone.find("tr").each(function(index, element) {
+			var colSize = $(element).find('td').length;
+			console.log("  Number of cols in row " + (index + 1) + " : " + colSize);
+			$(element).find('td').each(function(index, element) {   
+				var colVal = $(element).text();
+				searchString = searchString.concat("/", colVal.trim());
+			  console.log("    Value in col " + (index + 1) + " : " + colVal.trim());
+			});
+			
+			if(searchResult(searchString, searchKey)) {
+				console.log("match");
+			}
+			else {
+				tableTitleDiv.remove();
+				console.log("not match");
+				var errorStatus = '<h1 name = "errorSatus" >Search key: (' + searchKey + ') is not exit in the statistic table </h1>';
+				cardBodyDiv.append(errorStatus);
+			}
+		  });
+		});
+    });
+});
+
+searchResult = function(searchString, searchKey) {
+	//searchString.split("/").forEach(function(value) {
+	var splitedString = searchString.split("/");
+	//console.log("splited value: / length: " + splitedString  + " / " + splitedString.length);
+    for (var i = 0; i < splitedString.length; i++) {
+		//console.log("value / searchKey / match?" + searchString[i] + " / " + searchKey + " / " +searchString[i].match(searchKey, 'ig'));
+		if( splitedString[i].toLowerCase().match(searchKey.toLowerCase(), 'ig')) {
+			return true;
+		}
+	}
+	return false;
+	/*$.each( searchString.split("/"), function(index, value) {
+		console.log("value / searchKey / match?" + value + " / " + searchKey + " / " +value.match(searchKey, 'ig'));
+		var searchResult = value.match(searchKey, 'ig');
+		//return searchResult != null;
+		if(searchResult != null) {
+			console.log("here search res not null.............................")
+			return false;
+		}
+		return true;
+		/*if(value.match(searchKey, 'ig') !== null) {
+			return true;
+		} else {
+			return false;
+		}*/
+		//return value.match(searchKey, 'ig');
+		/*$.each( [...value], function(index, value) {
+			console.log("value: " + value);
+			//return (value === searchKey);
+		});
+	});*/
+}
