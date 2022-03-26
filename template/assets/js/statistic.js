@@ -61,7 +61,7 @@ $(document).ready(function(){
 		console.log("tr length: " + $(".statistic-table tbody tr ").length);
 		$(".statistic-table tbody tr ").show();		
 		let searchString = "";
-		var searchKey = searchBtn.val();
+		var searchKey = searchBtn.val().trim();
 	    $("document").ready(function() {
 
 			$('.statistic-table > tbody  > tr').each(function(trIndex, trElement) {
