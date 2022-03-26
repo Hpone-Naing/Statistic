@@ -3,7 +3,8 @@ $(document).ready(function(){
 	var actions = $("table td:last-child").html();
 	// Append table with add row form on add new button click
     $(".add-new").click(function(){
-		$(this).attr("disabled", "disabled");
+		console.log("here add new button ..")
+		//$(this).attr("disabled", "disabled");
 		var index = $("table tbody tr:last-child").index();
         var row = '<tr>' +
             '<td><input type="text" class="form-control" name="name" id="name"></td>' +
@@ -62,14 +63,15 @@ $(document).ready(function(){
 	var tableTitleDiv = $('.table-title');
 	var cardBodyDiv = $('.card-body');
 	searchBtn.keyup(function(){	
-		$('h1[name="errorSatus"]').remove()
+		$('h1[name="errorSatus"]').hide()
 		var searchKey = searchBtn.val();
 		console.log("search key val:" + searchKey);
 		var table = $('.statistic-table');
 		var div = $('.table-responsive');
 		table.remove();
 		if(searchKey.length === 0) {
-			 tableTitleDiv.appendTo(div);
+			// tableTitleDiv.appendTo(div);
+			  tableTitleDiv.show();
 			 tableClone.appendTo(div);
 		}
 	    $("document").ready(function() {
@@ -89,7 +91,7 @@ $(document).ready(function(){
 				console.log("match");
 			}
 			else {
-				tableTitleDiv.remove();
+				tableTitleDiv.hide();
 				console.log("not match");
 				var errorStatus = '<h1 name = "errorSatus" >Search key: (' + searchKey + ') is not exit in the statistic table </h1>';
 				cardBodyDiv.append(errorStatus);
@@ -102,7 +104,7 @@ $(document).ready(function(){
 searchResult = function(searchString, searchKey) {
 	//searchString.split("/").forEach(function(value) {
 	var splitedString = searchString.split("/");
-	//console.log("splited value: / length: " + splitedString  + " / " + splitedString.length);
+	console.log("splited value: / length: " + splitedString  + " / " + splitedString.length);
     for (var i = 0; i < splitedString.length; i++) {
 		//console.log("value / searchKey / match?" + searchString[i] + " / " + searchKey + " / " +searchString[i].match(searchKey, 'ig'));
 		if( splitedString[i].toLowerCase().match(searchKey.toLowerCase(), 'ig')) {
