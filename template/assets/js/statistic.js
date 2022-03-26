@@ -56,67 +56,28 @@ $(document).ready(function(){
 
 
 $(document).ready(function(){
-	let searchString = "";
-	var table = $('.statistic-table');
-	var tableClone = table;
 	var searchBtn = $('input[name="search-statistic"]');
-	var tableTitleDiv = $('.table-title');
-	var cardBodyDiv = $('.card-body');
-	var div = $('.table-responsive');
-	var matchRowList = new Array();
-	searchBtn.keyup(function(){	
-		$('h1[name="errorSatus"]').hide()
+	searchBtn.keyup(function(){
+		console.log("tr length: " + $(".statistic-table tbody tr ").length);
+		$(".statistic-table tbody tr ").show();		
+		let searchString = "";
 		var searchKey = searchBtn.val();
-		console.log("search key val:" + searchKey);
-		table.remove();
-		if(searchKey.length === 0) {
-			  tableTitleDiv.show();
-			 tableClone.appendTo(div);
-		}
 	    $("document").ready(function() {
-		/* var tb = $('.statistic-table:eq(0) tbody');
-		 var size = tb.find("tr").length;
-		 console.log("Number of rows : " + size);*/
-		tableClone.find("tbody").each(function(index, tbElement) {
-			$(tbElement).find("tr").each(function(index, trElement) {
-				var colSize = $(trElement).find('td').length;
-				console.log("  Number of cols in row " + (index + 1) + " : " + colSize);
+
+			$('.statistic-table > tbody  > tr').each(function(trIndex, trElement) {
 				$(trElement).find('td').each(function(index, element) {   
 					var colVal = $(element).text();
 					searchString = searchString.concat("/", colVal.trim());
-				  console.log("    Value in col " + (index + 1) + " : " + colVal.trim());
 				});
-				
-				if(searchResult(searchString, searchKey)) {
-					matchRowList.push(trElement)
-				}
-				
+						if(! searchString.toLowerCase().match(searchKey.toLowerCase(), 'g')) {
+							$(trElement).hide();
+						}
+						else {
+						}
+						searchString = "";
+
 			});
-		  });
-		  console.log("match rows: " + matchRowList)
-		  if(matchRowList.length !== 0) {
-			console.log("match")
-			console.log("match row list length: " + matchRowList.length);
-		  }
-		  else {
-			tableTitleDiv.hide();
-			console.log("not match");
-			var errorStatus = '<h1 name = "errorSatus" >Search key: (' + searchKey + ') is not exit in the statistic table </h1>';
-			cardBodyDiv.append(errorStatus);
-		  }
-		  matchRowList = new Array();
-		  console.log("after remove items: " + matchRowList.length)
 		});
     });
 });
-
-searchResult = function(searchString, searchKey) {
-	var splitedString = searchString.split("/");
-	console.log("splited value: / length: " + splitedString  + " / " + splitedString.length);
-    for (var i = 0; i < splitedString.length; i++) {
-		if( splitedString[i].toLowerCase().match(searchKey.toLowerCase(), 'ig')) {
-			return true;
-		}
-	}
-	return false;
-}
+var statistic_table = $(".statistic-table");
