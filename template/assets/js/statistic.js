@@ -1,6 +1,5 @@
-
 $(document).ready(function(){
-	$('[data-toggle="tooltip"]').tooltip();
+	//$('[data-toggle="tooltip"]').tooltip();
 	var actions = $(".statistic-table td:last-child").html();
 	// Append table with add row form on add new button click
     $(".add-new").click(function(){
@@ -15,7 +14,7 @@ $(document).ready(function(){
         '</tr>';
     	$(".statistic-table").append(row);		
 		$(".statistic-table tbody tr").eq(index + 1).find(".add, .edit").toggle();
-        $('[data-toggle="tooltip"]').tooltip();
+        //$('[data-toggle="tooltip"]').tooltip();
     });
 	// Add row on add button click
 	$(document).on("click", ".add", function(){
