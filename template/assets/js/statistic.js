@@ -1,3 +1,4 @@
+
 $(document).ready(function(){
 	$('[data-toggle="tooltip"]').tooltip();
 	var actions = $(".statistic-table td:last-child").html();

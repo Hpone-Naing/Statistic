@@ -191,6 +191,11 @@
             </ul>
             <ul class="navbar-nav navbar-nav-right">
               
+			  <li class="nav-item  border-left">
+                <a class="nav-link count-indicator " id="googleTranslate">
+					<div id="google_translate_element"></div>
+                </a> 
+              </li>
               
               <li class="nav-item dropdown border-left">
                 <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
@@ -420,4 +425,10 @@
     <script src="../../assets/js/chart.js"></script>
     <!-- End custom js for this page -->
   </body>
+	<script type="text/javascript">// <![CDATA[
+		function googleTranslateElementInit() {
+		new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+		}
+// ]]></script>
+	<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
 </html>
