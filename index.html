@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -39,7 +39,9 @@
                   <span class="count bg-success"></span>
                 </div>
                 <div class="profile-name">
-                  <h5 class="mb-0 font-weight-normal">Si Si Myint Soe</h5>
+                  <h5 lang ="en" class="mb-0 font-weight-normal" style="display:none">Aung Kyaw Kyaw Oo</h5>
+                  <h5 lang="my" class="mb-0 font-weight-normal">အောင်ကျော်ကျော်ဦး</h5>
+
                 </div>
               </div>
               <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
@@ -80,14 +82,17 @@
             </div>
           </li>
           <li class="nav-item nav-category">
-            <span class="nav-link">Navigation</span>
+            <span lang ="en" class="nav-link" style = "display : none">Navigation</span>
+            <span lang = "my" class="nav-link">ညွှန်း</span>
+
           </li>
           <li class="nav-item menu-items">
             <a class="nav-link" href="index.html">
               <span class="menu-icon">
                 <i class="mdi mdi-speedometer"></i>
               </span>
-              <span class="menu-title">Dashboard</span>
+              <span class="menu-title" lang = "en" style = "display : none">Dashboard</span>
+			  <span class="menu-title" lang = "my">ဝင်ငွေထွက်ငွေပြဇယားများ </span>
             </a>
           </li>
           <li class="nav-item menu-items">
@@ -95,13 +100,17 @@
               <span class="menu-icon">
                 <i class="mdi mdi-file-document-box"></i>
               </span>
-              <span class="menu-title">Statistic</span>
+              <span class="menu-title" lang = "en" style = "display : none" >Statistic</span>
+			  <span class="menu-title" lang = "my">စာရင်းအင်း</span>
+
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <!--<li class="nav-item"> <a class="nav-link" href="template/pages/ui-features/buttons.html">New</a></li>-->
-                <li class="nav-item"> <a class="nav-link" href="template/pages/ui-features/dropdowns.html">List</a></li>
+                <li style = "display : none" lang = "en" class="nav-item"> <a class="nav-link" href="template/pages/ui-features/dropdowns.html">List</a></li>
+                <li lang = "my" class="nav-item"> <a class="nav-link" href="template/pages/ui-features/dropdowns.html">စာရင်းအင်းများ</a></li>
+
                 <!--<li class="nav-item"> <!--<a class="nav-link" href="pages/ui-features/typography.html">Typography</a><a class="nav-link" href="#">Typography</a></li>-->
               </ul>
             </div>
@@ -111,7 +120,9 @@
               <span class="menu-icon">
                 <i class="mdi mdi-chart-bar"></i>
               </span>
-              <span class="menu-title">Charts</span>
+              <span lang = "en" class="menu-title" style = "display : none">Charts</span>
+			  <span lang= "my" class="menu-title"> ရှုံးမြတ်ပြဇယားများ</span>
+
             </a>
           </li>
           <li class="nav-item menu-items">
@@ -119,16 +130,23 @@
               <span class="menu-icon">
                 <i class="mdi mdi-security"></i>
               </span>
-              <span class="menu-title">Tools</span>
+              <span lang = "en" class="menu-title" style = "display : none">Tools</span>
+              <span lang = "my" class="menu-title">ကိရိယာများ</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="template/pages/samples/blank-page.html"> Import </a></li>
-                <li class="nav-item"> <a class="nav-link" href="template/pages/samples/error-404.html"> Export </a></li>
-                <li class="nav-item"> <a class="nav-link" href="template/pages/samples/error-500.html"> Calculator </a></li>
-                <!--<li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>-->
+                <li lang = "en" class="nav-item" style = "display : none"> <a  class="nav-link" href="template/pages/samples/blank-page.html"> Import </a></li>
+                <li lang = "my" class="nav-item"> <a class="nav-link" href="template/pages/samples/blank-page.html"> dataသွင်းရန် </a></li>
+
+                <li lang = "en" class="nav-item" style = "display : none"> <a  class="nav-link" href="template/pages/samples/error-404.html"> Export </a></li>
+				<li lang = "my" class="nav-item"> <a  class="nav-link" href="template/pages/samples/blank-page.html"> excel fileအဖြစ်ထုတ်ရန် </a></li>
+				
+                <li lang = "en" class="nav-item" style = "display : none" > <a  class="nav-link" href="template/pages/samples/error-500.html"> Calculator </a></li>
+				<li lang = "my" class="nav-item"> <a  class="nav-link" href="template/pages/samples/error-500.html"> ဂဏန်းပေါင်းစက် </a></li>
+                <li lang="my" class="nav-item"> <a class="nav-link" href="#" onclick = "translate(this);"> မြန်မာ -> English </a></li>
+				<li lang="en" class="nav-item" style="display:none"> <a class="nav-link" href="#" onclick = "translate(this);"> English -> မြန်မာ </a></li>
+                <!--<li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>-->
               </ul>
             </div>
           </li>
@@ -138,7 +156,9 @@
               <span class="menu-icon">
                 <i class="mdi mdi-laptop"></i>
               </span>
-              <span class="menu-title">Documentation</span>
+              <span lang="en" class="menu-title" style = "display : none">Documentation</span>
+              <span lang="my" class="menu-title">ဆေ့ာဝဲလမ်းညွှန် </span>
+
             </a>
           </li>
 		  <li class="nav-item menu-items">
@@ -148,7 +168,10 @@
                 <i class="mdi mdi-playlist-play"></i>
               </span>
               <!--<span class="menu-title">Form Elements</span>-->
-			  <span class="menu-title">Next Version</span>
+			  
+			  <span lang = "en" class="menu-title" style = "display : none">Next Version</span>
+			  <span lang = "my" class="menu-title">နောက်ဗားရှင်း</span>
+
             </a>
           </li>
           <li class="nav-item menu-items">
@@ -158,7 +181,8 @@
                 <i class="mdi mdi-table-large"></i>
               </span>
               <!--<span class="menu-title">Tables</span>-->
-			  <span class="menu-title">Next Version</span>
+			  <span lang = "en" class="menu-title" style = "display : none">Next Version</span>
+			  <span lang = "my" class="menu-title">နောက်ဗားရှင်း</span>
             </a>
           </li>
           <li class="nav-item menu-items">
@@ -168,7 +192,8 @@
                 <i class="mdi mdi-contacts"></i>
               </span>
               <!--<span class="menu-title">Icons</span>-->
-			  <span class="menu-title">Next Version</span>
+			  <span lang = "en" class="menu-title" style = "display : none">Next Version</span>
+			  <span lang = "my" class="menu-title">နောက်ဗားရှင်း</span>
             </a>
           </li>
         </ul>
@@ -290,7 +315,9 @@
                 <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                   <div class="navbar-profile">
                     <img class="img-xs rounded-circle" src="template/assets/images/faces/face15.jpg" alt="">
-                    <p class="mb-0 d-none d-sm-block navbar-profile-name">Si Si Myint Soe</p>
+                    <p lang = "en" class="mb-0 navbar-profile-name" style="display:none">Aung Kyaw Kyaw Oo</p>
+                    <p lang = "my" class="mb-0 navbar-profile-name">အောင်ကျော်ကျော်ဦး</p>
+
                     <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                   </div>
                 </a>
@@ -338,7 +365,9 @@
                     <div class="row">
                       <div class="col-9">
                         <div class="d-flex align-items-center align-self-start">
-                          <h3 class="mb-0">$12.34</h3>
+                          <h3 lang="en" style="display:none">12.34 Kyats</h3>
+                          <h3 lang="my">၁၂.၃၄ကျပ်</h3>
+
                           <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
                         </div>
                       </div>
@@ -348,7 +377,9 @@
                         </div>
                       </div>
                     </div>
-                    <h6 class="text-muted font-weight-normal">Potential growth</h6>
+                    <h6 lang="en" class="text-muted font-weight-normal" style="display:none">Potential growth</h6>
+                    <h6 lang="my" class="text-muted font-weight-normal">တိုးတက်လာသောပမာဏ</h6>
+
                   </div>
                 </div>
               </div>
@@ -358,7 +389,9 @@
                     <div class="row">
                       <div class="col-9">
                         <div class="d-flex align-items-center align-self-start">
-                          <h3 class="mb-0">$17.34</h3>
+                          <h3 lang="en" class="mb-0" style="display:none">17.34 Kyats</h3>
+                          <h3 lang="my" class="mb-0">၁၇.၃၄ကျပ်</h3>
+
                           <p class="text-success ml-2 mb-0 font-weight-medium">+11%</p>
                         </div>
                       </div>
@@ -368,7 +401,9 @@
                         </div>
                       </div>
                     </div>
-                    <h6 class="text-muted font-weight-normal">Revenue current</h6>
+                    <h6 lang="en" class="text-muted font-weight-normal" style="display:none">Revenue current</h6>
+                    <h6 lang="my" class="text-muted font-weight-normal">လက်ရှိဝင်ငွေ</h6>
+
                   </div>
                 </div>
               </div>
@@ -378,7 +413,9 @@
                     <div class="row">
                       <div class="col-9">
                         <div class="d-flex align-items-center align-self-start">
-                          <h3 class="mb-0">$12.34</h3>
+                          <h3 lang="en" class="mb-0" style="display:none">12.34 Kyats</h3>
+                          <h3 lang="my" class="mb-0">၁၂.၃၄ကျပ်</h3>
+
                           <p class="text-danger ml-2 mb-0 font-weight-medium">-2.4%</p>
                         </div>
                       </div>
@@ -388,7 +425,9 @@
                         </div>
                       </div>
                     </div>
-                    <h6 class="text-muted font-weight-normal">Daily Income</h6>
+                    <h6 lang="en" class="text-muted font-weight-normal" style="display:none">Daily Income</h6>
+                    <h6 lang="my" class="text-muted font-weight-normal">နေ့စဉ်ဝင်‌ငွေ</h6>
+
                   </div>
                 </div>
               </div>
@@ -398,7 +437,9 @@
                     <div class="row">
                       <div class="col-9">
                         <div class="d-flex align-items-center align-self-start">
-                          <h3 class="mb-0">$31.53</h3>
+                          <h3 lang="en" class="mb-0" style="display:none">31.53 Kyats</h3>
+                          <h3 lang="my" class="mb-0">၃၁.၅၃ကျပ်</h3>
+
                           <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
                         </div>
                       </div>
@@ -408,7 +449,9 @@
                         </div>
                       </div>
                     </div>
-                    <h6 class="text-muted font-weight-normal">Expense current</h6>
+                    <h6 lang="en" class="text-muted font-weight-normal" style="display:none">Expense current</h6>
+                    <h6 lang="my" class="text-muted font-weight-normal">လက်ရှိကုန်ကျစရိတ်</h6>
+
                   </div>
                 </div>
               </div>
@@ -417,24 +460,34 @@
               <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Transaction History</h4>
+                    <h4 lang="en" class="card-title" style="display:none">Transaction History</h4>
+                    <h4 lang="my" class="card-title">ငွေလွှဲမှတ်တမ်း</h4>
+
                     <canvas id="transaction-history" class="transaction-chart"></canvas>
                     <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
                       <div class="text-md-center text-xl-left">
-                        <h6 class="mb-1">Transfer to Paypal</h6>
+                        <h6 lang="en" class="mb-1" style="display:none">Transfer to Wave Pay</h6>
+                        <h6 lang="my" class="mb-1">‌ဝေ့ပေးသို့ငွေလွှဲမှု</h6>
+
                         <p class="text-muted mb-0">07 Jan 2019, 09:12AM</p>
                       </div>
                       <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
-                        <h6 class="font-weight-bold mb-0">$236</h6>
+                        <h6 lang="en" class="font-weight-bold mb-0" style="display:none">236 Kyats</h6>
+                        <h6 lang="my" class="font-weight-bold mb-0">၂၃၆ကျပ်</h6>
+
                       </div>
                     </div>
                     <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
                       <div class="text-md-center text-xl-left">
-                        <h6 class="mb-1">Tranfer to Stripe</h6>
+                        <h6 lang="en" class="mb-1" style="display:none">Tranfer to Kpay</h6>
+                        <h6 lang="my" class="mb-1">ကေပေးသို့ငွေလွှဲမှု</h6>
+
                         <p class="text-muted mb-0">07 Jan 2019, 09:12AM</p>
                       </div>
                       <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
-                        <h6 class="font-weight-bold mb-0">$593</h6>
+                        <h6 lang="en" class="font-weight-bold mb-0" style="display:none">593 Kyats</h6>
+                        <h6 lang="my" class="font-weight-bold mb-0">၅၉၃ကျပ်</h6>
+
                       </div>
                     </div>
                   </div>
@@ -444,11 +497,15 @@
               <div class="col-sm-4 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h5>Revenue</h5>
+                    <h5 lang="en" style="display:none">Revenue</h5>
+                    <h5 lang="my">ဝင်ငွေ</h5>
+
                     <div class="row">
                       <div class="col-8 col-sm-12 col-xl-8 my-auto">
                         <div class="d-flex d-sm-block d-md-flex align-items-center">
-                          <h2 class="mb-0">$32123</h2>
+                          <h2 lang="en" class="mb-0" style="display:none">32123 Kyats</h2>
+                          <h2 lang="my">၃၂၁၂၃ကျပ်</h2>
+
                           <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
                         </div>
                         <h6 class="text-muted font-weight-normal">11.38% Since last month</h6>
@@ -463,11 +520,15 @@
               <div class="col-sm-4 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h5>Sales</h5>
+                    <h5 lang="en" style="display:none">Sales</h5>
+                    <h5 lang="my">အရောင်း</h5>
+
                     <div class="row">
                       <div class="col-8 col-sm-12 col-xl-8 my-auto">
                         <div class="d-flex d-sm-block d-md-flex align-items-center">
-                          <h2 class="mb-0">$45850</h2>
+                          <h2 lang="en" class="mb-0" style="display:none">45850 Kyats</h2>
+                          <h2 lang="my">၄၅၈၅၀ကျပ်</h2>
+
                           <p class="text-success ml-2 mb-0 font-weight-medium">+8.3%</p>
                         </div>
                         <h6 class="text-muted font-weight-normal"> 9.61% Since last month</h6>
@@ -482,11 +543,15 @@
               <div class="col-sm-4 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h5>Purchase</h5>
+                    <h5 lang="en" style="display:none">Purchase</h5>
+                    <h5 lang="my">ဝယ်ယူမှု</h5>
+
                     <div class="row">
                       <div class="col-8 col-sm-12 col-xl-8 my-auto">
                         <div class="d-flex d-sm-block d-md-flex align-items-center">
-                          <h2 class="mb-0">$2039</h2>
+                          <h2 lang="en" class="mb-0" style="display:none">2039 Kyats</h2>
+                          <h2 lang="my">၂၀၃၉ကျပ်</h2>
+
                           <p class="text-danger ml-2 mb-0 font-weight-medium">-2.1% </p>
                         </div>
                         <h6 class="text-muted font-weight-normal">2.27% Since last month</h6>
@@ -530,6 +595,8 @@
     <script src="template/assets/js/misc.js"></script>
     <script src="template/assets/js/settings.js"></script>
     <script src="template/assets/js/todolist.js"></script>
+	<script src="template/assets/js/tools.js"></script>
+
     <!-- endinject -->
     <!-- Custom js for this page -->
     <script src="template/assets/js/dashboard.js"></script>

@@ -54,9 +54,11 @@ $(document).ready(function(){
 
 
 
-
-$(document).ready(function(){
-	var searchBtn = $('input[name="search-statistic"]');
+searchStatistics = function(search) {
+	console.log("here search statistic: ");
+	//var searchBtn = $('input[name="search-statistic"]');
+	//console.log("display or not : " + searchBtn.css('display') == 'none');
+	var searchBtn = $(search);
 	searchBtn.keyup(function(){
 		console.log("tr length: " + $(".statistic-table tbody tr ").length);
 		$(".statistic-table tbody tr ").show();		
@@ -79,5 +81,5 @@ $(document).ready(function(){
 			});
 		});
     });
-});
+}
 var statistic_table = $(".statistic-table");
