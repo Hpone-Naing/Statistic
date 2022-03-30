@@ -1,5 +1,5 @@
-translate = function(translate){
-	var translateBtn = $(translate);
+translate = function(translateButton){
+	var translateBtn = $(translateButton);
 	currentLanguage = translateBtn.parent().attr("lang");
 			console.log("current lang: " + currentLanguage)
 	    if(currentLanguage === "my") {

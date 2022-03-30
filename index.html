@@ -148,8 +148,8 @@
 				
                 <li lang = "en" class="nav-item" style = "display : none" > <a  class="nav-link" href="template/pages/samples/error-500.html"> Calculator </a></li>
 				<li lang = "my" class="nav-item"> <a  class="nav-link" href="template/pages/samples/error-500.html"> ဂဏန်းပေါင်းစက် </a></li>
-                <li lang="my" class="nav-item"> <a class="nav-link" onclick = "translate(this);"> မြန်မာ -> English </a></li>
-				<li lang="en" class="nav-item" style="display:none"> <a class="nav-link"  onclick = "translate(this);"> English -> မြန်မာ </a></li>
+                <li lang="my" class="nav-item"> <span onclick = "translate(this);"> မြန်မာ -> English </span></li>
+				<li lang="en" class="nav-item" style="display:none"> <span onclick = "translate(this);"> English -> မြန်မာ </span</li>
                 <!--<li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>-->
               </ul>
             </div>
@@ -213,13 +213,14 @@
             <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
               <span class="mdi mdi-menu"></span>
             </button>
-            <ul class="navbar-nav w-100">
+            <!--<ul class="navbar-nav w-100">
               <li class="nav-item w-100">
-                <form class="nav-link mt-2 mt-md-0 d-none d-lg-flex search">
-                  <!--<input type="text" class="form-control" placeholder="Search statistics">-->
+                <form>
+                  <input lang="en" type="text" name = "search-statistic" class="form-control" placeholder="Search statistics" onkeyup="searchStatistics(this)" style="display:none">
+                  <input lang="my" type="text" name = "search-statistic" class="form-control" placeholder="စာရင်းရှာရန်" onkeyup="searchStatistics(this)" style="display:none">
                 </form>
               </li>
-            </ul>
+            </ul>-->
             <ul class="navbar-nav navbar-nav-right">
 			  <!--<li class="nav-item  border-left">
                 <a class="nav-link count-indicator " id="googleTranslate">
@@ -591,6 +592,8 @@
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="template/assets/vendors/js/vendor.bundle.base.js"></script>
+	<script src="template/assets/js/tools.js"></script>
+
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <script src="template/assets/vendors/chart.js/Chart.min.js"></script>
@@ -605,7 +608,6 @@
     <script src="template/assets/js/misc.js"></script>
     <script src="template/assets/js/settings.js"></script>
     <script src="template/assets/js/todolist.js"></script>
-	<script src="template/assets/js/tools.js"></script>
 
     <!-- endinject -->
     <!-- Custom js for this page -->
