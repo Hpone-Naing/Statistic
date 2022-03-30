@@ -213,15 +213,22 @@
             <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
               <span class="mdi mdi-menu"></span>
             </button>
-            <!--<ul class="navbar-nav w-100">
+            <ul class="navbar-nav w-100">
               <li class="nav-item w-100">
                 <form>
                   <input lang="en" type="text" name = "search-statistic" class="form-control" placeholder="Search statistics" onkeyup="searchStatistics(this)" style="display:none">
                   <input lang="my" type="text" name = "search-statistic" class="form-control" placeholder="စာရင်းရှာရန်" onkeyup="searchStatistics(this)" style="display:none">
                 </form>
               </li>
-            </ul>-->
+            </ul>
             <ul class="navbar-nav navbar-nav-right">
+			<li lang="my" class="nav-item border-left">
+				<span onclick = "translate(this);"> မြန်မာ -> English </span>
+			</li>
+			<li lang="en" class="nav-item border-left" style="display:none">
+				<span onclick = "translate(this);"> English -> မြန်မာ </span>
+			</li>
+				<!--<li lang="en" class="nav-item" style="display:none"> <span onclick = "translate(this);"> English -> မြန်မာ </span</li>-->
 			  <!--<li class="nav-item  border-left">
                 <a class="nav-link count-indicator " id="googleTranslate">
 					<div id="google_translate_element"></div>
