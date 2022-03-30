@@ -84,7 +84,7 @@ searchStatistics = function(search) {
 }
 
 translate = function(translateButton){
-	alert("here translate.........................")
+	window.alert("here translate.........................")
 	var translateBtn = $(translateButton);
 	currentLanguage = translateBtn.parent().attr("lang");
 			console.log("current lang: " + currentLanguage)
