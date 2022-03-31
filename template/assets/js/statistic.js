@@ -83,9 +83,9 @@ searchStatistics = function(search) {
     });
 }
 
-translate = function(translateButton){
-	window.alert("here translate.........................")
-	var translateBtn = $(translateButton);
+searchStatistics1 = function(search1) {
+	console.log("here translate..........................")
+	var translateBtn = $(search1);
 	currentLanguage = translateBtn.parent().attr("lang");
 			console.log("current lang: " + currentLanguage)
 	    if(currentLanguage === "my") {
