@@ -125,8 +125,8 @@
                 <li class="nav-item"> <a class="nav-link" href="blank-page.html"> Import </a></li>
                 <li class="nav-item"> <a class="nav-link" href="error-404.html"> Export </a></li>
                 <li class="nav-item"> <a class="nav-link" href="error-500.html"> Calculator </a></li>
-				<li lang="my" class="nav-item"> <a class="nav-link"> မြန်မာ -> English </a></li>
-				<li lang="en" class="nav-item" style="display:none"> <a class="nav-link"> English -> မြန်မာ </a></li>
+				<li lang="my" class="nav-item"> <a href="#" class="nav-link"> မြန်မာ -> English </a></li>
+				<li lang="en" class="nav-item" style="display:none"> <a  href="#" class="nav-link"> English -> မြန်မာ </a></li>
                 <!--<li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>-->
               </ul>
@@ -185,23 +185,23 @@
               <span class="mdi mdi-menu"></span>
             </button>
             <ul class="navbar-nav w-100">
-              <li class="nav-item w-100">
+              <!--<li class="nav-item w-100">
                 <form class="nav-link mt-2 mt-md-0 d-none d-lg-flex search">
                   <input type="text" class="form-control" placeholder="Search products">
                 </form>
-              </li>
+              </li>-->
             </ul>
             <ul class="navbar-nav navbar-nav-right">
-             <li class="nav-item  border-left">
+            <!-- <li class="nav-item  border-left">
                 <a class="nav-link count-indicator " id="googleTranslate">
 					<div id="google_translate_element"></div>
                 </a>
-              </li>
-              <li class="nav-item nav-settings d-none d-lg-block">
+              </li>-->
+              <!--<li class="nav-item nav-settings d-none d-lg-block">
                 <a class="nav-link" href="#">
                   <i class="mdi mdi-view-grid"></i>
                 </a>
-              </li>
+              </li>-->
               <li class="nav-item dropdown border-left">
                 <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                   <i class="mdi mdi-email"></i>
@@ -335,8 +335,22 @@
         </nav>
         <!-- partial -->
         <div class="main-panel">
-          <div class="content-wrapper">
-          </div>
+			<div class="content-wrapper">
+				<div class="card-body">
+						<div id="copy-statistic-table" class="table-responsive" style="display:none"></div>
+						<div class="template-demo">
+						  <button type="button" class="btn btn-primary btn-rounded btn-fw" onclick="exportExcel(this)">Export Excel</button>
+						  <button type="button" class="btn btn-secondary btn-rounded btn-fw" onclick="exportPdf(this)">Export Pdf</button>
+						  <button type="button" class="btn btn-success btn-rounded btn-fw" onclick="exportCSV(this)">Export CSV</button>
+						  <button type="button" class="btn btn-warning btn-rounded btn-fw">Next Version</button>
+						  <button type="button" class="btn btn-info btn-rounded btn-fw">Next Version</button>
+						  <!--<button type="button" class="btn btn-light btn-rounded btn-fw">Light</button>
+						  <button type="button" class="btn btn-dark btn-rounded btn-fw">Dark</button>
+						  <button type="button" class="btn btn-link btn-rounded btn-fw">Link</button>\
+						  <button type="button" class="btn btn-danger btn-rounded btn-fw">Next Version</button>-->
+						</div>
+				</div>
+			</div>
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
           <footer class="footer">
@@ -362,14 +376,14 @@
     <script src="../../assets/js/misc.js"></script>
     <script src="../../assets/js/settings.js"></script>
     <script src="../../assets/js/todolist.js"></script>
+	<script src="../../assets/js/exportFile.js"></script>
     <!-- endinject -->
     <!-- Custom js for this page -->
+	<!-- import table data to excel file -->
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="../../assets/js/jquery-table2excel-master/src/jquery.table2excel.js"></script>
+	<!-- import table data to excel file end-->
     <!-- End custom js for this page -->
-	<script type="text/javascript">// <![CDATA[
-		function googleTranslateElementInit() {
-		new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-		}
-// ]]></script>
-	<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
+
   </body>
 </html>

@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>HponeNaing Technology</title>
-    <!-- plugins:css -->
-    <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
-    <link rel="stylesheet" href="../../assets/css/style.css">
-    <!-- End layout styles -->
-    <link rel="shortcut icon" href="../../assets/images/favicon.png" />
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  </head>
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>HponeNaing Technology</title>
+		<!-- plugins:css -->
+		<link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+		<link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+		<!-- endinject -->
+		<!-- Plugin css for this page -->
+		<!-- End plugin css for this page -->
+		<!-- inject:css -->
+		<!-- endinject -->
+		<!-- Layout styles -->
+		<link rel="stylesheet" href="../../assets/css/style.css">
+		<!-- End layout styles -->
+		<link rel="shortcut icon" href="../../assets/images/favicon.png" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	</head>
   <body>
     <div class="container-scroller">
       <!-- partial:../../partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-          <a class="sidebar-brand brand-logo" href="../../index.html"><img src="../../assets/images/myCompanyName.png" alt="HponeNai Tech" /></a>
-          <a class="sidebar-brand brand-logo-mini" href="../../index.html"><img src="../../assets/images/logo-mini.svg" alt="HponeNai Tech" /></a>
+          <a class="sidebar-brand brand-logo" href="../../../index.html"><img src="../../assets/images/myCompanyName.png" alt="HponeNai Tech" /></a>
+          <a class="sidebar-brand brand-logo-mini" href="../../../index.html"><img src="../../assets/images/logo-mini.svg" alt="HponeNai Tech" /></a>
         </div>
         <ul class="nav">
           <li class="nav-item profile">
@@ -133,11 +133,11 @@
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
                 <li lang="en" class="nav-item" style="display:none"> <a class="nav-link" href="../../pages/samples/blank-page.html"> Import </a></li>
-				<li lang = "my" class="nav-item"> <a class="nav-link" href="template/pages/samples/blank-page.html"> dataသွင်းရန် </a></li>
+				<li lang = "my" class="nav-item"> <a class="nav-link" href="../../pages/samples/blank-page.html"> dataသွင်းရန် </a></li>
                 <li lang="en" class="nav-item" style="display:none"> <a class="nav-link" href="../../pages/samples/error-404.html"> Export </a></li>
-				<li lang = "my" class="nav-item"> <a  class="nav-link" href="template/pages/samples/blank-page.html"> excel fileအဖြစ်ထုတ်ရန် </a></li>
+				<li lang = "my" class="nav-item"> <a  class="nav-link" href="../../pages/samples/error-404.html"> excel fileအဖြစ်ထုတ်ရန် </a></li>
                 <li lang="en" class="nav-item" style="display:none"> <a class="nav-link" href="../../pages/samples/error-500.html"> Calculator </a></li>
-				<li lang = "my" class="nav-item"> <a  class="nav-link" href="../../../template/pages/samples/error-500.html"> ဂဏန်းပေါင်းစက် </a></li>
+				<li lang = "my" class="nav-item"> <a  class="nav-link" href="../../pages/samples/error-500.html"> ဂဏန်းပေါင်းစက် </a></li>
 				 <li lang="my" class="nav-item"> <a class="nav-link" href="#" onclick="searchStatistics1(this)"> မြန်မာ -> English </a></li>
 				<li lang="en" class="nav-item" style="display:none"> <a class="nav-link" href="#" onclick="searchStatistics1(this)"> English -> မြန်မာ </a></li>
                 <!--<li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
@@ -270,21 +270,32 @@
               <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    
+					<span name="errormsg" style="display:none; color:red"> </span>
+					<form lang = "my" class="forms-sample">
+						<div class="form-group">
+							<input type="file" id="excel-file-upload" name="files[]" class="file-upload-default">
+							<div class="input-group col-xs-12">
+									<input type="text" class="form-control file-upload-info" disabled="" placeholder="excelဖိုင်ထည့်ရန်">
+									<span class="input-group-append">
+										<button class="file-upload-browse btn btn-primary" type="button">ဖိုင်ထည့်ရန်</button>
+									</span>
+							</div>
+						</div>
+					</form>
                     <div class="table-responsive">
 					<div class="table-title">
-					<div class="row">
-						<div lang ="en" class="col-sm-8" style="display:none"><h2>Statistic <b>Details</b></h2></div>
-						<div lang="my" class="col-sm-8"><h2>စာရင်းအင်း<b>အသေးစိတ်</b></h2></div>
+						<div class="row">
+							<div lang ="en" class="col-sm-8" style="display:none"><h2>Statistic <b>Details</b></h2></div>
+							<div lang="my" class="col-sm-8"><h2>စာရင်းအင်း<b>အသေးစိတ်</b></h2></div>
 
-						<div class="col-sm-4">
-							<button lang ="en" type="button" class="btn btn-info add-new" style="display:none"><i class="fa fa-plus"></i> Add New</button>
-							<button lang="my" type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> အသစ်ထည့်ပါ</button>
+							<div class="col-sm-4">
+								<button lang ="en" type="button" class="btn btn-info add-new" style="display:none"><i class="fa fa-plus"></i> Add New</button>
+								<button lang="my" type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> အသစ်ထည့်ပါ</button>
 
+							</div>
 						</div>
 					</div>
-					</div>
-                <table class="table table-bordered statistic-table">
+                <table id="statisticTableId" class="table table-bordered statistic-table table2excel">
                 <thead>
                     <tr>
                         <th lang ="en" style="display:none">Name</th>
@@ -367,14 +378,11 @@
     <script src="../../assets/js/misc.js"></script>
     <script src="../../assets/js/settings.js"></script>
     <script src="../../assets/js/todolist.js"></script>
+	<script src="../../assets/js/exportFile.js"></script>
+
     <!-- endinject -->
     <!-- Custom js for this page -->
-    <!-- End custom js for this page -->
-	<!--<script type="text/javascript">// <![CDATA[
-		function googleTranslateElementInit() {
-		new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-		}
-// ]]></script>-->
-	<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
+	 <script src="../../assets/js/file-upload.js"></script>
+	 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.0/dist/xlsx.full.min.js"></script>
   </body>
 </html>

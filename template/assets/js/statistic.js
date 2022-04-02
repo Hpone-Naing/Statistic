@@ -52,8 +52,6 @@ $(document).ready(function(){
     });
 });
 
-
-
 searchStatistics = function(search) {
 	console.log("here search statistic: ");
 	//var searchBtn = $('input[name="search-statistic"]');
@@ -117,4 +115,64 @@ searchStatistics1 = function(search1) {
 
 		} 
 }
+
+var ExcelToJSON = function() {
+  	var actions = $(".statistic-table td:last-child").html();
+  this.parseExcel = function(file) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      var data = e.target.result;
+      var workbook = XLSX.read(data, {
+        type: 'binary'
+      });
+      workbook.SheetNames.forEach(function(sheetName) {
+        var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+        var productList = JSON.parse(JSON.stringify(XL_row_object));
+
+        var rows = $('#statisticTableId tbody');
+        // console.log(productList)
+        for (i = 0; i < productList.length; i++) {
+          var columns = Object.values(productList[i])
+          rows.append(`
+                        <tr>
+                            <td>${columns[0]}</td>
+                            <td>${columns[1]}</td>
+                            <td>${columns[2]}</td>
+							<td>` + actions + `</td>
+                        </tr>
+                    `);
+        }
+
+      })
+    };
+    reader.onerror = function(ex) {
+      console.log(ex);
+    };
+
+    reader.readAsBinaryString(file);
+  };
+};
+
+function handleFileSelect(evt) {
+  var errMsg = $('span[name="errormsg"]');
+  var files = evt.target.files; // FileList object
+  console.log("files..................." + files[0].name)
+  var fileExtension = files[0].name.split('.')[1];
+  console.log("file extensions:  " + fileExtension)
+  if(fileExtension === "xlsx") {
+			errMsg.hide();
+			console.log("this is excel file");
+			var xl2json = new ExcelToJSON();
+			xl2json.parseExcel(files[0]);
+		} else {
+			errMsg.show();
+			console.log("this is not excel file")
+			errMsg.html("Please select excel file.");
+		}
+}
+
+document.getElementById('excel-file-upload').addEventListener('change', handleFileSelect, false);
+
+
 var statistic_table = $(".statistic-table");
