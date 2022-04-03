@@ -23,8 +23,8 @@
       <!-- partial:../../partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-          <a class="sidebar-brand brand-logo" href="../../index.html"><img src="../../../template/assets/images/myCompanyName.png" alt="HponeNai Tech" /></a>
-          <a class="sidebar-brand brand-logo-mini" href="../../index.html"><img src="../../../template/assets/images/logo-mini.svg" alt="HponeNai Tech" /></a>
+          <a class="sidebar-brand brand-logo" href="../../index.html"><img src="../../../template/assets/images/myCompanyName.svg" alt="HNTech" /></a>
+          <a class="sidebar-brand brand-logo-mini" href="../../index.html"><img src="../../../template/assets/images/logo-mini.svg" alt="HNTech" /></a>
         </div>
         <ul class="nav">
           <li class="nav-item profile">
@@ -98,7 +98,7 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../ui-features/buttons.html">New</a></li>
+                <!--<li class="nav-item"> <a class="nav-link" href="../ui-features/buttons.html">New</a></li>-->
                 <li class="nav-item"> <a class="nav-link" href="../ui-features/dropdowns.html">List</a></li>
                 <!--<li class="nav-item"> <!--<a class="nav-link" href="pages/ui-features/typography.html">Typography</a><a class="nav-link" href="#">Typography</a></li>-->
               </ul>
@@ -337,11 +337,14 @@
         <div class="main-panel">
 			<div class="content-wrapper">
 				<div class="card-body">
-						<div id="copy-statistic-table" class="table-responsive" style="display:none"></div>
+						<div id="copy-statistic-table" class="table-responsive" style="display:none">
+							  <table id="copystatisticTable" class="table table-bordered copy-statistic-table table2excel">
+							  </table>
+						</div>
 						<div class="template-demo">
-						  <button type="button" class="btn btn-primary btn-rounded btn-fw" onclick="exportExcel(this)">Export Excel</button>
-						  <button type="button" class="btn btn-secondary btn-rounded btn-fw" onclick="exportPdf(this)">Export Pdf</button>
-						  <button type="button" class="btn btn-success btn-rounded btn-fw" onclick="exportCSV(this)">Export CSV</button>
+						  <button type="button" class="btn btn-primary btn-rounded btn-fw" onclick="exportExcel()">Export Excel</button>
+						  <button id="exportPdfbtn" type="button" class="btn btn-secondary btn-rounded btn-fw" onclick="exportPdf()">Export Pdf</button>
+						  <button type="button" class="btn btn-success btn-rounded btn-fw" onclick="exportCSV()">Export CSV</button>
 						  <button type="button" class="btn btn-warning btn-rounded btn-fw">Next Version</button>
 						  <button type="button" class="btn btn-info btn-rounded btn-fw">Next Version</button>
 						  <!--<button type="button" class="btn btn-light btn-rounded btn-fw">Light</button>
@@ -380,6 +383,15 @@
     <!-- endinject -->
     <!-- Custom js for this page -->
 	<!-- import table data to excel file -->
+	<script>
+	$( "#copystatisticTable" ).load( "../ui-features/dropdowns.html #statisticTableId" );
+	</script>
+	
+	
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+	
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script src="../../assets/js/jquery-table2excel-master/src/jquery.table2excel.js"></script>
 	<!-- import table data to excel file end-->
