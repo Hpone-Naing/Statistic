@@ -18,6 +18,7 @@
 		<link rel="shortcut icon" href="../../assets/images/favicon.png" />
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<!--<link rel="stylesheet" href="http://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />-->
 	</head>
   <body>
     <div class="container-scroller">
@@ -131,8 +132,8 @@
             </a>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li lang="en" class="nav-item" style="display:none"> <a class="nav-link" href="../../pages/samples/blank-page.html"> Import </a></li>
-				<li lang = "my" class="nav-item"> <a class="nav-link" href="../../pages/samples/blank-page.html"> dataသွင်းရန် </a></li>
+                <!--<li lang="en" class="nav-item" style="display:none"> <a class="nav-link" href="../../pages/samples/blank-page.html"> Import </a></li>
+				<li lang = "my" class="nav-item"> <a class="nav-link" href="../../pages/samples/blank-page.html"> dataသွင်းရန် </a></li>-->
                 <li lang="en" class="nav-item" style="display:none"> <a class="nav-link" href="../../pages/samples/error-404.html"> Export </a></li>
 				<li lang = "my" class="nav-item"> <a  class="nav-link" href="../../pages/samples/error-404.html"> excel fileအဖြစ်ထုတ်ရန် </a></li>
                 <li lang="en" class="nav-item" style="display:none"> <a class="nav-link" href="../../pages/samples/error-500.html"> Calculator </a></li>
@@ -272,15 +273,16 @@
 					<span name="errormsg" style="display:none; color:red"> </span>
 					<form lang = "my" class="forms-sample">
 						<div class="form-group">
-							<input type="file" id="excel-file-upload" name="files[]" class="file-upload-default">
+							<input type="file" id="excel-file-upload" name="files[]" class="file-upload-default" multiple />
 							<div class="input-group col-xs-12">
-									<input type="text" class="form-control file-upload-info" disabled="" placeholder="excelဖိုင်ထည့်ရန်">
+									<input type="text" class="form-control file-upload-info" disabled="" placeholder="excelဖိုင်ထည့်ရန်" multiple />
 									<span class="input-group-append">
 										<button class="file-upload-browse btn btn-primary" type="button">ဖိုင်ထည့်ရန်</button>
 									</span>
 							</div>
 						</div>
 					</form>
+					
                     <div class="table-responsive">
 					<div class="table-title">
 						<div class="row">
@@ -297,16 +299,16 @@
                 <table id="statisticTableId" class="table table-bordered statistic-table">
                 <thead>
                     <tr>
-                        <th lang ="en" style="display:none" class="dntinclude">Name</th>
+                       <!-- <th lang ="en" style="display:none" class="dntinclude">Name</th>-->
                         <th lang="my">နာမည်</th>
 
-                        <th lang ="en" style="display:none" class="dntinclude">Address</th>
+                       <!-- <th lang ="en" style="display:none" class="dntinclude">Address</th>-->
                         <th lang="my">လိပ်စာ</th>
 
-                        <th lang ="en" style="display:none" class="dntinclude">Phone</th>
+                       <!-- <th lang ="en" style="display:none" class="dntinclude">Phone</th>-->
                         <th lang="my">ဖုန်း</th>
 
-                        <th lang ="en" class="dntinclude" style="display:none" >Actions</th>
+                        <!--<th lang ="en" class="dntinclude" style="display:none" >Actions</th>-->
                         <th lang="my" class="dntinclude">လုပ်ဆောင်ချက်များ</th>
 
                     </tr>
@@ -383,5 +385,11 @@
     <!-- Custom js for this page -->
 	 <script src="../../assets/js/file-upload.js"></script>
 	 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.0/dist/xlsx.full.min.js"></script>
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="http://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+	 <!-- custom js for paganation-->
+	 <script>
+   
+  </script>
   </body>
 </html>

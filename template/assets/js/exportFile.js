@@ -10,10 +10,10 @@ getDate = function() {
 exportExcel = function() {
 	console.log("copyed:");
 	var rowCount = $('#copystatisticTable tr').length;
-	console.log("table: " + rowCount);
-	
+	console.log("table: " + rowCount);     
 	$("#copystatisticTable").table2excel({
-        filename: "statistic-detail(" + getDate() + ").xls",
+        filename: "statistic_detail"+getDate()+".xls",
+		fileext: ".xls",
         name: "Hpone Nai Tech statistic data", 
         exclude_img: true,
         exclude_links: true,
