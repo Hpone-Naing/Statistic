@@ -28,10 +28,18 @@ exportPdf = function() {
                 onrendered: function (canvas) {
                     var data = canvas.toDataURL();
                     var docDefinition = {
+						pageSize: {
+							width: 'auto',
+							height: 'auto'
+						},
                         content: [{
                             image: data,
-                            width: 500
-                        }]
+                           // width: 550,
+							//height: 'auto'
+                        }],
+						 pageSize: 'letter',
+						pageOrientation: 'landscape',
+						pageMargins: [ 0, 0, 0, 0 ],
                     };
                     pdfMake.createPdf(docDefinition).download("statistic-details(" + getDate()+ ").pdf");
 					$('#copy-statistic-table').hide();
