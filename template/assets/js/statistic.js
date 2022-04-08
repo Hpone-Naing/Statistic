@@ -193,11 +193,18 @@ function handleFileSelect(evt) {
 document.getElementById('excel-file-upload').addEventListener('change', handleFileSelect, false);
 
 function paginationDestory(table) {
-	table = $(table).DataTable( {
+	/*table = $(table).DataTable( {
+				paging: false
+			});
+ 
+	table.destroy();*/
+	if ( $.fn.dataTable.isDataTable( table) ) {
+		data_table = $(table).DataTable();
+		$(data_table).DataTable( {
 			paging: false
 		});
- 
-		table.destroy();
+		data_table.destroy();
+	}	
 }
 
 var statistic_table = $(".statistic-table");
