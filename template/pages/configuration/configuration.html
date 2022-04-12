@@ -83,7 +83,7 @@
             <span lang="en"class="nav-link" style="display:none">Navigation</span>
 			<span lang = "my" class="nav-link">ညွှန်း</span>
           </li>
-          <li class="nav-item menu-items">
+          <li class="nav-item menu-items dashboard-menu">
             <a class="nav-link" href="../../../index.html">
               <span class="menu-icon">
                 <i class="mdi mdi-speedometer"></i>
@@ -111,7 +111,7 @@
             </div>
           </li>
          
-          <li class="nav-item menu-items">
+          <li class="nav-item menu-items charts-menu">
             <a class="nav-link" href="../../pages/charts/chartjs.html">
               <span class="menu-icon">
                 <i class="mdi mdi-chart-bar"></i>
@@ -121,7 +121,7 @@
             </a>
           </li>
           
-         <li class="nav-item menu-items">
+         <li class="nav-item menu-items tools-menu">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
               <span class="menu-icon">
                 <i class="mdi mdi-security"></i>
@@ -264,8 +264,8 @@
           </div>
         </nav>
         <!-- partial -->
-        <div class="main-panel">
-          <div class="content-wrapper">
+    <div class="main-panel">
+        <div class="content-wrapper">
             <div class="row">
 				<p class="col-10"><u>ဘယ်ဖက်အစွန်ဆုံးညွှန်ပြချက်များထဲမှ</u> <code><u>မြင်လိုသည်များ</u></code></p>
               <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
@@ -280,7 +280,7 @@
                       </div>
                       <div class="col-3">
                         <label class="switch">
-						<input type="checkbox" name="dashboard" checked />
+						<input type="checkbox" name="dashboard" checked onchange="showHideMenus(this)" />
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -289,27 +289,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-15">
-                        <div class="d-flex align-items-center align-self-start">
-                          <h3 lang="en" style="display:none">Statistic</h3>
-                          <h4 lang="my">စာရင်းအင်း</h4>
-                        </div>
-                      </div>
-                      <div class="col-3">
-                        <label class="switch">
-						<input type="checkbox" name="statistic" checked />
-						<span class="slider round"></span>
-					</label>
-                      </div>
-                    </div>
-                   
-                  </div>
-                </div>
-              </div>
+              
               <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
@@ -322,7 +302,7 @@
                       </div>
                       <div class="col-3">
                         <label class="switch">
-						<input type="checkbox" name="charts" checked />
+						<input type="checkbox" name="charts" checked  onchange="showHideMenus(this)"/>
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -343,7 +323,7 @@
                       </div>
                       <div class="col-3">
                         <label class="switch">
-						<input type="checkbox" name="tools" checked />
+						<input type="checkbox" name="tools" checked onchange="showHideMenus(this)"/>
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -353,7 +333,7 @@
                 </div>
               </div>
             </div>
-			<div class="row">
+			<div class="row dashboardChild">
 				<p class="col-10">ဝင်/ထွက်ငွေပြဇယားများညွန်ပြချက်မှ <code>မြင်လိုသည်များ</code></p>
               <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
                 <div class="card">
@@ -367,7 +347,7 @@
                       </div>
                       <div class="col-3">
                         <label class="switch">
-						<input type="checkbox" checked />
+						<input type="checkbox" name="Potential_growth" checked onchange="showHideMenus(this)"/>
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -388,7 +368,7 @@
                       </div>
                       <div class="col-3">
                         <label class="switch">
-						<input type="checkbox" checked />
+						<input type="checkbox" name="Revenue_current" checked />
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -409,7 +389,7 @@
                       </div>
                       <div class="col-3">
                         <label class="switch">
-						<input type="checkbox" checked />
+						<input type="checkbox" name="Daily_Income" checked />
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -430,7 +410,7 @@
                       </div>
                       <div class="col-3">
                         <label class="switch">
-						<input type="checkbox" checked />
+						<input type="checkbox" name="Expense_current" checked />
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -451,7 +431,7 @@
                       </div>
                       <div class="col-3">
                         <label class="switch">
-						<input type="checkbox" checked />
+						<input type="checkbox" name="Transaction_History" checked />
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -472,7 +452,7 @@
                       </div>
                       <div class="col-3">
                         <label class="switch">
-						<input type="checkbox" checked />
+						<input type="checkbox" name="Revenue" checked />
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -493,7 +473,7 @@
                       </div>
                       <div class="col-3">
                         <label class="switch">
-						<input type="checkbox" checked />
+						<input type="checkbox" name="Sale" checked />
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -514,7 +494,7 @@
                       </div>
                       <div class="col-3">
                         <label class="switch">
-						<input type="checkbox" checked />
+						<input type="checkbox" name="Purchase" checked />
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -525,7 +505,7 @@
               </div>
             </div>
 			
-			<div class="row">
+			<div class="row chartsChild">
 				<p class="col-10"><u>ရှုံးမြတ်ပြဇယားများညွန်ပြချက်မှ <code>မြင်လိုသည်များ</code></u></p>
               <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
                 <div class="card">
@@ -610,10 +590,96 @@
                    
                   </div>
                 </div>
-              </div>
-			 		  
+              </div>  
             </div>
-          </div>
+			<div class="row toolsChild">
+				<p class="col-10"><u>ကိရိယာများညွန်ပြချက်မှ <code>မြင်လိုသည်များ</code></u></p>
+              <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-15">
+                        <div class="d-flex align-items-center align-self-start">
+                          <h3 lang="en" style="display:none">Dashboard</h3>
+                          <h4 lang="my">လိုင်းပုံစံဖြင့်ပြသခြင်း</h4>
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <label class="switch">
+						<input type="checkbox" checked />
+						<span class="slider round"></span>
+					</label>
+                      </div>
+                    </div>
+                   
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-15">
+                        <div class="d-flex align-items-center align-self-start">
+                          <h3 lang="en" style="display:none">Statistic</h3>
+                          <h4 lang="my">အတုံးပုံစံဖြင့်ပြသခြင်း</h4>
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <label class="switch">
+						<input type="checkbox" checked />
+						<span class="slider round"></span>
+					</label>
+                      </div>
+                    </div>
+                   
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-15">
+                        <div class="d-flex align-items-center align-self-start">
+                          <h3 lang="en" style="display:none">Charts</h3>
+                          <h4 lang="my">လိုင်းပုံစံဖြင့်ပြသခြင်း</h4>
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <label class="switch">
+						<input type="checkbox" checked />
+						<span class="slider round"></span>
+					</label>
+                      </div>
+                    </div>
+                   
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-15">
+                        <div class="d-flex align-items-center align-self-start">
+                          <h3 lang="en" style="display:none">Tools</h3>
+                          <h4 lang="my">ဒဿမကိန်းဖြင့်ပြသခြင်း</h4>
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <label class="switch">
+						<input type="checkbox" checked />
+						<span class="slider round"></span>
+					</label>
+                      </div>
+                    </div>
+                   
+                  </div>
+                </div>
+              </div>  
+            </div>
+    </div>
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
           <footer class="footer">
