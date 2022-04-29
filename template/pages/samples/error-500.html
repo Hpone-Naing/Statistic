@@ -78,12 +78,12 @@
           <li class="nav-item nav-category">
             <span class="nav-link">Navigation</span>
           </li>
-          <li class="nav-item menu-items">
+          <li class="nav-item menu-items" data-menu-role = "dashboard">
             <a class="nav-link" href="../../../index.html">
               <span class="menu-icon">
                 <i class="mdi mdi-speedometer"></i>
               </span>
-              <span class="menu-title">Dashboard</span>
+              <span class="menu-title">ဝင်ငွေထွက်ငွေပြဇယားများ</span>
             </a>
           </li>
           <li class="nav-item menu-items">
@@ -91,54 +91,53 @@
               <span class="menu-icon">
                 <i class="mdi mdi-laptop"></i>
               </span>
-              <span class="menu-title">Statistic</span>
+              <span class="menu-title">စာရင်းအင်း</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <!--<<li class="nav-item"> <a class="nav-link" href="../../pages/ui-features/buttons.html">New</a></li>-->
-                <li class="nav-item"> <a class="nav-link" href="../../pages/ui-features/dropdowns.html">List</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/ui-features/dropdowns.html">စာရင်းအင်းများ</a></li>
                 <!--<li class="nav-item"> <a class="nav-link" href="../../pages/ui-features/typography.html">Typography</a></li>-->
               </ul>
             </div>
           </li>
          
-          <li class="nav-item menu-items">
+          <li class="nav-item menu-items" data-menu-role = "charts">
             <a class="nav-link" href="../../pages/charts/chartjs.html">
               <span class="menu-icon">
                 <i class="mdi mdi-chart-bar"></i>
               </span>
-              <span class="menu-title">Charts</span>
+              <span class="menu-title">ရှုံးမြတ်ပြဇယားများ</span>
             </a>
           </li>
           
-         <li class="nav-item menu-items">
+         <li class="nav-item menu-items"data-menu-role = "tools">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
               <span class="menu-icon">
                 <i class="mdi mdi-security"></i>
               </span>
-              <span class="menu-title">Tools</span>
+              <span class="menu-title">ကိရိယာများ</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/samples/blank-page.html"> Import </a></li>
-                <li class="nav-item"> <a class="nav-link" href="../../pages/samples/error-404.html"> Export </a></li>
-                <li class="nav-item"> <a class="nav-link" href="../../pages/samples/error-500.html"> Calculator </a></li>
-				<li lang="my" class="nav-item"> <a class="nav-link" href="#"> မြန်မာ -> English </a></li>
-				<li lang="en" class="nav-item" style="display:none"> <a class="nav-link" href="#"> English -> မြန်မာ </a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/samples/error-404.html" data-submenu-role = "exportExcel"> excel fileအဖြစ်ထုတ်ရန် </a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/samples/error-500.html" data-submenu-role = "calculator"> ဂဏန်းပေါင်းစက် </a></li>
+				<li lang="my" class="nav-item"> <a class="nav-link" href="#" data-submenu-role = "translate"> မြန်မာ -> English </a></li>
+				<li lang="en" class="nav-item" style="display:none"> <a class="nav-link" href="#" data-submenu-role = "translate"> English -> မြန်မာ </a></li>
                 <!--<li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>-->
               </ul>
             </div>
           </li>
-          <li class="nav-item menu-items">
+          <li class="nav-item menu-items" data-menu-role = "documentation">
 			<a class="nav-link" href="#">
             <!--<a class="nav-link" href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">-->
               <span class="menu-icon">
                 <i class="mdi mdi-file-document-box"></i>
               </span>
-              <span class="menu-title">Documentation</span>
+              <span class="menu-title">ဆေ့ာဝဲလမ်းညွှန်</span>
             </a>
           </li>
 		  		  <li class="nav-item menu-items">
@@ -148,7 +147,7 @@
                 <i class="mdi mdi-playlist-play"></i>
               </span>
               <!--<span class="menu-title">Form Elements</span>-->
-			  <span class="menu-title">Next Version</span>
+			  <span class="menu-title">နောက်ဗားရှင်း</span>
             </a>
           </li>
           <li class="nav-item menu-items">
@@ -158,7 +157,7 @@
                 <i class="mdi mdi-table-large"></i>
               </span>
               <!--<span class="menu-title">Tables</span>-->
-			  <span class="menu-title">Next Version</span>
+			  <span class="menu-title">နောက်ဗားရှင်း</span>
             </a>
           </li>
           <li class="nav-item menu-items">
@@ -168,7 +167,7 @@
                 <i class="mdi mdi-contacts"></i>
               </span>
               <!--<span class="menu-title">Icons</span>-->
-			  <span class="menu-title">Next Version</span>
+			  <span class="menu-title">နောက်ဗားရှင်း</span>
             </a>
           </li>
         </ul>
@@ -298,7 +297,7 @@
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
                   <h6 class="p-3 mb-0">Profile</h6>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
+                  <a class="dropdown-item preview-item" href="../configuration/configuration.html">
                     <div class="preview-thumbnail">
                       <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-settings text-success"></i>
@@ -458,6 +457,13 @@
     <script src="../../assets/js/todolist.js"></script>
     <!-- endinject -->
     <!-- Custom js for this page -->
+	<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+	 <script src="../../assets/js/configurations.js"></script>
+	 <script>
+		window.onload = function() {
+			checkConfiguration();
+		};
+	 </script>
     <!-- End custom js for this page -->
 
   </body>

@@ -83,7 +83,7 @@
             <span lang="en"class="nav-link" style="display:none">Navigation</span>
 			<span lang = "my" class="nav-link">ညွှန်း</span>
           </li>
-          <li class="nav-item menu-items dashboard-menu">
+          <li class="nav-item menu-items" data-menu-role = "dashboard">
             <a class="nav-link" href="../../../index.html">
               <span class="menu-icon">
                 <i class="mdi mdi-speedometer"></i>
@@ -111,7 +111,7 @@
             </div>
           </li>
          
-          <li class="nav-item menu-items charts-menu">
+          <li class="nav-item menu-items" data-menu-role = "charts">
             <a class="nav-link" href="../../pages/charts/chartjs.html">
               <span class="menu-icon">
                 <i class="mdi mdi-chart-bar"></i>
@@ -121,7 +121,7 @@
             </a>
           </li>
           
-         <li class="nav-item menu-items tools-menu">
+         <li class="nav-item menu-items" data-menu-role = "tools">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
               <span class="menu-icon">
                 <i class="mdi mdi-security"></i>
@@ -134,18 +134,18 @@
               <ul class="nav flex-column sub-menu">
                 <!--<li lang="en" class="nav-item" style="display:none"> <a class="nav-link" href="../../pages/samples/blank-page.html"> Import </a></li>
 				<li lang = "my" class="nav-item"> <a class="nav-link" href="../../pages/samples/blank-page.html"> dataသွင်းရန် </a></li>-->
-                <li lang="en" class="nav-item" style="display:none"> <a class="nav-link" href="../../pages/samples/error-404.html"> Export </a></li>
-				<li lang = "my" class="nav-item"> <a  class="nav-link" href="../../pages/samples/error-404.html"> excel fileအဖြစ်ထုတ်ရန် </a></li>
-                <li lang="en" class="nav-item" style="display:none"> <a class="nav-link" href="../../pages/samples/error-500.html"> Calculator </a></li>
-				<li lang = "my" class="nav-item"> <a  class="nav-link" href="../../pages/samples/error-500.html"> ဂဏန်းပေါင်းစက် </a></li>
-				 <li lang="my" class="nav-item"> <a class="nav-link" href="#" onclick="searchStatistics1(this)"> မြန်မာ -> English </a></li>
-				<li lang="en" class="nav-item" style="display:none"> <a class="nav-link" href="#" onclick="searchStatistics1(this)"> English -> မြန်မာ </a></li>
+                <li lang="en" class="nav-item" data-submenu-role = "exportExcel" > <a class="nav-link" href="../../pages/samples/error-404.html" style="display:none"> Export </a></li>
+				<li lang = "my" class="nav-item" data-submenu-role = "exportExcel"> <a  class="nav-link" href="../../pages/samples/error-404.html"> excel fileအဖြစ်ထုတ်ရန် </a></li>
+                <li lang="en" class="nav-item" data-submenu-role = "calculator"> <a class="nav-link" href="../../pages/samples/error-500.html" style="display:none"> Calculator </a></li>
+				<li lang = "my" class="nav-item" data-submenu-role = "calculator"> <a  class="nav-link" href="../../pages/samples/error-500.html"> ဂဏန်းပေါင်းစက် </a></li>
+				 <li lang="my" class="nav-item" data-submenu-role = "translate"> <a class="nav-link" href="#" onclick="searchStatistics1(this)"> မြန်မာ -> English </a></li>
+				<li lang="en" class="nav-item" data-submenu-role = "translate"> <a class="nav-link" href="#" onclick="searchStatistics1(this)" style="display:none"> English -> မြန်မာ </a></li>
                 <!--<li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>-->
               </ul>
             </div>
           </li>
-          <li class="nav-item menu-items">
+          <li class="nav-item menu-items" data-menu-role = "documentation">
 			<a class="nav-link" href="#">
             <!--<a class="nav-link" href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">-->
               <span class="menu-icon">
@@ -155,7 +155,7 @@
 			  <span lang="my" class="menu-title">ဆေ့ာဝဲလမ်းညွှန် </span>
             </a>
           </li>
-		  		  <li class="nav-item menu-items">
+		  	<li class="nav-item menu-items">
             <!--<a class="nav-link" href="pages/forms/basic_elements.html">-->
 			<a class="nav-link" href="#">
               <span class="menu-icon">
@@ -266,21 +266,26 @@
         <!-- partial -->
     <div class="main-panel">
         <div class="content-wrapper">
+			<span style="float:right" onclick="formSubmit()">
+                <i class="mdi mdi-close-box mdi-36px"></i>
+            </span>
+			
             <div class="row">
 				<p class="col-10"><u>ဘယ်ဖက်အစွန်ဆုံးညွှန်ပြချက်များထဲမှ</u> <code><u>မြင်လိုသည်များ</u></code></p>
               <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="row">
-                      <div class="col-15">
+                    <div class="row config-row">
+                      <div class="col-15" name="configName">
                         <div class="d-flex align-items-center align-self-start">
+						  <span id="configuration_id" value="newData"></span>
                           <h3 lang="en" style="display:none">Dashboard</h3>
                           <h4 lang="my">ဝင်ငွေထွက်ငွေပြဇယားများ</h4>
                         </div>
                       </div>
-                      <div class="col-3">
+                      <div class="col-3"  name="configValue">
                         <label class="switch">
-						<input type="checkbox" name="dashboard" checked onchange="showHideMenus(this)" />
+						<input type="checkbox" data-config-name="dashboard" checked onchange="showHideMenus(this)" />
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -293,16 +298,17 @@
               <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="row">
-                      <div class="col-15">
+                    <div class="row config-row">
+                      <div class="col-15" name="configName">
                         <div class="d-flex align-items-center align-self-start">
+						  <span id="configuration_id" value="newData"></span>
                           <h3 lang="en" style="display:none">Charts</h3>
                           <h4 lang="my">ရှုံးမြတ်ပြဇယားများ</h4>
                         </div>
                       </div>
-                      <div class="col-3">
+                      <div class="col-3" name="configValue">
                         <label class="switch">
-						<input type="checkbox" name="charts" checked  onchange="showHideMenus(this)"/>
+						<input type="checkbox" data-config-name="charts" checked  onchange="showHideMenus(this)"/>
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -314,16 +320,17 @@
               <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="row">
-                      <div class="col-15">
+                    <div class="row config-row">
+                      <div class="col-15" name="configName">
                         <div class="d-flex align-items-center align-self-start">
+						 <span id="configuration_id" value="newData"></span>
                           <h3 lang="en" style="display:none">Tools</h3>
                           <h4 lang="my">ကိရိယာများ</h4>
                         </div>
                       </div>
-                      <div class="col-3">
+                      <div class="col-3" name="configValue">
                         <label class="switch">
-						<input type="checkbox" name="tools" checked onchange="showHideMenus(this)"/>
+						<input type="checkbox" data-config-name="tools" checked onchange="showHideMenus(this)"/>
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -338,16 +345,17 @@
               <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="row">
-                      <div class="col-15">
+                    <div class="row config-row">
+                      <div class="col-15" name="configName">
                         <div class="d-flex align-items-center align-self-start">
+						<span id="configuration_id" value="newData"></span>
                           <h3 lang="en" style="display:none">Dashboard</h3>
                           <h4 lang="my">တိုးတက်လာသောပမာဏ</h4>
                         </div>
                       </div>
-                      <div class="col-3">
+                      <div class="col-3" name="configValue">
                         <label class="switch">
-						<input type="checkbox" name="Potential_growth" checked onchange="showHideMenus(this)"/>
+						<input type="checkbox" data-config-name="potential_growth" checked onchange="showHideMenus(this)"/>
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -359,16 +367,17 @@
               <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="row">
-                      <div class="col-15">
+                    <div class="row config-row">
+                      <div class="col-15" name="configName">
                         <div class="d-flex align-items-center align-self-start">
+						<span id="configuration_id" value="newData"></span>
                           <h3 lang="en" style="display:none">Statistic</h3>
                           <h4 lang="my">လက်ရှိဝင်ငွေ</h4>
                         </div>
                       </div>
-                      <div class="col-3">
+                      <div class="col-3" name="configValue">
                         <label class="switch">
-						<input type="checkbox" name="Revenue_current" checked />
+						<input type="checkbox" data-config-name="revenue_current" checked onchange="showHideMenus(this)"/>
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -380,16 +389,17 @@
               <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="row">
-                      <div class="col-15">
+                    <div class="row config-row">
+                      <div class="col-15" name="configName">
                         <div class="d-flex align-items-center align-self-start">
+						<span id="configuration_id" value="newData"></span>
                           <h3 lang="en" style="display:none">Charts</h3>
                           <h4 lang="my">နေ့စဉ်ဝင်‌ငွေ</h4>
                         </div>
                       </div>
-                      <div class="col-3">
+                      <div class="col-3" name="configValue">
                         <label class="switch">
-						<input type="checkbox" name="Daily_Income" checked />
+						<input type="checkbox" data-config-name="daily_income" checked onchange="showHideMenus(this)"/>
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -401,16 +411,17 @@
               <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="row">
-                      <div class="col-15">
+                    <div class="row config-row">
+                      <div class="col-15" name="configName">
                         <div class="d-flex align-items-center align-self-start">
+						<span id="configuration_id" value="newData"></span>
                           <h3 lang="en" style="display:none">Tools</h3>
                           <h4 lang="my">လက်ရှိကုန်ကျစရိတ်</h4>
                         </div>
                       </div>
-                      <div class="col-3">
+                      <div class="col-3" name="configValue">
                         <label class="switch">
-						<input type="checkbox" name="Expense_current" checked />
+						<input type="checkbox" data-config-name="expense_current" checked onchange="showHideMenus(this)"/>
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -422,16 +433,17 @@
 			  <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="row">
-                      <div class="col-15">
+                    <div class="row config-row">
+                      <div class="col-15" name="configName">
                         <div class="d-flex align-items-center align-self-start">
+						<span id="configuration_id" value="newData"></span>
                           <h3 lang="en" style="display:none">Tools</h3>
                           <h4 lang="my">ငွေလွှဲမှတ်တမ်း</h4>
                         </div>
                       </div>
-                      <div class="col-3">
+                      <div class="col-3" name="configValue">
                         <label class="switch">
-						<input type="checkbox" name="Transaction_History" checked />
+						<input type="checkbox" data-config-name="transaction_history" checked onchange="showHideMenus(this)"/>
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -443,16 +455,17 @@
 			  <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="row">
-                      <div class="col-15">
+                    <div class="row config-row">
+                      <div class="col-15" name="configName">
                         <div class="d-flex align-items-center align-self-start">
+						<span id="configuration_id" value="newData"></span>
                           <h3 lang="en" style="display:none">Tools</h3>
                           <h4 lang="my">ဝင်ငွေ</h4>
                         </div>
                       </div>
-                      <div class="col-3">
+                      <div class="col-3" name="configValue">
                         <label class="switch">
-						<input type="checkbox" name="Revenue" checked />
+						<input type="checkbox" data-config-name="revenue" checked onchange="showHideMenus(this)"/>
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -464,16 +477,17 @@
 			  <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="row">
-                      <div class="col-15">
+                    <div class="row config-row">
+                      <div class="col-15" name="configName">
                         <div class="d-flex align-items-center align-self-start">
+						<span id="configuration_id" value="newData"></span>
                           <h3 lang="en" style="display:none">Tools</h3>
                           <h4 lang="my">အရောင်း</h4>
                         </div>
                       </div>
-                      <div class="col-3">
+                      <div class="col-3" name="configValue">
                         <label class="switch">
-						<input type="checkbox" name="Sale" checked />
+						<input type="checkbox" data-config-name="sale" checked onchange="showHideMenus(this)"/>
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -485,16 +499,17 @@
 			  <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="row">
-                      <div class="col-15">
+                    <div class="row config-row">
+                      <div class="col-15" name="configName">
                         <div class="d-flex align-items-center align-self-start">
+						<span id="configuration_id" value="newData"></span>
                           <h3 lang="en" style="display:none">Tools</h3>
                           <h4 lang="my">ဝယ်ယူမှု</h4>
                         </div>
                       </div>
-                      <div class="col-3">
+                      <div class="col-3" name="configValue">
                         <label class="switch">
-						<input type="checkbox" name="Purchase" checked />
+						<input type="checkbox" data-config-name="purchase" checked onchange="showHideMenus(this)"/>
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -510,16 +525,17 @@
               <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="row">
-                      <div class="col-15">
+                    <div class="row config-row">
+                      <div class="col-15" name="configName">
                         <div class="d-flex align-items-center align-self-start">
-                          <h3 lang="en" style="display:none">Dashboard</h3>
+						<span id="configuration_id" value="newData"></span>
+                          <h3 lang="en" style="display:none">Line Chart</h3>
                           <h4 lang="my">လိုင်းပုံစံဖြင့်ပြသခြင်း</h4>
                         </div>
                       </div>
-                      <div class="col-3">
+                      <div class="col-3" name="configValue">
                         <label class="switch">
-						<input type="checkbox" checked />
+						<input type="checkbox" data-config-name="lineChart" checked onchange="showHideMenus(this)"/>
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -531,16 +547,17 @@
               <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="row">
-                      <div class="col-15">
+                    <div class="row config-row">
+                      <div class="col-15" name="configName">
                         <div class="d-flex align-items-center align-self-start">
-                          <h3 lang="en" style="display:none">Statistic</h3>
+						<span id="configuration_id" value="newData"></span>
+                          <h3 lang="en" style="display:none">Bar Chart</h3>
                           <h4 lang="my">အတုံးပုံစံဖြင့်ပြသခြင်း</h4>
                         </div>
                       </div>
-                      <div class="col-3">
+                      <div class="col-3" name="configValue">
                         <label class="switch">
-						<input type="checkbox" checked />
+						<input type="checkbox" data-config-name="barChart" checked onchange="showHideMenus(this)"/>
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -552,16 +569,17 @@
               <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="row">
-                      <div class="col-15">
+                    <div class="row config-row">
+                      <div class="col-15" name="configName">
                         <div class="d-flex align-items-center align-self-start">
-                          <h3 lang="en" style="display:none">Charts</h3>
+						<span id="configuration_id" value="newData"></span>
+                          <h3 lang="en" style="display:none">Area Chart</h3>
                           <h4 lang="my">လိုင်းပုံစံဖြင့်ပြသခြင်း</h4>
                         </div>
                       </div>
-                      <div class="col-3">
+                      <div class="col-3" name="configValue">
                         <label class="switch">
-						<input type="checkbox" checked />
+						<input type="checkbox" data-config-name="areaChart" checked onchange="showHideMenus(this)"/>
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -573,16 +591,17 @@
               <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="row">
-                      <div class="col-15">
+                    <div class="row config-row">
+                      <div class="col-15" name="configName">
                         <div class="d-flex align-items-center align-self-start">
-                          <h3 lang="en" style="display:none">Tools</h3>
-                          <h4 lang="my">ဒဿမကိန်းဖြင့်ပြသခြင်း</h4>
+						<span id="configuration_id" value="newData"></span>
+                          <h3 lang="en" style="display:none">Doughnut Chart</h3>
+                          <h4 lang="my">ဒိုးနတ်ပုံစံဖြင့်ပြသခြင်း</h4>
                         </div>
                       </div>
-                      <div class="col-3">
+                      <div class="col-3" name="configValue">
                         <label class="switch">
-						<input type="checkbox" checked />
+						<input type="checkbox" data-config-name="doughnutChart" checked onchange="showHideMenus(this)"/>
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -597,16 +616,17 @@
               <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="row">
-                      <div class="col-15">
+                    <div class="row config-row">
+                      <div class="col-15" name="configName">
                         <div class="d-flex align-items-center align-self-start">
-                          <h3 lang="en" style="display:none">Dashboard</h3>
-                          <h4 lang="my">လိုင်းပုံစံဖြင့်ပြသခြင်း</h4>
+						<span id="configuration_id" value="newData"></span>
+                          <h3 lang="en" style="display:none">Export Excel</h3>
+                          <h4 lang="my">excel fileအဖြစ်ထုတ်ရန်</h4>
                         </div>
                       </div>
-                      <div class="col-3">
+                      <div class="col-3" name="configValue">
                         <label class="switch">
-						<input type="checkbox" checked />
+						<input type="checkbox" data-config-name="exportExcel" checked onchange="showHideMenus(this)"/>
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -618,16 +638,17 @@
               <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="row">
-                      <div class="col-15">
+                    <div class="row config-row">
+                      <div class="col-15" name="configName">
                         <div class="d-flex align-items-center align-self-start">
-                          <h3 lang="en" style="display:none">Statistic</h3>
-                          <h4 lang="my">အတုံးပုံစံဖြင့်ပြသခြင်း</h4>
+						<span id="configuration_id" value="newData"></span>
+                          <h3 lang="en" style="display:none">Calculator</h3>
+                          <h4 lang="my">ဂဏန်းပေါင်းစက်</h4>
                         </div>
                       </div>
-                      <div class="col-3">
+                      <div class="col-3" name="configValue">
                         <label class="switch">
-						<input type="checkbox" checked />
+						<input type="checkbox" data-config-name="calculator" checked onchange="showHideMenus(this)"/>
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -639,16 +660,17 @@
               <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <div class="row">
-                      <div class="col-15">
+                    <div class="row config-row">
+                      <div class="col-15" name="configName">
                         <div class="d-flex align-items-center align-self-start">
-                          <h3 lang="en" style="display:none">Charts</h3>
-                          <h4 lang="my">လိုင်းပုံစံဖြင့်ပြသခြင်း</h4>
+						<span id="configuration_id" value="newData"></span>
+                          <h3 lang="en" style="display:none">Translate</h3>
+                          <h4 lang="my">ဘာသာပြန်</h4>
                         </div>
                       </div>
-                      <div class="col-3">
+                      <div class="col-3" name="configValue">
                         <label class="switch">
-						<input type="checkbox" checked />
+						<input type="checkbox" data-config-name="translate" checked onchange="showHideMenus(this)"/>
 						<span class="slider round"></span>
 					</label>
                       </div>
@@ -657,28 +679,9 @@
                   </div>
                 </div>
               </div>
-              <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-15">
-                        <div class="d-flex align-items-center align-self-start">
-                          <h3 lang="en" style="display:none">Tools</h3>
-                          <h4 lang="my">ဒဿမကိန်းဖြင့်ပြသခြင်း</h4>
-                        </div>
-                      </div>
-                      <div class="col-3">
-                        <label class="switch">
-						<input type="checkbox" checked />
-						<span class="slider round"></span>
-					</label>
-                      </div>
-                    </div>
-                   
-                  </div>
-                </div>
-              </div>  
+               
             </div>
+			<div class="alert">Save Success.</div>
     </div>
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
@@ -716,6 +719,12 @@
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript" src="../../assets/js/datatables-pagination.js"></script>
 	 <!-- custom js for paganation-->
+	 <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
 	 <script src="../../assets/js/configurations.js"></script>
+	 <script>
+		window.onload = function() {
+			checkConfiguration();
+		};
+	 </script>
   </body>
 </html>

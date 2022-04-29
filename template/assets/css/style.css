@@ -21487,3 +21487,21 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+/*
+alert message 
+*/
+.alert {
+  text-align: center;
+  padding: 10px;
+  background: rgb(168, 240, 177);
+  color: green;
+  margin-bottom: 10px;
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+
+}

@@ -81,7 +81,7 @@
             <span lang="en" class="nav-link" style="display:none">Navigation</span>
 			<span lang = "my" class="nav-link">ညွှန်း</span>
           </li>
-          <li class="nav-item menu-items">
+          <li class="nav-item menu-items" data-menu-role = "dashboard">
             <a class="nav-link" href="../../../index.html">
               <span class="menu-icon">
                 <i class="mdi mdi-speedometer"></i>
@@ -108,7 +108,7 @@
               </ul>
             </div>
           </li>
-          <li class="nav-item menu-items">
+          <li class="nav-item menu-items" data-menu-role = "charts">
             <a class="nav-link" href="../../pages/charts/chartjs.html">
               <span class="menu-icon">
                 <i class="mdi mdi-chart-bar"></i>
@@ -117,7 +117,7 @@
 			  <span lang= "my" class="menu-title"> ရှုံးမြတ်ပြဇယားများ</span>
             </a>
           </li>
-           <li class="nav-item menu-items">
+           <li class="nav-item menu-items"data-menu-role = "tools">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
               <span class="menu-icon">
                 <i class="mdi mdi-security"></i>
@@ -129,18 +129,18 @@
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
                 <!--<li class="nav-item"> <a class="nav-link" href="blank-page.html"> Import </a></li>-->
-                <li lang="en" class="nav-item" style="display:none"> <a class="nav-link" href="error-404.html"> Export </a></li>
-				<li lang = "my" class="nav-item"> <a  class="nav-link" href="error-404.html"> excel fileအဖြစ်ထုတ်ရန် </a></li>
-                <li lang="en" class="nav-item" style="display:none"> <a class="nav-link" href="error-500.html"> Calculator </a></li>
-				<li lang = "my" class="nav-item"> <a  class="nav-link" href="error-500.html"> ဂဏန်းပေါင်းစက် </a></li>
-				<li lang="my" class="nav-item"> <a class="nav-link" href="#" onclick="searchStatistics1(this)"> မြန်မာ -> English </a></li>
-				<li lang="en" class="nav-item" style="display:none"> <a class="nav-link" href="#" onclick="searchStatistics1(this)"> English -> မြန်မာ </a></li>
+                <li lang="en" class="nav-item" style="display:none"> <a class="nav-link" href="error-404.html" data-submenu-role = "exportExcel"> Export </a></li>
+				<li lang = "my" class="nav-item"> <a  class="nav-link" href="error-404.html"data-submenu-role = "exportExcel"> excel fileအဖြစ်ထုတ်ရန် </a></li>
+                <li lang="en" class="nav-item" style="display:none"> <a class="nav-link" href="error-500.html" data-submenu-role = "calculator"> Calculator </a></li>
+				<li lang = "my" class="nav-item"> <a  class="nav-link" href="error-500.html" data-submenu-role = "calculator"> ဂဏန်းပေါင်းစက် </a></li>
+				<li lang="my" class="nav-item"> <a class="nav-link" href="#" onclick="searchStatistics1(this)" data-submenu-role = "translate"> မြန်မာ -> English </a></li>
+				<li lang="en" class="nav-item" style="display:none"> <a class="nav-link" href="#" onclick="searchStatistics1(this)" data-submenu-role = "translate"> English -> မြန်မာ </a></li>
                 <!--<li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>-->
               </ul>
             </div>
           </li>
-          <li class="nav-item menu-items">
+          <li class="nav-item menu-items" data-menu-role = "documentation">
 			<a class="nav-link" href="#">
             <!--<a class="nav-link" href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">-->
               <span class="menu-icon">
@@ -314,7 +314,7 @@
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
                   <h6 class="p-3 mb-0">Profile</h6>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
+                  <a class="dropdown-item preview-item" href="../configuration/configuration.html">
                     <div class="preview-thumbnail">
                       <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-settings text-success"></i>
@@ -416,7 +416,13 @@
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script src="../../assets/js/jquery-table2excel-master/src/jquery.table2excel.js"></script>
 	<script src="../../assets/js/statistic.js"></script>
-
+	<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+	 <script src="../../assets/js/configurations.js"></script>
+	 <script>
+		window.onload = function() {
+			checkConfiguration();
+		};
+	 </script>
 	<!-- import table data to excel file end-->
     <!-- End custom js for this page -->
 

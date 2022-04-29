@@ -93,7 +93,7 @@
             <span lang = "my" class="nav-link">ညွှန်း</span>
 
           </li>
-          <li class="nav-item menu-items">
+          <li class="nav-item menu-items" data-menu-role = "dashboard">
             <a class="nav-link" href="index.html">
               <span class="menu-icon">
                 <i class="mdi mdi-speedometer"></i>
@@ -122,7 +122,7 @@
               </ul>
             </div>
           </li>
-          <li class="nav-item menu-items">
+          <li class="nav-item menu-items" data-menu-role = "charts">
             <a class="nav-link" href="template/pages/charts/chartjs.html">
               <span class="menu-icon">
                 <i class="mdi mdi-chart-bar"></i>
@@ -132,7 +132,7 @@
 
             </a>
           </li>
-          <li class="nav-item menu-items">
+          <li class="nav-item menu-items" data-menu-role = "tools">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
               <span class="menu-icon">
                 <i class="mdi mdi-security"></i>
@@ -146,18 +146,18 @@
                 <!--<li lang = "en" class="nav-item" style = "display : none"> <a  class="nav-link" href="template/pages/samples/blank-page.html"> Import </a></li>
                 <li lang = "my" class="nav-item"> <a class="nav-link" href="template/pages/samples/blank-page.html"> dataသွင်းရန် </a></li>-->
 
-                <li lang = "en" class="nav-item" style = "display : none"> <a  class="nav-link" href="template/pages/samples/error-404.html"> Export </a></li>
-				<li lang = "my" class="nav-item"> <a  class="nav-link" href="template/pages/samples/error-404.html"> excel fileအဖြစ်ထုတ်ရန် </a></li>
+                <li lang = "en" class="nav-item" style = "display : none"> <a  class="nav-link" href="template/pages/samples/error-404.html" data-submenu-role = "exportExcel"> Export </a></li>
+				<li lang = "my" class="nav-item"> <a  class="nav-link" href="template/pages/samples/error-404.html" data-submenu-role = "exportExcel"> excel fileအဖြစ်ထုတ်ရန် </a></li>
 				
-                <li lang = "en" class="nav-item" style = "display : none" > <a  class="nav-link" href="template/pages/samples/error-500.html"> Calculator </a></li>
-				<li lang = "my" class="nav-item"> <a  class="nav-link" href="template/pages/samples/error-500.html"> ဂဏန်းပေါင်းစက် </a></li>
-                <li lang="my" class="nav-item"> <a class="nav-link" href="#" onclick="searchStatistics1(this)"> မြန်မာ -> English </a></li>
-				<li lang="en" class="nav-item" style="display:none"> <a class="nav-link" href="#" onclick="searchStatistics1(this)"> English -> မြန်မာ </a></li>
+                <li lang = "en" class="nav-item" style = "display : none" > <a  class="nav-link" href="template/pages/samples/error-500.html" data-submenu-role = "calculator"> Calculator </a></li>
+				<li lang = "my" class="nav-item"> <a  class="nav-link" href="template/pages/samples/error-500.html" data-submenu-role = "calculator"> ဂဏန်းပေါင်းစက် </a></li>
+                <li lang="my" class="nav-item"> <a class="nav-link" href="#" onclick="searchStatistics1(this)" data-submenu-role = "translate"> မြန်မာ -> English </a></li>
+				<li lang="en" class="nav-item" style="display:none"> <a class="nav-link" href="#" onclick="searchStatistics1(this)" data-submenu-role = "translate"> English -> မြန်မာ </a></li>
                 <!--<li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>-->
               </ul>
             </div>
           </li>
-          <li class="nav-item menu-items">
+          <li class="nav-item menu-items" data-menu-role = "documentation">
 		    <a class="nav-link" href="#">
             <!--<a class="nav-link" href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">-->
               <span class="menu-icon">
@@ -375,7 +375,7 @@
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="row">
-              <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+              <div class="col-xl-3 col-sm-6 grid-margin stretch-card" data-content-role="potential_growth">
                 <div class="card">
                   <div class="card-body">
                     <div class="row">
@@ -399,7 +399,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+              <div class="col-xl-3 col-sm-6 grid-margin stretch-card" data-content-role="revenue_current">
                 <div class="card">
                   <div class="card-body">
                     <div class="row">
@@ -423,7 +423,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+              <div class="col-xl-3 col-sm-6 grid-margin stretch-card" data-content-role="daily_income">
                 <div class="card">
                   <div class="card-body">
                     <div class="row">
@@ -447,7 +447,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+              <div class="col-xl-3 col-sm-6 grid-margin stretch-card" data-content-role="expense_current">
                 <div class="card">
                   <div class="card-body">
                     <div class="row">
@@ -473,7 +473,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-4 grid-margin stretch-card">
+              <div class="col-md-4 grid-margin stretch-card" data-content-role="transaction_history">
                 <div class="card">
                   <div class="card-body">
                     <h4 lang="en" class="card-title" style="display:none">Transaction History</h4>
@@ -510,7 +510,7 @@
                 </div>
               </div>
             <div class="row">
-              <div class="col-sm-4 grid-margin">
+              <div class="col-sm-4 grid-margin" data-content-role="revenue">
                 <div class="card">
                   <div class="card-body">
                     <h5 lang="en" style="display:none">Revenue</h5>
@@ -533,7 +533,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-4 grid-margin">
+              <div class="col-sm-4 grid-margin" data-content-role="sale">
                 <div class="card">
                   <div class="card-body">
                     <h5 lang="en" style="display:none">Sales</h5>
@@ -556,7 +556,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-4 grid-margin">
+              <div class="col-sm-4 grid-margin" data-content-role="purchase">
                 <div class="card">
                   <div class="card-body">
                     <h5 lang="en" style="display:none">Purchase</h5>
@@ -617,8 +617,13 @@
     <!-- Custom js for this page -->
     <script src="template/assets/js/dashboard.js"></script>
     <script src="template/assets/js/statistic.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
     <script src="template/assets/js/configurations.js"></script>
-
+	 <script>
+		window.onload = function() {
+			checkConfiguration();
+		};
+	 </script>
     <!-- End custom js for this page -->
 
 	
