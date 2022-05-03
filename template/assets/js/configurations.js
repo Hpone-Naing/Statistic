@@ -1,9 +1,7 @@
 function checkConfiguration() {
-	getCollection('').on('value', (snapshot) => {
+	getCollection('configurations').on('value', (snapshot) => {
 		snapshot.forEach((child) => {
-			console.log("elementType / value: " + child.val().elementType + " / " + child.val().value);
 			var checkbox = $("input[type=checkbox][data-config-name="+child.val().elementType+"]");
-			
 			checkbox.parent().parent().parent().children('div[name="configName"]').find('#configuration_id').attr("value", child.key);
 			if(child.val().value == true) {
 				$("[data-content-role="+child.val().elementType+"]").show();
@@ -23,7 +21,7 @@ function checkConfiguration() {
 }
 
 function isMasterMenu(menus) {
-	console.log("menu name: " + menus)
+	//console.log("menu name: " + menus)
 	var masterMenuList = ["dashboard", "charts", "tools"];
 	//console.log("mastere menu: " + masterMenuList);
 	for(var i=0; i < masterMenuList.length;i++) {
@@ -38,7 +36,7 @@ function isMasterMenu(menus) {
 }
 
 showHideMenus = function(menu) {
-	console.log("here configuratino..............................")
+//	console.log("here configuratino..............................")
 	menus = $(menu);
 	menu_name = menus.attr("data-config-name");
 	if(isMasterMenu(menu_name)) {
@@ -83,7 +81,7 @@ showHideMenus = function(menu) {
 	  
 }
 
-var config = {
+/*var config = {
   apiKey: "AIzaSyDwejsZVMsmdS9v1IvzgYI2jeyboZ2sgsA",
   authDomain: "statistic-8aecc.firebaseapp.com",
   databaseURL: "https://statistic-8aecc-default-rtdb.firebaseio.com",
@@ -99,7 +97,7 @@ firebase.initializeApp(config);
 //let configurationCollection = firebase.database().ref('configurations');
 function getCollection(key) {
 	if(key == null || key === '' || key == undefined) {
-		return firebase.database().ref('configurations');;
+		return firebase.database().ref('configurations');
 	} else {
 		return  firebase.database().ref(`/configurations/${key}`)
 	}
@@ -110,16 +108,16 @@ function saveConfiguration(configuration) {
 	//var generateId = configurationCollection.push(configuration);
 	var generateId = getCollection('').push(configuration);
 	var key = generateId.key;
-	console.log("key: " + key)
+	//console.log("key: " + key)
 }
 
 function updateConfiguration(configuration, key) {
-	console.log("here update function call.");
-	console.log("updated key: " + key);
-	console.log("updated value: " + configuration.value)
+	//console.log("here update function call.");
+	//console.log("updated key: " + key);
+	//console.log("updated value: " + configuration.value)
 	getCollection(key).update({value: configuration.value});
 }
-
+*/
 function formSubmit() {
   let configuration = new Object();
   var count = 0;
@@ -138,10 +136,12 @@ function formSubmit() {
 		key = $(this).children('div[name="configName"]').find('#configuration_id').attr("value");
 		elementType =  $(this).children('div[name="configValue"]').find("input[type=checkbox]").attr("data-config-name");
 		value = $(this).children('div[name="configValue"]').find("input[type=checkbox]").prop("checked") == true;
+		//configuration.elementId = key;
 		configuration.elementType = elementType;
 		configuration.value = value;
 		if(key === "newData") {
-			saveConfiguration(configuration);
+			//saveConfiguration(configuration);
+			save("configurations", configuration);
 			$('.alert').html("Saved Success.");
 		} else {
 			var updateConfig = new Object();
@@ -164,7 +164,8 @@ function formSubmit() {
 
 function updateConfigurationList(configs) {
 	for(var i=0; i<configs.length; i++) {
-		updateConfiguration(configs[i], configs[i].elementId);
+		//updateConfiguration(configs[i], configs[i].elementId);
+		update(configs[i], "configurations", configs[i].elementId);
 	}
 	$('.alert').html("Update Success.");
 }

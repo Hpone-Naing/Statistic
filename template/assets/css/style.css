@@ -21505,3 +21505,13 @@ alert message
   transform: translate(-50%, -50%);
 
 }
+
+.change-Stable-btn {
+  text-align: center;
+  margin-bottom: 10px;
+  position: fixed;
+  top: 50%;
+  left: 100%;
+  transform: translate(-97%, -50%);
+  cursor: pointer;
+}
