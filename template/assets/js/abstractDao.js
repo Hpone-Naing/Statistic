@@ -32,11 +32,15 @@ function update(object, path, id) {
 		getCollection(path, id).set(object);
 }
 
-const getData = async () => {
-  const readNewLogEntries = await get(
-    query(ref(db, "request-log"), orderByChild("status"), equalTo("active"))
-    // Filters where "type" is equal to "Request". Single arg here ⬆ 
-  );
-  console.log(readNewLogEntries.val())
-  return readNewLogEntries.val();
-};
+function getData(path){
+        return getCollection(path)
+            .once("value", snapshot=>{
+                if(snapshot.exists()){
+					console.log("snapshot exit.............");
+                    return snapshot.val();
+                }
+				else {
+					console.log("no snapshot............");
+				}
+            })
+}

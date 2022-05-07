@@ -267,25 +267,35 @@
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
-			  <span class="mdi mdi-skip-next mdi-36px change-Stable-btn" onclick="moveNextTable()"></span>
-			  <span name="errormsg" style="display:none; color:red"> </span>
-					<form lang = "my" class="forms-sample">
-						<div class="form-group">
-							<input type="file" id="excel-file-upload" name="files[]" class="file-upload-default" multiple />
-							<div class="input-group col-xs-12">
-									<input type="text" class="form-control file-upload-info" disabled="" placeholder="excelဖိုင်ထည့်ရန်" multiple />
-									<span class="input-group-append">
-										<button class="file-upload-browse btn btn-primary" type="button">ဖိုင်ထည့်ရန်</button>
-									</span>
-							</div>
-						</div>
-					</form>
+			<form lang = "my" class="forms-sample">
+
+<select class="form-select form-select-sm" aria-label=".form-select-sm example" onchange="changeBrickKiln()">
+  <option value="brickKiln1">ဖို၁အတွက်သက်ဆိုင်သောစာရင်းများ</option>
+  <option value="brickKiln2">ဖို၂အတွက်သက်ဆိုင်သောစာရင်းများ</option>
+  <option value="brickKiln3">ဖို၃အတွက်သက်ဆိုင်သောစာရင်းများ</option>
+  <option value="brickKiln4">ဖို၄အတွက်သက်ဆိုင်သောစာရင်းများ</option>
+  <option value="brickKiln5">ဖို၅အတွက်သက်ဆိုင်သောစာရင်းများ</option>
+  <option value="brickKiln6">ဖို၆အတွက်သက်ဆိုင်သောစာရင်းများ</option>
+</select>
+</form>
+			<span class="mdi mdi-skip-next mdi-36px change-Stable-btn" onclick="moveRightNextTable()"></span>
+			<span name="errormsg" style="display:none; color:red"> </span>	  
+			<form lang = "my" class="forms-sample">
+				<div class="form-group">
+					<input type="file" id="excel-file-upload" name="files[]" class="file-upload-default" multiple />
+					<div class="input-group col-xs-12">
+						<input type="text" class="form-control file-upload-info" disabled="" placeholder="excelဖိုင်ထည့်ရန်" multiple />
+						<span class="input-group-append">
+							<button class="file-upload-browse btn btn-primary" type="button">ဖိုင်ထည့်ရန်</button>
+						</span>
+					</div>
+				</div>
+			</form>
             <div class="row current" data-table-index = "first">
               <div class="col-lg-12 grid-margin stretch-card">
 			  
                 <div class="card">
                   <div class="card-body">
-					
                     <div class="table-responsive">
 					<div class="table-title">
 						<div class="row">
@@ -299,7 +309,7 @@
 							</div>
 						</div>
 					</div>
-						<table id="brickKiln1" class="table table-bordered statistic-table">
+						<table id="brickKiln" class="table table-bordered statistic-table">
 						<thead>
 							<tr>
 								<th lang="my">စဥ်</th>
@@ -349,7 +359,7 @@
 							</div>
 						</div>
 					</div>
-						<table id="brickKiln1_oil" class="table table-bordered statistic-table">
+						<table id="oil" class="table table-bordered statistic-table">
 						<thead>
 							<tr>
 								<th lang="my">စဥ်</th>
@@ -379,6 +389,152 @@
               </div>
             </div>
 			
+			<div class="row" style="display:none">
+              <div class="col-lg-12 grid-margin stretch-card">
+			  
+                <div class="card">
+                  <div class="card-body">
+					
+                    <div class="table-responsive">
+					<div class="table-title">
+						<div class="row">
+							<div lang ="en" class="col-sm-8" style="display:none"><h2>Statistic <b>Details</b></h2></div>
+							<div lang="my" class="col-sm-8"><h2>လုပ်အားခ<b>အသုံးစာရင်းအသေးစိတ်</b></h2></div>
+
+							<div class="col-sm-4">
+								<button lang ="en" type="button" class="btn btn-info add-new" style="display:none"><i class="fa fa-plus"></i> Add New</button>
+								<button lang="my" type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> အသစ်ထည့်ပါ</button>
+
+							</div>
+						</div>
+					</div>
+						<table id="salary" class="table table-bordered statistic-table">
+						<thead>
+							<tr>
+								<th lang="my">စဥ်</th>
+							   <!-- <th lang ="en" style="display:none" class="dntinclude">Name</th>-->
+								<th lang="my">နေ့စွဲ</th>
+
+							   <!-- <th lang ="en" style="display:none" class="dntinclude">Address</th>-->
+								<th lang="my">အကြောင်းအရာ</th>
+
+							   <!-- <th lang ="en" style="display:none" class="dntinclude">Phone</th>-->
+								<th lang="my">သုံးစွဲငွေ</th>
+								<th lang="my">မှတ်ချက်</th>
+								<!--<th lang ="en" class="dntinclude" style="display:none" >Actions</th>-->
+								<th lang="my" class="dntinclude">လုပ်ဆောင်ချက်များ</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+			
+			
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+			
+			<div class="row" style="display:none">
+              <div class="col-lg-12 grid-margin stretch-card">
+			  
+                <div class="card">
+                  <div class="card-body">
+					
+                    <div class="table-responsive">
+					<div class="table-title">
+						<div class="row">
+							<div lang ="en" class="col-sm-8" style="display:none"><h2>Statistic <b>Details</b></h2></div>
+							<div lang="my" class="col-sm-8"><h2>ထင်းဖိုး<b>အသုံးစာရင်းအသေးစိတ်</b></h2></div>
+
+							<div class="col-sm-4">
+								<button lang ="en" type="button" class="btn btn-info add-new" style="display:none"><i class="fa fa-plus"></i> Add New</button>
+								<button lang="my" type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> အသစ်ထည့်ပါ</button>
+
+							</div>
+						</div>
+					</div>
+						<table id="firewoodCost" class="table table-bordered statistic-table">
+						<thead>
+							<tr>
+								<th lang="my">စဥ်</th>
+							   <!-- <th lang ="en" style="display:none" class="dntinclude">Name</th>-->
+								<th lang="my">နေ့စွဲ</th>
+
+							   <!-- <th lang ="en" style="display:none" class="dntinclude">Address</th>-->
+								<th lang="my">အကြောင်းအရာ</th>
+
+							   <!-- <th lang ="en" style="display:none" class="dntinclude">Phone</th>-->
+								<th lang="my">သုံးစွဲငွေ</th>
+								<th lang="my">မှတ်ချက်</th>
+								<!--<th lang ="en" class="dntinclude" style="display:none" >Actions</th>-->
+								<th lang="my" class="dntinclude">လုပ်ဆောင်ချက်များ</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+			
+			
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+			
+			<div class="row" style="display:none">
+              <div class="col-lg-12 grid-margin stretch-card">
+			  
+                <div class="card">
+                  <div class="card-body">
+					
+                    <div class="table-responsive">
+					<div class="table-title">
+						<div class="row">
+							<div lang ="en" class="col-sm-8" style="display:none"><h2>Statistic <b>Details</b></h2></div>
+							<div lang="my" class="col-sm-8"><h2>အထွေထွေ<b>အသုံးစာရင်းအသေးစိတ်</b></h2></div>
+
+							<div class="col-sm-4">
+								<button lang ="en" type="button" class="btn btn-info add-new" style="display:none"><i class="fa fa-plus"></i> Add New</button>
+								<button lang="my" type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> အသစ်ထည့်ပါ</button>
+
+							</div>
+						</div>
+					</div>
+						<table id="generalCost" class="table table-bordered statistic-table">
+						<thead>
+							<tr>
+								<th lang="my">စဥ်</th>
+							   <!-- <th lang ="en" style="display:none" class="dntinclude">Name</th>-->
+								<th lang="my">နေ့စွဲ</th>
+
+							   <!-- <th lang ="en" style="display:none" class="dntinclude">Address</th>-->
+								<th lang="my">အကြောင်းအရာ</th>
+
+							   <!-- <th lang ="en" style="display:none" class="dntinclude">Phone</th>-->
+								<th lang="my">သုံးစွဲငွေ</th>
+								<th lang="my">မှတ်ချက်</th>
+								<!--<th lang ="en" class="dntinclude" style="display:none" >Actions</th>-->
+								<th lang="my" class="dntinclude">လုပ်ဆောင်ချက်များ</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+			
+			
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 			
 			<div class="row last" style="display:none">
               <div class="col-lg-12 grid-margin stretch-card">
@@ -399,7 +555,7 @@
 							</div>
 						</div>
 					</div>
-						<table id="brickKiln1_landSide" class="table table-bordered statistic-table">
+						<table id="landSide" class="table table-bordered statistic-table">
 						<thead>
 							<tr>
 								<th lang="my">စဥ်</th>
@@ -463,18 +619,19 @@
 	 <script src="../../assets/js/file-upload.js"></script>
 	 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.0/dist/xlsx.full.min.js"></script>
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	 <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 	<script type="text/javascript" src="../../assets/js/datatables-pagination.js"></script>
 	 <!-- custom js for paganation-->
 	 <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
 	 <script src="../../assets/js/abstractDao.js"></script>
 	 <script src="../../assets/js/configurations.js"></script>
-	 
+
 	 <script>
 		window.onload = function() {
 			checkConfiguration();
-			loadStatisticList("brickKiln1");
+			loadStatisticList();
 		};
+		
 	 </script>
   </body>
 </html>

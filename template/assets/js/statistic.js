@@ -1,20 +1,18 @@
-var firebaseRowCount = 0;
-function loadStatisticList(currentTableId) {
-	var currentTableRow = $('#'+currentTableId+' tbody');
+function loadStatisticList() {
+	console.log("select brick kiln: " + selectedBrickKiln);
+	var currentTableRow = $('#'+current_statistic_table_id+' tbody');
 	currentTableRow.find("tr").remove();
-	var path = 'statistic/'+currentTableId;
 	var number = 1;
-	var count = 0;
-	getCollection(path).orderByChild('status').equalTo('active').on('value', (snapshot) => {
+	getCollection(getPath()).orderByChild('status').equalTo('active').once('value', (snapshot) => {
 		snapshot.forEach((child) => {
-			//checkbox.parent().parent().parent().children('div[name="configName"]').find('#configuration_id').attr("value", child.val().elementId);
-			  var id = child.key;
-			  var date = child.val().date;
-			  var subject = child.val().subject;
-			  var cost = child.val().cost;
-			  var note = child.val().note;
-			  console.log("id / date / subject / cost / note " + id + " / " + date + " / " + subject + " / " + cost + " / " + note)
-			  var tr = `
+			const statistic = {};
+			var id = child.key;
+			var date = child.val().date;
+			var subject = child.val().subject;
+			var cost = child.val().cost;
+			var note = child.val().note;
+			//console.log("id / date / subject / cost / note " + id + " / " + date + " / " + subject + " / " + cost + " / " + note)
+			var tr = `
 								<tr>
 									<td data-statistic-attr="id" style="display:none">${id}</td>
 									<td>${number++}</td>
@@ -30,12 +28,11 @@ function loadStatisticList(currentTableId) {
 									
 								</tr>
 							`
-							
 			currentTableRow.append(tr);
 		});
-		console.log("number of loop: " + count++);
 	})
 }
+
 
 $(document).ready(function(){
 	//$('[data-toggle="tooltip"]').tooltip();
@@ -46,11 +43,12 @@ $(document).ready(function(){
 		$(this).attr("disabled", "disabled");
 		var index = $("#"+current_statistic_table.attr("id") +" tbody tr:last-child").index();
         var row = '<tr>' +
-            '<td><input type="text" class="form-control" name="number" data-statistic-attr="id"></td>' +
-            '<td><input type="text" class="form-control date" name="date" data-statistic-attr="id" placeholder="yy-mm-dd" onclick="selectDate(this)"></td>' +
-            '<td><input type="text" class="form-control" name="subject" id="subject"></td>' +
-			'<td><input type="text" class="form-control" name="cost" id="cost"></td>' +
-			'<td><input type="text" class="form-control" name="note" id="note"></td>' +
+            '<td data-statistic-attr="id" style="display:none"><input type="text" class="form-control" data-statistic-attr="id" value="newData"></td>' +
+            '<td data-statistic-attr="number"><input type="text" class="form-control" data-statistic-attr="number"></td>' +
+            '<td data-statistic-attr="date"><input type="text" id="date" class="form-control" data-statistic-attr="date"  placeholder="yy-mm-dd"></td>' +
+            '<td data-statistic-attr="subject"><input type="text" class="form-control" data-statistic-attr="subject"></td>' +
+			'<td data-statistic-attr="cost"><input type="text" class="form-control" data-statistic-attr="cost"></td>' +
+			'<td data-statistic-attr="note"><input type="text" class="form-control" data-statistic-attr="note"></td>' +
 			'<td class="dntinclude">' +
                             '<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>' +
                             '<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>' +
@@ -59,6 +57,7 @@ $(document).ready(function(){
         '</tr>';
     	current_statistic_table.append(row);
 		$("#"+current_statistic_table.attr("id") +" tbody tr").eq(index + 1).find(".add, .edit").toggle();
+		$("#date").datepicker();
 		//$("#" + current_statistic_table.attr("id") +"tbody tr").eq(index + 1).find(".add, .edit").toggle();
         //$('[data-toggle="tooltip"]').tooltip();
     });
@@ -68,7 +67,7 @@ $(document).ready(function(){
 		var updatedStatistic = new Object();
 		var empty = false;
 		var input = $(this).parents("tr").find('input[type="text"]');
-		var date, subject, cost, note;
+		var id, date, subject, cost, note;
         input.each(function(){
 			if(!$(this).val()){
 				$(this).addClass("error");
@@ -93,23 +92,18 @@ $(document).ready(function(){
 			updatedStatistic.status = 'active';
 			console.log(updatedStatistic);
 			console.log("current table id: " + current_statistic_table.attr("id"));
-			if(current_statistic_table.attr("id") === "brickKiln1") {
-				update(updatedStatistic,"statistic/brickKiln1",updatedStatistic.elementId);
+			if(id === 'newData') {
+				save(getPath(), updatedStatistic);
+			} else {
+				update(updatedStatistic,getPath(),updatedStatistic.elementId);
 			}
-			 if(current_statistic_table.attr("id") === "brickKiln1_oil") {
-				update(updatedStatistic, "statistic/brickKiln1_oil",  updatedStatistic.elementId);
-			}
-			 if(current_statistic_table.attr("id") === "brickKiln1_landSide") {
-				update(updatedStatistic, "statistic/brickKiln1_landSide", updatedStatistic.elementId);
-			}
-		
+			
 			input.each(function(){
 				$(this).parent("td").html($(this).val());
 			});			
 			$(this).parents("tr").find(".add, .edit").toggle();
 			$(".add-new").removeAttr("disabled");
 		}	
-		location.reload(true);
     });
 	// Edit row on edit button click
 	$(document).on("click", ".edit", function(){		
@@ -118,6 +112,7 @@ $(document).ready(function(){
 		});		
 		$(this).parents("tr").find(".add, .edit").toggle();
 		$(".add-new").attr("disabled", "disabled");
+		$('[data-statistic-attr="date"]').datepicker();
     });
 	// Delete row on delete button click
 	$(document).on("click", ".delete", function(){
@@ -131,15 +126,10 @@ $(document).ready(function(){
 		deletedStatistic.elementId = $(this).parents("tr").find('[data-statistic-attr="id"]').html();
 		deletedStatistic.status = 'inactive';
 		console.log(deletedStatistic);
-		if(current_statistic_table.attr("id") === "brickKiln1") {
-				update(deletedStatistic,"statistic/brickKiln1",deletedStatistic.elementId);
-		}
-	    if(current_statistic_table.attr("id") === "brickKiln1_oil") {
-			update(deletedStatistic, "statistic/brickKiln1_oil",  deletedStatistic.elementId);
-		}
-		if(current_statistic_table.attr("id") === "brickKiln1_landSide") {
-			update(deletedStatistic, "statistic/brickKiln1_landSide", deletedStatistic.elementId);
-		}
+		//var path = 'statistic/'+current_statistic_table_id;
+		update(deletedStatistic, getPath(), deletedStatistic.elementId);
+	
+		
 		$(".add-new").removeAttr("disabled");
     });
 
@@ -164,7 +154,10 @@ searchStatistics = function(search) {
 				$(trElement).find('td').each(function(index, element) {   
 					var colVal = $(element).text();
 					//console.log("colval: " + colVal);
-					searchString = searchString.concat("/", colVal.trim());
+					console.log("index / colval: " + index + " / " + colVal);
+					if(index > 0 ) {
+						searchString = searchString.concat("/", colVal.trim());
+					}
 				});
 						if(! searchString.toLowerCase().match(searchKey.toLowerCase(), 'g')) {
 							$(trElement).hide();
@@ -220,6 +213,7 @@ searchStatistics1 = function(search1) {
 }
 
 var ExcelToJSON = function() {
+	console.log("here excel to json.................................................")
 	paginationDestory(statistic_table);
   	var actions = $("#"+current_statistic_table.attr("id")+" td:last-child").html();
   this.parseExcel = function(file) {
@@ -233,58 +227,29 @@ var ExcelToJSON = function() {
       workbook.SheetNames.forEach(function(sheetName) {
         var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
         var productList = JSON.parse(JSON.stringify(XL_row_object));
-
-        var brickKiln1Rows = $('#brickKiln1 tbody');
-		var oilTableRows = $('#brickKiln1_oil tbody');
-		var landSideTableRows = $('#brickKiln1_landSide tbody');
+		console.log(productList);
+		keys = Object.keys(productList[0]);
+		console.log(keys);
+		console.log("excel file path: " + keys[0].split("-")[0]);
+		let path = keys[0].split("-")[0];
         // console.log(productList)
-        for (i = 0; i < productList.length; i++) {
+        for (i = 1; i < productList.length; i++) {
 			var statistic = new Object();
 			  var columns = Object.values(productList[i])
-			  var date = columns[1];
-			  var subject = columns[2];
-			  var cost = columns[3];
-			  var note = columns[4];
+			  var date = columns[0];
+			  var subject = columns[1];
+			  var cost = columns[2];
+			  var note = columns[3];
 			  statistic.date = date;
 			  statistic.subject =subject;
 			  statistic.cost = cost;
 			  statistic.note = note;
 			  statistic.status = 'active';
-			  var tr = `
-								<tr>
-									
-									<td>${columns[0]}</td>
-									<td>${columns[1]}</td>
-									<td>${columns[2]}</td>
-									<td>${columns[3]}</td>
-									<td>${columns[4]}</td>
-									<td class="dntinclude">
-                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-									
-								</tr>
-							`
-			  console.log("for: " + columns[5]);
-			  var chooseTable = columns[5];
-			  if(chooseTable === 'brick') {
-				  //brickKiln1Rows.append(tr);
-				  save("statistic/brickKiln1", statistic);
-			  }
-			  if(chooseTable === 'oil') {
-				  //oilTableRows.append(tr);
-				  save("statistic/brickKiln1_oil", statistic);
-			  }
-			  if(chooseTable === 'land') {
-				  //landSideTableRows.append(tr);
-				  save("statistic/brickKiln1_landSide", statistic);
-			  }
+			  choosePathToSaveExcelFile(path, statistic);
+			  
         }
       })
-	  loadStatisticList(current_statistic_table.attr("id"));
-	 // console.log("row length: " + getRowLength("brickKiln1_StatisticTableId"));
-		
+	  loadStatisticList(current_statistic_table.attr("id"));		
     };
     reader.onerror = function(ex) {
       console.log(ex);
@@ -314,6 +279,11 @@ function handleFileSelect(evt) {
 
 document.getElementById('excel-file-upload').addEventListener('change', handleFileSelect, false);
 
+function choosePathToSaveExcelFile(path, statistic) {
+	console.log("here choosePathToSaveExcelFile");
+		save("statistic/"+path, statistic);
+}
+
 function paginationDestory(table) {
 	/*table = $(table).DataTable( {
 				paging: false
@@ -329,13 +299,8 @@ function paginationDestory(table) {
 	}	
 }
 
-function selectDate(date) {
-	$("." + date).datepicker({
-		dateFormat: 'yy-mm-dd'
-	});
-}
 
-function moveNextTable() {
+function moveRightNextTable() {
 	current_statistic_container = $('.current');
 	var next = current_statistic_container.next();
 	if(current_statistic_container.hasClass("last")) {
@@ -348,18 +313,32 @@ function moveNextTable() {
 	current_statistic_container.removeClass("current");
 	next.addClass("current");
 	current_statistic_table = next.find("table");
-	console.log("current id: " + current_statistic_table.attr("id"));
-	paginationDestory(current_statistic_table);
-	console.log("next table length: " + $("#"+current_statistic_table.attr("id") + " tr").length);
-	loadStatisticList(current_statistic_table.attr("id"));
-	//location.reload(true);
+	current_statistic_table_id = current_statistic_table.attr("id");
+	loadStatisticList();
+	
 }
 
-function getRowLength(tableIdString) {
-	return $('#'+tableIdString +' tr').length;
+function changeBrickKiln() {
+	console.log("here select click;");
+	selectedBrickKiln = $("select option:selected").val();
+	var currentContainer = current_statistic_container.next();
+	var topTable = $('[data-table-index="first"]');
+	currentContainer.removeClass("current");
+	currentContainer.hide();
+	topTable.addClass("current");
+	topTable.show();
+	current_statistic_container = $('.current');
+	current_statistic_table = current_statistic_container.find("table");
+	 current_statistic_table_id = current_statistic_table.attr("id");
+	loadStatisticList();
 }
 
+function getPath() {
+	return 'statistic/'+selectedBrickKiln+'/'+current_statistic_table_id;
+}
 
 var statistic_table = $(".statistic-table");
 var current_statistic_container = $('.current');
 var current_statistic_table = current_statistic_container.find("table");
+var current_statistic_table_id = current_statistic_table.attr("id");
+var selectedBrickKiln = $("select option:selected").val();

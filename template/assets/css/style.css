@@ -21514,4 +21514,10 @@ alert message
   left: 100%;
   transform: translate(-97%, -50%);
   cursor: pointer;
+  border: 2px solid #d9cccc;
+border-radius: 2em 0 0 2em;
 }
+
+/* 
+drop dwon menu for statistic
+*/
