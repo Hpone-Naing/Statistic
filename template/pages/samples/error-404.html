@@ -349,10 +349,18 @@
         <div class="main-panel">
 			<div class="content-wrapper">
 				<div class="card-body">
-						<div id="copy-statistic-table" class="table-responsive" style="display:none">
-							  <table id="copystatisticTable" class="table table-bordered copy-statistic-table table2excel">
-							  </table>
-						</div>
+				
+				<form lang = "my" class="forms-sample">
+
+<select class="form-select form-select-sm" aria-label=".form-select-sm example" onchange="changeBrickKiln()">
+  <option value="brickKiln1">ဖို၁အတွက်သက်ဆိုင်သောစာရင်းများ</option>
+  <option value="brickKiln2">ဖို၂အတွက်သက်ဆိုင်သောစာရင်းများ</option>
+  <option value="brickKiln3">ဖို၃အတွက်သက်ဆိုင်သောစာရင်းများ</option>
+  <option value="brickKiln4">ဖို၄အတွက်သက်ဆိုင်သောစာရင်းများ</option>
+  <option value="brickKiln5">ဖို၅အတွက်သက်ဆိုင်သောစာရင်းများ</option>
+  <option value="brickKiln6">ဖို၆အတွက်သက်ဆိုင်သောစာရင်းများ</option>
+</select>
+</form>
 						<div class="template-demo">
 						  <button lang="en" type="button" class="btn btn-primary btn-rounded btn-fw" style="display:none" onclick="exportExcel()">Export Excel</button>
 						  <button lang="my" type="button" class="btn btn-primary btn-rounded btn-fw"  onclick="exportExcel()">Excelအဖြစ်သိမ်းရန်</button>
@@ -360,8 +368,8 @@
 						  <button lang="en" id="exportPdfbtn" type="button" class="btn btn-secondary btn-rounded btn-fw" style="display:none" onclick="exportPdf()">Export Pdf</button>
 						  <button lang="my" id="exportPdfbtn" type="button" class="btn btn-secondary btn-rounded btn-fw"  onclick="exportPdf()">Pdf အဖြစ်သိမ်းရန်</button>
 						  
-						  <button lang="en" type="button" class="btn btn-success btn-rounded btn-fw" style="display:none" onclick="exportCSV()">Export CSV</button>
-						  <button lang="my" type="button" class="btn btn-success btn-rounded btn-fw" onclick="exportCSV()">CSVအဖြစ်သိမ်းရန်</button>									 
+						  <button lang="en" type="button" class="btn btn-success btn-rounded btn-fw" style="display:none" onclick="exportCSVData()">Export CSV</button>
+						  <button lang="my" type="button" class="btn btn-success btn-rounded btn-fw" onclick="exportCSVData()">CSVအဖြစ်သိမ်းရန်</button>									 
 						  
 						  <button lang="en" type="button" class="btn btn-warning btn-rounded btn-fw" style="display:none">Next Version</button>
 						  <button lang="my" type="button" class="btn btn-warning btn-rounded btn-fw">‌နောက်ဗားရှင်း</button>
@@ -404,10 +412,6 @@
     <!-- endinject -->
     <!-- Custom js for this page -->
 	<!-- import table data to excel file -->
-	<script>
-	$( "#copystatisticTable" ).load( "../ui-features/dropdowns.html #statisticTableId" );
-	</script>
-	
 	
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
@@ -418,9 +422,11 @@
 	<script src="../../assets/js/statistic.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
 	 <script src="../../assets/js/configurations.js"></script>
+	  <script src="../../assets/js/abstractDao.js"></script>
 	 <script>
 		window.onload = function() {
 			checkConfiguration();
+			getAllDataFromFirebase();
 		};
 	 </script>
 	<!-- import table data to excel file end-->

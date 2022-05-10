@@ -291,9 +291,14 @@
 					</div>
 				</div>
 			</form>
+						
+			<div class="row">
+				<button lang="my" type="button" class="btn btn-primary btn-rounded btn-fw"  onclick="HtmlTOExcel('xlsx')">Excelအဖြစ်သိမ်းရန်</button>
+				<button lang="my" type="button" class="btn btn-success btn-rounded btn-fw" onclick="tableToCSV()">CSVအဖြစ်သိမ်းရန်</button>
+			</div>
+			
             <div class="row current" data-table-index = "first">
               <div class="col-lg-12 grid-margin stretch-card">
-			  
                 <div class="card">
                   <div class="card-body">
                     <div class="table-responsive">
@@ -312,6 +317,7 @@
 						<table id="brickKiln" class="table table-bordered statistic-table">
 						<thead>
 							<tr>
+								<th style="display:none">အိုင်ဒီ</th>
 								<th lang="my">စဥ်</th>
 							   <!-- <th lang ="en" style="display:none" class="dntinclude">Name</th>-->
 								<th lang="my">နေ့စွဲ</th>
@@ -327,9 +333,7 @@
 
 							</tr>
 						</thead>
-						<tbody>
-							
-						</tbody>
+						<tbody></tbody>
 					</table>
 			
 			
@@ -618,6 +622,7 @@
     <!-- Custom js for this page -->
 	 <script src="../../assets/js/file-upload.js"></script>
 	 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.0/dist/xlsx.full.min.js"></script>
+	 <script src="<https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.min.js>"></script>
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 	<script type="text/javascript" src="../../assets/js/datatables-pagination.js"></script>

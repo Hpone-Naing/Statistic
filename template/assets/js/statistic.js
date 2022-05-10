@@ -1,5 +1,5 @@
 function loadStatisticList() {
-	console.log("select brick kiln: " + selectedBrickKiln);
+	//console.log("select brick kiln: " + selectedBrickKiln);
 	var currentTableRow = $('#'+current_statistic_table_id+' tbody');
 	currentTableRow.find("tr").remove();
 	var number = 1;
@@ -21,10 +21,10 @@ function loadStatisticList() {
 									<td data-statistic-attr="cost">${cost}</td>
 									<td data-statistic-attr="note">${note}</td>
 									<td class="dntinclude">
-                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
+										<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+										<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+										<a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+									</td>
 									
 								</tr>
 							`
@@ -335,6 +335,77 @@ function changeBrickKiln() {
 
 function getPath() {
 	return 'statistic/'+selectedBrickKiln+'/'+current_statistic_table_id;
+}
+
+function HtmlTOExcel(type, fun, dl) {
+    var table = document.getElementById(current_statistic_table_id);
+	$(table).find('tbody tr:last-child').css("background","blue");
+    var wb = XLSX.utils.table_to_book(table, { sheet: "sheet1" });
+    return dl ?
+        XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+        XLSX.writeFile(wb, fun || (getPath() + "_"+ getDate() + "." + (type || 'xlsx')));
+}
+
+function tableToCSV() {
+            // Variable to store the final csv data
+            var csv_data = [];
+			csv_data.push(
+				[
+					"number",
+					"date",
+					"subject",
+					"cost",
+					"note"
+				]
+			)
+            // Get each row data
+			current_statistic_table.find("tr").each(function(trIndex, trElement) {
+				var csvrow = [];
+				$(trElement).find('td').each(function(index, element) { 
+					let classAttributeValue = $(element).attr("class");
+					let styleAttributeValue = $(element).attr("style");
+					if(classAttributeValue !== "dntinclude") {
+						if( styleAttributeValue !== "display:none") {
+							console.log("cols: " + element.innerHTML)
+							csvrow.push(element.innerHTML);
+						}
+					}
+				})
+				csv_data.push(csvrow.join(","));
+			}); 
+            // Combine each row data with new line character
+            csv_data = csv_data.join('\n');
+ 
+            // Call this function to download csv file 
+            downloadCSVFile(csv_data);
+ 
+}
+
+function downloadCSVFile(csv_data) {
+ 
+            // Create CSV file object and feed
+            // our csv_data into it
+            CSVFile = new Blob([csv_data], {
+                type: "text/csv"
+            });
+ 
+            // Create to temporary link to initiate
+            // download process
+            var temp_link = document.createElement('a');
+ 
+            // Download csv file
+            temp_link.download =  getPath() + getDate() + ".csv";
+            var url = window.URL.createObjectURL(CSVFile);
+            temp_link.href = url;
+ 
+            // This link should not be displayed
+            temp_link.style.display = "none";
+            document.body.appendChild(temp_link);
+ 
+            // Automatically click the link to
+            // trigger download
+            temp_link.click();
+            document.body.removeChild(temp_link);
 }
 
 var statistic_table = $(".statistic-table");
