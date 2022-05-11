@@ -318,9 +318,12 @@ function moveRightNextTable() {
 	
 }
 
-function changeBrickKiln() {
+function changeBrickKiln(selectElement) {
 	console.log("here select click;");
-	selectedBrickKiln = $("select option:selected").val();
+	$(".selected").removeClass("selected");
+	$(selectElement).children('div').find('p').addClass("selected");
+	selectedBrickKiln = $(".selected").attr("data-selected-value");
+	$(".show-selected-content").html($(selectElement).children('div').find('p').html());
 	var currentContainer = current_statistic_container.next();
 	var topTable = $('[data-table-index="first"]');
 	currentContainer.removeClass("current");
@@ -329,21 +332,53 @@ function changeBrickKiln() {
 	topTable.show();
 	current_statistic_container = $('.current');
 	current_statistic_table = current_statistic_container.find("table");
-	 current_statistic_table_id = current_statistic_table.attr("id");
+	current_statistic_table_id = current_statistic_table.attr("id");
 	loadStatisticList();
 }
 
 function getPath() {
 	return 'statistic/'+selectedBrickKiln+'/'+current_statistic_table_id;
 }
+/*
+convert table to excel original code
 
 function HtmlTOExcel(type, fun, dl) {
     var table = document.getElementById(current_statistic_table_id);
-	$(table).find('tbody tr:last-child').css("background","blue");
+	var actionButtons = $(table).find('tbody td:last-child');
+	$(actionButtons).remove();
     var wb = XLSX.utils.table_to_book(table, { sheet: "sheet1" });
     return dl ?
         XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
         XLSX.writeFile(wb, fun || (getPath() + "_"+ getDate() + "." + (type || 'xlsx')));
+	
+}
+*/
+
+function HtmlTOExcel(type, fun) {
+    var table = document.getElementById(current_statistic_table_id);
+	console.log("current table id: " + $(table).attr("id"));
+	var index = $("#"+current_statistic_table_id +" tbody td:last-child").index();
+	console.log("index:  " + index);
+	var lastChild = $(table).find('tbody td:last-child');
+	var actionButtons = lastChild.html();
+	$(lastChild).remove();
+    var wb = XLSX.utils.table_to_book(table, { sheet: "sheet1" });
+    //XLSX.writeFile(wb, fun || (getPath() + "_"+ getDate() + "." + (type || 'xlsx')));
+	//return dl ?
+    //    XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+        XLSX.writeFile(wb, fun || (getPath() + "_"+ getDate() + "." + (type || 'xlsx')));
+	var trLength = $("#"+current_statistic_table_id +" tbody tr").length;
+	console.log("trLength: "+ trLength);
+	//for(var i =0; i<trLength; i++) {
+		$(table).find('tbody td:last-child').css("color", "blue");
+		var td =	 `<td class="dntinclude">
+										<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+										<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+										<a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+					</td>`
+									
+		$(table).find('tbody td:last-child').parent().append(td);
+	//}
 }
 
 function tableToCSV() {
@@ -412,4 +447,4 @@ var statistic_table = $(".statistic-table");
 var current_statistic_container = $('.current');
 var current_statistic_table = current_statistic_container.find("table");
 var current_statistic_table_id = current_statistic_table.attr("id");
-var selectedBrickKiln = $("select option:selected").val();
+var selectedBrickKiln = $(".selected").attr("data-selected-value");

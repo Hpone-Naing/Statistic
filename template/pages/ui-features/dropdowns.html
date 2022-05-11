@@ -106,7 +106,7 @@
               <ul class="nav flex-column sub-menu">
                 <!--<li class="nav-item"> <a class="nav-link" href="../../pages/ui-features/buttons.html">New</a></li>-->
                 <li lang="en" class="nav-item" style="display:none"> <a class="nav-link" href="../../pages/ui-features/dropdowns.html">List</a></li>
-				<li lang = "my" class="nav-item"> <a class="nav-link" href="../../pages/ui-features/dropdowns.html" data-retrieve-name = "brickKiln1">ဖို၁စာရင်းအင်းများ</a></li>
+				<li lang = "my" class="nav-item"> <a class="nav-link" href="../../pages/ui-features/dropdowns.html" data-retrieve-name = "brickKiln1">ဖိုစာရင်းအင်းများ</a></li>
                 <!--<li class="nav-item"> <a class="nav-link" href="../../pages/ui-features/typography.html">Typography</a></li>-->
               </ul>
             </div>
@@ -267,7 +267,86 @@
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
-			<form lang = "my" class="forms-sample">
+		  
+		  
+		  <form class="nav-item dropdown border-left">
+                <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+                  <span class="show-selected-content">ကြည့်လိုသောဖိုစာရင်းများ</span>
+                </a>
+                <div class="dropdown-menu  navbar-dropdown preview-list" aria-labelledby="notificationDropdown" style="position: absolute; transform: translate3d(1px, 74px, 0px); top: 0px; left: 0px; will-change: transform;">
+                  <h6 class="p-3 mb-0">ဖို</h6>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item preview-item" onclick="changeBrickKiln(this)">
+                    <div class="preview-thumbnail">
+                      <div class="preview-icon bg-dark rounded-circle">
+                        <i class="mdi mdi-calendar text-success"></i>
+                      </div>
+                    </div>
+                    <div class="preview-item-content">
+                      <p class="text-muted ellipsis mb-0 selected" data-selected-value="brickKiln1">ဖို၁အတွက်သက်ဆိုင်သောစာရင်းများ</p>
+                    </div>
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item preview-item" onclick="changeBrickKiln(this)">
+                    <div class="preview-thumbnail">
+                      <div class="preview-icon bg-dark rounded-circle">
+                        <i class="mdi mdi-settings text-danger"></i>
+                      </div>
+                    </div>
+                    <div class="preview-item-content">
+                      <p class="text-muted ellipsis mb-0" data-selected-value="brickKiln2"> ဖို၂အတွက်သက်ဆိုင်သောစာရင်းများ </p>
+                    </div>
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item preview-item" onclick="changeBrickKiln(this)">
+                    <div class="preview-thumbnail">
+                      <div class="preview-icon bg-dark rounded-circle">
+                        <i class="mdi mdi-link-variant text-warning"></i>
+                      </div>
+                    </div>
+                    <div class="preview-item-content">
+                      <p class="text-muted ellipsis mb-0" data-selected-value="brickKiln3"> ဖို၃အတွက်သက်ဆိုင်သောစာရင်းများ </p>
+                    </div>
+                  </a>
+				  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item preview-item" onclick="changeBrickKiln(this)">
+                    <div class="preview-thumbnail">
+                      <div class="preview-icon bg-dark rounded-circle">
+                        <i class="mdi mdi-link-variant text-warning"></i>
+                      </div>
+                    </div>
+                    <div class="preview-item-content">
+                      <p class="text-muted ellipsis mb-0" data-selected-value="brickKiln4"> ဖို၄အတွက်သက်ဆိုင်သောစာရင်းများ </p>
+                    </div>
+                  </a>
+				  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item preview-item"onclick="changeBrickKiln(this)">
+                    <div class="preview-thumbnail">
+                      <div class="preview-icon bg-dark rounded-circle">
+                        <i class="mdi mdi-link-variant text-warning"></i>
+                      </div>
+                    </div>
+                    <div class="preview-item-content">
+                      <p class="text-muted ellipsis mb-0" data-selected-value="brickKiln5"> ဖို၅အတွက်သက်ဆိုင်သောစာရင်းများ </p>
+                    </div>
+                  </a>
+				  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item preview-item" onclick="changeBrickKiln(this)">
+                    <div class="preview-thumbnail">
+                      <div class="preview-icon bg-dark rounded-circle">
+                        <i class="mdi mdi-link-variant text-warning"></i>
+                      </div>
+                    </div>
+                    <div class="preview-item-content">
+                      <p class="text-muted ellipsis mb-0" data-selected-value="brickKiln6"> ဖို၆အတွက်သက်ဆိုင်သောစာရင်းများ </p>
+                    </div>
+                  </a>
+                </div>
+            </form>
+			  
+			  
+			  
+			<!--<form lang = "my" class="forms-sample">
 
 <select class="form-select form-select-sm" aria-label=".form-select-sm example" onchange="changeBrickKiln()">
   <option value="brickKiln1">ဖို၁အတွက်သက်ဆိုင်သောစာရင်းများ</option>
@@ -277,7 +356,7 @@
   <option value="brickKiln5">ဖို၅အတွက်သက်ဆိုင်သောစာရင်းများ</option>
   <option value="brickKiln6">ဖို၆အတွက်သက်ဆိုင်သောစာရင်းများ</option>
 </select>
-</form>
+</form>-->
 			<span class="mdi mdi-skip-next mdi-36px change-Stable-btn" onclick="moveRightNextTable()"></span>
 			<span name="errormsg" style="display:none; color:red"> </span>	  
 			<form lang = "my" class="forms-sample">
@@ -291,11 +370,15 @@
 					</div>
 				</div>
 			</form>
-						
-			<div class="row">
+					
+
+
+			
+			  
+			<form lang = "my" class="forms-sample">
 				<button lang="my" type="button" class="btn btn-primary btn-rounded btn-fw"  onclick="HtmlTOExcel('xlsx')">Excelအဖြစ်သိမ်းရန်</button>
 				<button lang="my" type="button" class="btn btn-success btn-rounded btn-fw" onclick="tableToCSV()">CSVအဖြစ်သိမ်းရန်</button>
-			</div>
+			</form>
 			
             <div class="row current" data-table-index = "first">
               <div class="col-lg-12 grid-margin stretch-card">
@@ -366,6 +449,7 @@
 						<table id="oil" class="table table-bordered statistic-table">
 						<thead>
 							<tr>
+								<th style="display:none">အိုင်ဒီ</th>
 								<th lang="my">စဥ်</th>
 							   <!-- <th lang ="en" style="display:none" class="dntinclude">Name</th>-->
 								<th lang="my">နေ့စွဲ</th>
@@ -415,6 +499,7 @@
 						<table id="salary" class="table table-bordered statistic-table">
 						<thead>
 							<tr>
+								<th style="display:none">အိုင်ဒီ</th>
 								<th lang="my">စဥ်</th>
 							   <!-- <th lang ="en" style="display:none" class="dntinclude">Name</th>-->
 								<th lang="my">နေ့စွဲ</th>
@@ -464,6 +549,7 @@
 						<table id="firewoodCost" class="table table-bordered statistic-table">
 						<thead>
 							<tr>
+								<th style="display:none">အိုင်ဒီ</th>
 								<th lang="my">စဥ်</th>
 							   <!-- <th lang ="en" style="display:none" class="dntinclude">Name</th>-->
 								<th lang="my">နေ့စွဲ</th>
@@ -513,6 +599,7 @@
 						<table id="generalCost" class="table table-bordered statistic-table">
 						<thead>
 							<tr>
+								<th style="display:none">အိုင်ဒီ</th>
 								<th lang="my">စဥ်</th>
 							   <!-- <th lang ="en" style="display:none" class="dntinclude">Name</th>-->
 								<th lang="my">နေ့စွဲ</th>
@@ -562,6 +649,7 @@
 						<table id="landSide" class="table table-bordered statistic-table">
 						<thead>
 							<tr>
+								<th style="display:none">အိုင်ဒီ</th>
 								<th lang="my">စဥ်</th>
 							   <!-- <th lang ="en" style="display:none" class="dntinclude">Name</th>-->
 								<th lang="my">နေ့စွဲ</th>
