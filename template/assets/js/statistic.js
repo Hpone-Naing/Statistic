@@ -47,7 +47,7 @@ $(document).ready(function(){
             '<td data-statistic-attr="number"><input type="text" class="form-control" data-statistic-attr="number"></td>' +
             '<td data-statistic-attr="date"><input type="text" id="date" class="form-control" data-statistic-attr="date"  placeholder="yy-mm-dd"></td>' +
             '<td data-statistic-attr="subject"><input type="text" class="form-control" data-statistic-attr="subject"></td>' +
-			'<td data-statistic-attr="cost"><input type="text" class="form-control" data-statistic-attr="cost"></td>' +
+			'<td data-statistic-attr="cost"><input type="text" class="form-control" data-statistic-attr="cost" onclick="calculateCost(this)"></td>' +
 			'<td data-statistic-attr="note"><input type="text" class="form-control" data-statistic-attr="note"></td>' +
 			'<td class="dntinclude">' +
                             '<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>' +
@@ -108,7 +108,11 @@ $(document).ready(function(){
 	// Edit row on edit button click
 	$(document).on("click", ".edit", function(){		
         $(this).parents("tr").find("td:not(:last-child)").each(function(){
-			$(this).html('<input type="text" class="form-control" value="' + $(this).text() +'" data-statistic-attr="'+$(this).attr("data-statistic-attr")+'">');
+			if($(this).attr("data-statistic-attr") === 'cost') {
+					$(this).html('<input type="text" class="form-control" value="' + $(this).text() +'" data-statistic-attr="'+$(this).attr("data-statistic-attr")+'" onclick="calculateCost(this)">');
+			}else {
+				$(this).html('<input type="text" class="form-control" value="' + $(this).text() +'" data-statistic-attr="'+$(this).attr("data-statistic-attr")+'">');
+			}
 		});		
 		$(this).parents("tr").find(".add, .edit").toggle();
 		$(".add-new").attr("disabled", "disabled");
@@ -370,7 +374,6 @@ function HtmlTOExcel(type, fun) {
 	var trLength = $("#"+current_statistic_table_id +" tbody tr").length;
 	console.log("trLength: "+ trLength);
 	//for(var i =0; i<trLength; i++) {
-		$(table).find('tbody td:last-child').css("color", "blue");
 		var td =	 `<td class="dntinclude">
 										<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
 										<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
@@ -442,6 +445,47 @@ function downloadCSVFile(csv_data) {
             temp_link.click();
             document.body.removeChild(temp_link);
 }
+function blinker() {
+    $('.blink-me').fadeOut(200);
+    $('.blink-me').fadeIn(200);
+}
+setInterval(blinker, 500);
+
+function calculateCost(calculateBtn) {
+		console.log("here calculate cost......................................");
+		$(".calculator").show();
+		$(".card").hide();
+}
+
+
+
+function c(val) {  
+   // document.getElementById("d").value=val;  
+   $("#d").html(val);
+}  
+function v(val) {
+	//document.getElementById("d").value+=val;  
+	//var value = $("#d").val() += val;
+	$("#d").html($("#d").html() + val);
+}  
+function e() {  
+    try  
+        {
+			console.log("final res: " + $("#d").html())
+			c(eval($("#d").html()))
+			$('td [data-statistic-attr="cost"]').val(eval($("#d").html()));
+			$('.calculator').hide();
+			$('.card').show();
+        }  
+        catch(e)  
+        {  
+         c('Error') }  
+} 
+
+function backspace() {
+    var temp = $('#d').html();
+    $('#d').html(temp.substring(0, temp.length - 1));
+  }
 
 var statistic_table = $(".statistic-table");
 var current_statistic_container = $('.current');

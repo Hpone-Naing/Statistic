@@ -370,16 +370,56 @@
 					</div>
 				</div>
 			</form>
-					
-
-
-			
-			  
+ 
 			<form lang = "my" class="forms-sample">
 				<button lang="my" type="button" class="btn btn-primary btn-rounded btn-fw"  onclick="HtmlTOExcel('xlsx')">Excelအဖြစ်သိမ်းရန်</button>
 				<button lang="my" type="button" class="btn btn-success btn-rounded btn-fw" onclick="tableToCSV()">CSVအဖြစ်သိမ်းရန်</button>
 			</form>
 			
+			
+			
+<div class="container calculator" style="display:none">
+  <div class="calc-body">
+    <div class="calc-screen">
+      <div class="calc-operation" id="d"></div>
+	  <span class="blink-me">_</span>
+      <!--<div class="calc-typed"><span class="blink-me">_</span></div>-->
+    </div>
+    <div class="calc-button-row">
+      <div class="button c" onclick='c("")'>C</div>
+      <div class="button l" onclick='v("/")'>/</div>
+	  <div class="button c" onclick='backspace()'>CE</div>
+    </div>
+    <div class="calc-button-row">
+      <div class="button" onclick='v("7")'>7</div>
+      <div class="button" onclick='v("8")'>8</div>
+      <div class="button" onclick='v("9")'>9</div>
+      <div class="button l" onclick='v("*")'>*</div>
+    </div>
+    <div class="calc-button-row">
+      <div class="button" onclick='v("4")'>4</div>
+      <div class="button" onclick='v("5")'>5</div>
+      <div class="button" onclick='v("6")'>6</div>
+      <div class="button l" onclick='v("-")'>−</div>
+    </div>
+    <div class="calc-button-row">
+      <div class="button" onclick='v("1")'>1</div>
+      <div class="button" onclick='v("2")'>2</div>
+      <div class="button" onclick='v("3")'>3</div>
+      <div class="button l"onclick='v("+")'>+</div>
+    </div>
+    <div class="calc-button-row">
+      <div class="button" onclick='v(".")'>.</div>
+      <div class="button" onclick='v("0")'>0</div>
+      <div class="button">
+        <</div>
+          <div class="button l" value="=" onclick='e()'>=</div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
             <div class="row current" data-table-index = "first">
               <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
