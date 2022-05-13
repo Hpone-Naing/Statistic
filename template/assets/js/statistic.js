@@ -3,6 +3,7 @@ function loadStatisticList() {
 	var currentTableRow = $('#'+current_statistic_table_id+' tbody');
 	currentTableRow.find("tr").remove();
 	var number = 1;
+
 	getCollection(getPath()).orderByChild('status').equalTo('active').once('value', (snapshot) => {
 		snapshot.forEach((child) => {
 			const statistic = {};
@@ -216,11 +217,18 @@ searchStatistics1 = function(search1) {
 		} 
 }
 
-var ExcelToJSON = function() {
-	console.log("here excel to json.................................................")
-	paginationDestory(statistic_table);
-  	var actions = $("#"+current_statistic_table.attr("id")+" td:last-child").html();
-  this.parseExcel = function(file) {
+function ExcelDateToDate(excelDate, format) {
+  var date = new Date(Math.round((excelDate - (25567 + 1)) * 86400 * 1000));
+  return (date.getMonth()+1) + format + (date.getDate()-1) + format + date.getFullYear();
+}
+
+function convertDateToSpecificFormat(Date) {
+	
+}
+var ExcelToJSON = function(path) {
+	console.log("save excel file path: " + path)
+	var actions = $("#"+current_statistic_table.attr("id")+" td:last-child").html();
+	this.parseExcel = function(file) {
     var reader = new FileReader();
 
     reader.onload = function(e) {
@@ -234,16 +242,15 @@ var ExcelToJSON = function() {
 		console.log(productList);
 		keys = Object.keys(productList[0]);
 		console.log(keys);
-		console.log("excel file path: " + keys[0].split("-")[0]);
-		let path = keys[0].split("-")[0];
         // console.log(productList)
-        for (i = 1; i < productList.length; i++) {
+        for (i = 0; i < productList.length; i++) {
 			var statistic = new Object();
 			  var columns = Object.values(productList[i])
-			  var date = columns[0];
-			  var subject = columns[1];
-			  var cost = columns[2];
-			  var note = columns[3];
+			  var date = ExcelDateToDate(columns[2], "/");
+			  console.log("date: " + date);
+			  var subject = columns[3];
+			  var cost = columns[4];
+			  var note = columns[5];
 			  statistic.date = date;
 			  statistic.subject =subject;
 			  statistic.cost = cost;
@@ -269,10 +276,11 @@ function handleFileSelect(evt) {
   console.log("files..................." + files[0].name)
   var fileExtension = files[0].name.split('.')[1];
   console.log("file extensions:  " + fileExtension)
+  var path = files[0].name.split('_').slice(0,3).join("/");
   if(fileExtension === "xlsx" || fileExtension === "xls") {
 			errMsg.hide();
 			console.log("this is excel file");
-			var xl2json = new ExcelToJSON();
+			var xl2json = new ExcelToJSON(path);
 			xl2json.parseExcel(files[0]);
 		} else {
 			errMsg.show();
@@ -284,8 +292,7 @@ function handleFileSelect(evt) {
 document.getElementById('excel-file-upload').addEventListener('change', handleFileSelect, false);
 
 function choosePathToSaveExcelFile(path, statistic) {
-	console.log("here choosePathToSaveExcelFile");
-		save("statistic/"+path, statistic);
+		save(path, statistic);
 }
 
 function paginationDestory(table) {
@@ -367,21 +374,16 @@ function HtmlTOExcel(type, fun) {
 	var actionButtons = lastChild.html();
 	$(lastChild).remove();
     var wb = XLSX.utils.table_to_book(table, { sheet: "sheet1" });
-    //XLSX.writeFile(wb, fun || (getPath() + "_"+ getDate() + "." + (type || 'xlsx')));
-	//return dl ?
-    //    XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
-        XLSX.writeFile(wb, fun || (getPath() + "_"+ getDate() + "." + (type || 'xlsx')));
+    XLSX.writeFile(wb, fun || (getPath() + "_"+ getDate() + "." + (type || 'xlsx')));
 	var trLength = $("#"+current_statistic_table_id +" tbody tr").length;
 	console.log("trLength: "+ trLength);
-	//for(var i =0; i<trLength; i++) {
-		var td =	 `<td class="dntinclude">
-										<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-										<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-										<a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-					</td>`
+	var td =`<td class="dntinclude">
+				<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+				<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+				<a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+			</td>`
 									
-		$(table).find('tbody td:last-child').parent().append(td);
-	//}
+	$(table).find('tbody td:last-child').parent().append(td);
 }
 
 function tableToCSV() {
@@ -485,7 +487,57 @@ function e() {
 function backspace() {
     var temp = $('#d').html();
     $('#d').html(temp.substring(0, temp.length - 1));
-  }
+}
+
+
+/* for mobile 
+*/ 
+document.getElementById('content').addEventListener('touchstart', handleTouchStart, false);        
+document.getElementById('content').addEventListener('touchmove', handleTouchMove, false);
+
+var xDown = null;                                                        
+var yDown = null;
+
+function getTouches(evt) {
+  return evt.touches ||             // browser API
+         evt.originalEvent.touches; // jQuery
+}                                                     
+                                                                         
+function handleTouchStart(evt) {
+    const firstTouch = getTouches(evt)[0];                                      
+    xDown = firstTouch.clientX;                                      
+    yDown = firstTouch.clientY;                                      
+};                                                
+                                                                         
+function handleTouchMove(evt) {
+    if ( ! xDown || ! yDown ) {
+        return;
+    }
+
+    var xUp = evt.touches[0].clientX;                                    
+    var yUp = evt.touches[0].clientY;
+
+    var xDiff = xDown - xUp;
+    var yDiff = yDown - yUp;
+                                                                         
+    if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
+        if ( xDiff > 0 ) {
+            /* right swipe */ 
+        } else {
+            /* left swipe */
+			moveRightNextTable();
+        }                       
+    } else {
+        if ( yDiff > 0 ) {
+            /* down swipe */ 
+        } else { 
+            /* up swipe */
+        }                                                                 
+    }
+    /* reset values */
+    xDown = null;
+    yDown = null;                                             
+};
 
 var statistic_table = $(".statistic-table");
 var current_statistic_container = $('.current');
