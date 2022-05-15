@@ -521,11 +521,12 @@ function handleTouchMove(evt) {
     var yDiff = yDown - yUp;
                                                                          
     if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
-        if ( xDiff > 0 ) {
+        if ( xDiff > 50 ) {
             /* right swipe */ 
+			moveRightNextTable();
         } else {
             /* left swipe */
-			moveRightNextTable();
+			
         }                       
     } else {
         if ( yDiff > 0 ) {
