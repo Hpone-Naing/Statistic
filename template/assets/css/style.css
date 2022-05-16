@@ -9787,7 +9787,7 @@ input[type="button"].btn-block {
   color: #ffffff;
   text-align: left;
   list-style: none;
-  background-color: #191c24;
+  background-color: #7da0fd;/*#191c24;*/
   background-clip: padding-box;
   border: 1px solid #2c2e33;
   border-radius: 0.25rem; }
@@ -15430,7 +15430,8 @@ textarea:focus,
 button:focus {
   outline: none;
   outline-width: 0;
-  outline-color: transparent;
+  /*outline-color: transparent;*/
+  color : white;
   box-shadow: none;
   outline-style: none; }
 
@@ -15873,7 +15874,7 @@ code {
   font-weight: normal; }
 
 .bg-gray-dark {
-  background: #12151e; }
+  background: white;/*#12151e;*/ }
 
 .text-twitter {
   color: #2caae1; }
@@ -16930,7 +16931,7 @@ code {
   padding: 0.625rem 0.6875rem;
   background-color: #FDFDFD;/*#2A3038;*/
   border-radius: 2px;
-  color: #ffffff; }
+  color: balck;/*#ffffff;*/ }
   .form-control:focus, .asColorPicker-input:focus, .dataTables_wrapper select:focus, .jsgrid .jsgrid-table .jsgrid-filter-row input:focus[type=text],
   .jsgrid .jsgrid-table .jsgrid-filter-row select:focus, .jsgrid .jsgrid-table .jsgrid-filter-row input:focus[type=number], .select2-container--default .select2-selection--single:focus, .select2-container--default .select2-selection--single .select2-search__field:focus, .typeahead:focus,
   .tt-query:focus,
@@ -20378,9 +20379,9 @@ div.tagsinput {
       .navbar .navbar-brand-wrapper .navbar-brand.brand-logo-mini {
         display: none; }
         .navbar .navbar-brand-wrapper .navbar-brand.brand-logo-mini img {
-          width: calc(120px - 50px);/*calc(70px - 50px);*/
-          max-width: 200%;/*100%;*/
-          height: 60px;/*28px;*/
+          width: calc(130px - 60px);/*calc(70px - 50px);*/
+          max-width: 120%;/*100%;*/
+          height: 50px;/*28px;*/
           margin: auto; }
   .navbar .navbar-menu-wrapper {
     transition: width 0.25s ease;
@@ -20594,7 +20595,8 @@ div.tagsinput {
       background: #191c24;
       padding: 13px 20px 11px 20px;
       border: 1px solid #2c2e33; }
-      .navbar .navbar-menu-wrapper .search input::placeholder {
+      
+	  .search input::placeholder {
         color: #6c7293;
         font-size: 0.875rem; }
 
@@ -20613,7 +20615,7 @@ div.tagsinput {
 
 @media (max-width: 480px) {
   .navbar .navbar-brand-wrapper {
-    width: 90px; }
+    width: 60px; }
     .navbar .navbar-brand-wrapper .brand-logo-mini {
       padding-top: 0px; } }
 
@@ -21249,7 +21251,7 @@ table.table td a {
     min-width: 24px;
 } 
 table.table td a.add {
-    color: #27C46B;
+    color: #079917;/*#27C46B;*/
 }
 table.table td a.edit {
     color: #FFC107;
@@ -21604,4 +21606,12 @@ calculator
 
 .blink-me {
   color: #576BD7;
+}
+
+/*
+for cross button in configuration page
+*/
+.mdi-36px.mdi-set, .mdi-36px.mdi::before {
+  font-size: 36px;
+  color: #3e85c4;
 }
