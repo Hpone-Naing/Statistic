@@ -15,18 +15,17 @@ function loadStatisticList() {
 			//console.log("id / date / subject / cost / note " + id + " / " + date + " / " + subject + " / " + cost + " / " + note)
 			var tr = `
 								<tr>
-									<td data-statistic-attr="id" style="display:none">${id}</td>
 									<td>${number++}</td>
 									<td data-statistic-attr="date">${date}</td>
 									<td data-statistic-attr="subject">${subject}</td>
 									<td data-statistic-attr="cost">${cost}</td>
 									<td data-statistic-attr="note">${note}</td>
+									<td data-statistic-attr="id" style="display:none">${id}</td>
 									<td class="dntinclude">
 										<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
 										<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
 										<a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
 									</td>
-									
 								</tr>
 							`
 			currentTableRow.append(tr);
@@ -240,22 +239,26 @@ var ExcelToJSON = function(path) {
         var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
         var productList = JSON.parse(JSON.stringify(XL_row_object));
 		console.log(productList);
-		keys = Object.keys(productList[0]);
-		console.log(keys);
         // console.log(productList)
         for (i = 0; i < productList.length; i++) {
 			var statistic = new Object();
 			  var columns = Object.values(productList[i])
-			  var date = ExcelDateToDate(columns[2], "/");
-			  console.log("date: " + date);
-			  var subject = columns[3];
-			  var cost = columns[4];
-			  var note = columns[5];
+			  var date = ExcelDateToDate(columns[1], "/");
+			  var subject = columns[2];
+			  var cost = columns[3];
+			  var note = columns[4];
+			  var id = columns[5];
 			  statistic.date = date;
 			  statistic.subject =subject;
 			  statistic.cost = cost;
 			  statistic.note = note;
+			  if(id === undefined) {
+				  statistic.id = 'newData';
+			  }else {
+				  statistic.id = id;
+			  }
 			  statistic.status = 'active';
+			  console.log(statistic);
 			  choosePathToSaveExcelFile(path, statistic);
 			  
         }
@@ -292,7 +295,13 @@ function handleFileSelect(evt) {
 document.getElementById('excel-file-upload').addEventListener('change', handleFileSelect, false);
 
 function choosePathToSaveExcelFile(path, statistic) {
-		save(path, statistic);
+		if(statistic.id === 'newData') {
+			console.log("new Data.")
+			save(path, statistic);
+		} else {
+			console.log("existing Data.")
+			update(statistic, path, statistic.id);
+		}
 }
 
 function paginationDestory(table) {
@@ -368,8 +377,11 @@ function HtmlTOExcel(type, fun, dl) {
 function HtmlTOExcel(type, fun) {
     var table = document.getElementById(current_statistic_table_id);
 	console.log("current table id: " + $(table).attr("id"));
-	var index = $("#"+current_statistic_table_id +" tbody td:last-child").index();
-	console.log("index:  " + index);
+	
+	var thlastChild = $(table).find('thead th:last-child');
+	var actionButtons = thlastChild.html();
+	$(thlastChild).remove();
+	
 	var lastChild = $(table).find('tbody td:last-child');
 	var actionButtons = lastChild.html();
 	$(lastChild).remove();
@@ -377,12 +389,16 @@ function HtmlTOExcel(type, fun) {
     XLSX.writeFile(wb, fun || (getPath() + "_"+ getDate() + "." + (type || 'xlsx')));
 	var trLength = $("#"+current_statistic_table_id +" tbody tr").length;
 	console.log("trLength: "+ trLength);
+	
+	var th = `<th lang="my" class="dntinclude">လုပ်ဆောင်ချက်များ</th>`
+	
 	var td =`<td class="dntinclude">
 				<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
 				<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
 				<a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
 			</td>`
 									
+	$(table).find('thead th:last-child').parent().append(th);
 	$(table).find('tbody td:last-child').parent().append(td);
 }
 
@@ -521,7 +537,7 @@ function handleTouchMove(evt) {
     var yDiff = yDown - yUp;
                                                                          
     if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
-        if ( xDiff > 10 ) {
+        if ( xDiff > 30 ) {
             /* right swipe */ 
 			moveRightNextTable();
         } else {

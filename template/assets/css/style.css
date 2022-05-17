@@ -9929,7 +9929,7 @@ input[type="button"].btn-block {
   .dropdown-item:hover, .dropdown-item:focus {
     color: #16181b;
     text-decoration: none;
-    background-color: #13151b; }
+    background-color: #4b82b3;/*#13151b;*/ }
   .dropdown-item.active, .dropdown-item:active {
     color: #fff;
     text-decoration: none;
@@ -20532,7 +20532,8 @@ div.tagsinput {
               padding: 11px 13px;
               cursor: pointer; }
               .navbar .navbar-menu-wrapper .navbar-nav .nav-item.dropdown .dropdown-menu.navbar-dropdown .dropdown-item:hover {
-                color: #fff; }
+                color: #fff; 
+				background-color: #4b82b3;}
               .navbar .navbar-menu-wrapper .navbar-nav .nav-item.dropdown .dropdown-menu.navbar-dropdown .dropdown-item i {
                 font-size: 17px; }
               .navbar .navbar-menu-wrapper .navbar-nav .nav-item.dropdown .dropdown-menu.navbar-dropdown .dropdown-item .ellipsis {
