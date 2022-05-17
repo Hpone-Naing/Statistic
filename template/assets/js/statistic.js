@@ -492,8 +492,8 @@ function backspace() {
 
 /* for mobile 
 */ 
-document.getElementById('content').addEventListener('touchstart', handleTouchStart, false);        
-document.getElementById('content').addEventListener('touchmove', handleTouchMove, false);
+document.getElementById('touchmobileara').addEventListener('touchstart', handleTouchStart, false);        
+document.getElementById('touchmobileara').addEventListener('touchmove', handleTouchMove, false);
 
 var xDown = null;                                                        
 var yDown = null;
