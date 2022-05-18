@@ -1,5 +1,6 @@
 function loadStatisticList() {
 	//console.log("select brick kiln: " + selectedBrickKiln);
+	paginationDestory(current_statistic_table);
 	var currentTableRow = $('#'+current_statistic_table_id+' tbody');
 	currentTableRow.find("tr").remove();
 	var number = 1;
@@ -30,6 +31,9 @@ function loadStatisticList() {
 							`
 			currentTableRow.append(tr);
 		});
+		 $(document).ready(function() {
+                    $('#'+current_statistic_table_id).DataTable();
+         });
 	})
 }
 
@@ -38,7 +42,7 @@ $(document).ready(function(){
 	//$('[data-toggle="tooltip"]').tooltip();
 		// Append table with add row form on add new button click
     $(".add-new").click(function(){
-		paginationDestory(statistic_table);
+		paginationDestory(current_statistic_table);
 		console.log("here add new button ..")
 		$(this).attr("disabled", "disabled");
 		var index = $("#"+current_statistic_table.attr("id") +" tbody tr:last-child").index();
@@ -104,6 +108,8 @@ $(document).ready(function(){
 			$(this).parents("tr").find(".add, .edit").toggle();
 			$(".add-new").removeAttr("disabled");
 		}	
+		loadStatisticList();
+		//$('#'+current_statistic_table_id).DataTable();
     });
 	// Edit row on edit button click
 	$(document).on("click", ".edit", function(){		
@@ -121,6 +127,7 @@ $(document).ready(function(){
 	// Delete row on delete button click
 	$(document).on("click", ".delete", function(){
 		//$('#statisticTableId').DataTable();
+		paginationDestory(current_statistic_table);
 		var deletedStatistic = new Object();
         $(this).parents("tr").remove();
 		deletedStatistic.date = $(this).parents("tr").find('[data-statistic-attr="date"]').html();
@@ -131,25 +138,23 @@ $(document).ready(function(){
 		deletedStatistic.status = 'inactive';
 		console.log(deletedStatistic);
 		//var path = 'statistic/'+current_statistic_table_id;
-		update(deletedStatistic, getPath(), deletedStatistic.elementId);
-	
-		
+		update(deletedStatistic, getPath(), deletedStatistic.elementId);		
 		$(".add-new").removeAttr("disabled");
+		$('#'+current_statistic_table_id).DataTable();
     });
-
 });
 
 searchStatistics = function(search) {
 	console.log("here search statistic:...................");
 	var matchRow = 0;
-	//paginationDestory(statistic_table);
+	paginationDestory(current_statistic_table);
 	var searchBtn = $(search);	
 		current_statistic_table.find("tbody, tr").show();	
 		let searchString = "";
 		var searchKey = searchBtn.val().trim();
 		//console.log("search key: " + searchKey);
 		if(searchKey === "" || searchKey === null) {
-				//$('#' +current_statistic_table.attr('id')).DataTable();
+				$('#' +current_statistic_table.attr('id')).DataTable();
 			
 		}
 	    $("document").ready(function() {
@@ -159,7 +164,7 @@ searchStatistics = function(search) {
 					var colVal = $(element).text();
 					//console.log("colval: " + colVal);
 					console.log("index / colval: " + index + " / " + colVal);
-					if(index > 0 ) {
+					if(index !=5 ) {
 						searchString = searchString.concat("/", colVal.trim());
 					}
 				});
@@ -169,9 +174,9 @@ searchStatistics = function(search) {
 						}
 						else {
 									console.log("match: searchKey / searchString: " + searchKey + " / " + searchString);
-									/*if(matchRow++ >= 9) {
-										//$('#' +current_statistic_table.attr('id')).DataTable();
-									}*/
+									if(matchRow++ >= 9) {
+										$('#' +current_statistic_table.attr('id')).DataTable();
+									}
 						}
 						searchString = "";
 
@@ -274,6 +279,7 @@ var ExcelToJSON = function(path) {
 };
 
 function handleFileSelect(evt) {
+	paginationDestory(current_statistic_table);
   var errMsg = $('span[name="errormsg"]');
   var files = evt.target.files; // FileList object
   console.log("files..................." + files[0].name)
@@ -285,11 +291,12 @@ function handleFileSelect(evt) {
 			console.log("this is excel file");
 			var xl2json = new ExcelToJSON(path);
 			xl2json.parseExcel(files[0]);
-		} else {
+	} else {
 			errMsg.show();
 			console.log("this is not excel file")
 			errMsg.html("Please select excel file.");
-		}
+	}
+	 $('#'+current_statistic_table_id).DataTable();
 }
 
 document.getElementById('excel-file-upload').addEventListener('change', handleFileSelect, false);
@@ -375,6 +382,7 @@ function HtmlTOExcel(type, fun, dl) {
 */
 
 function HtmlTOExcel(type, fun) {
+	paginationDestory(current_statistic_table);
     var table = document.getElementById(current_statistic_table_id);
 	console.log("current table id: " + $(table).attr("id"));
 	
@@ -400,10 +408,12 @@ function HtmlTOExcel(type, fun) {
 									
 	$(table).find('thead th:last-child').parent().append(th);
 	$(table).find('tbody td:last-child').parent().append(td);
+	 $('#'+current_statistic_table_id).DataTable();
 }
 
 function tableToCSV() {
             // Variable to store the final csv data
+			paginationDestory(current_statistic_table);
             var csv_data = [];
 			csv_data.push(
 				[
@@ -433,12 +443,12 @@ function tableToCSV() {
             csv_data = csv_data.join('\n');
  
             // Call this function to download csv file 
+			 $('#'+current_statistic_table_id).DataTable();
             downloadCSVFile(csv_data);
  
 }
 
 function downloadCSVFile(csv_data) {
- 
             // Create CSV file object and feed
             // our csv_data into it
             CSVFile = new Blob([csv_data], {
@@ -537,7 +547,7 @@ function handleTouchMove(evt) {
     var yDiff = yDown - yUp;
                                                                          
     if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
-        if ( xDiff > 30 ) {
+        if ( xDiff > 20 ) {
             /* right swipe */ 
 			moveRightNextTable();
         } else {
