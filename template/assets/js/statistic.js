@@ -61,7 +61,7 @@ $(document).ready(function(){
 		
 		$(".table thead th").each(function(index, thead) {
 			console.log("thead value: " + $(thead).html());
-			if($(thead).html()=== new String("နေ့စွဲ").replace("\u200B", "") || $(thead).html()==='ရက်စွဲ' || $(thead).html()==='ဒိတ်' || $(thead).html()==='date') {
+			if($(thead).html().replace("\u200B", "") === new String("နေ့စွဲ").replace("\u200B", "") || $(thead).html()==='ရက်စွဲ' || $(thead).html()==='ဒိတ်' || $(thead).html()==='date') {
 				console.log("here match: " + index);
 				$('.table td:nth-child('+(index+1)+')').children().addClass("datepicker");
 
