@@ -276,7 +276,14 @@
                 <div class="dropdown-menu  navbar-dropdown preview-list" aria-labelledby="notificationDropdown" style="position: absolute; transform: translate3d(1px, 74px, 0px); top: 0px; left: 0px; will-change: transform;">
                   <h6 class="p-3 mb-0">ဖို</h6>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item" onclick="changeBrickKiln(this)">
+				  <a class="dropdown-item preview-item addNewItem">
+                    <div class="preview-item-content" onclick="addNewSelect()">
+						<span class="mdi mdi-plus-circle mdi-36px" onclick="prepareTableHeading()"></span>
+
+                    </div>
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <!--<a class="dropdown-item preview-item" onclick="changeBrickKiln(this)">
                     <div class="preview-thumbnail">
                       <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-calendar text-success"></i>
@@ -287,7 +294,7 @@
                     </div>
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item" onclick="changeBrickKiln(this)">
+                  <!--<a class="dropdown-item preview-item" onclick="changeBrickKiln(this)">
                     <div class="preview-thumbnail">
                       <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-settings text-danger"></i>
@@ -340,7 +347,7 @@
                     <div class="preview-item-content">
                       <p class="text-muted ellipsis mb-0" data-selected-value="brickKiln6"> ဖို၆အတွက်သက်ဆိုင်သောစာရင်းများ </p>
                     </div>
-                  </a>
+                  </a>-->
                 </div>
             </form>
 			  
@@ -419,8 +426,58 @@
   </div>
   
   </div>
-  
-            <div class="row current" data-table-index = "first">
+			<form>
+				<div class="displaytablebtn-plus radius" name="displayTableBtn" onclick="displayTableArea()"></div>
+			</form>
+			<div class="row table-area" style="display:none">
+              <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="table-responsive">
+					<div class="table-title">
+						<div class="row">
+
+							<div lang="my" class="col-sm-8"><h2 class="title" data-table-title="default" style="display:inline">စာရင်းခေါင်းစဥ်ထည့်ရန်</h2>
+								<a class="change-title" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+							</div>
+
+							<div class="col-sm-4">
+								<button lang ="en" type="button" class="btn btn-info add-new" style="display:none"><i class="fa fa-plus"></i> Add New</button>
+								<button lang="my" type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> အသစ်ထည့်ပါ</button>
+
+							</div>
+						</div>
+					</div>
+					
+					<form class="theadCreationForm">
+						<div class="show-more">
+									<span style="cursor:pointer" onclick="showStatisticCreationArea()">............စာရင်းဇယားပြုလုပ်ရန်နှိပ်ပါ.............</span>
+						</div>
+						<div class="card thead-creation-area" style="display:none">
+							<div class="card-body">
+								<div class="row theadCreationRow"> 
+									<span class="mdi mdi-plus-circle mdi-36px" onclick="prepareTableHeading()"></span>
+									<span class="mdi mdi-checkbox-marked-circle-outline mdi-36px" onclick="createTableHeading()"></span>
+								</div>
+							</div>
+							
+	
+	
+						</div>
+					</form>
+										
+					<table class="table table-bordered">
+						<thead></thead>
+						<tbody></tbody>
+					</table>
+			
+			
+                    </div>
+                  </div>
+                </div>
+              </div>
+			  
+            <!--<div class="row current" data-table-index = "first">
               <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
@@ -441,17 +498,13 @@
 						<thead>
 							<tr>
 								<th lang="my">စဥ်</th>
-							   <!-- <th lang ="en" style="display:none" class="dntinclude">Name</th>-->
 								<th lang="my">နေ့စွဲ</th>
 
-							   <!-- <th lang ="en" style="display:none" class="dntinclude">Address</th>-->
 								<th lang="my">အကြောင်းအရာ</th>
 
-							   <!-- <th lang ="en" style="display:none" class="dntinclude">Phone</th>-->
 								<th lang="my">သုံးစွဲငွေ</th>
 								<th lang="my">မှတ်ချက်</th>
 								<th style="display:none">အိုင်ဒီ</th>
-								<!--<th lang ="en" class="dntinclude" style="display:none" >Actions</th>-->
 								<th lang="my" class="dntinclude">လုပ်ဆောင်ချက်များ</th>
 							</tr>
 						</thead>
@@ -489,17 +542,13 @@
 						<thead>
 							<tr>
 								<th lang="my">စဥ်</th>
-							   <!-- <th lang ="en" style="display:none" class="dntinclude">Name</th>-->
 								<th lang="my">နေ့စွဲ</th>
 
-							   <!-- <th lang ="en" style="display:none" class="dntinclude">Address</th>-->
 								<th lang="my">အကြောင်းအရာ</th>
 
-							   <!-- <th lang ="en" style="display:none" class="dntinclude">Phone</th>-->
 								<th lang="my">သုံးစွဲငွေ</th>
 								<th lang="my">မှတ်ချက်</th>
 								<th style="display:none">အိုင်ဒီ</th>
-								<!--<th lang ="en" class="dntinclude" style="display:none" >Actions</th>-->
 								<th lang="my" class="dntinclude">လုပ်ဆောင်ချက်များ</th>
 							</tr>
 						</thead>
@@ -538,17 +587,13 @@
 						<thead>
 							<tr>
 								<th lang="my">စဥ်</th>
-							   <!-- <th lang ="en" style="display:none" class="dntinclude">Name</th>-->
 								<th lang="my">နေ့စွဲ</th>
 
-							   <!-- <th lang ="en" style="display:none" class="dntinclude">Address</th>-->
 								<th lang="my">အကြောင်းအရာ</th>
 
-							   <!-- <th lang ="en" style="display:none" class="dntinclude">Phone</th>-->
 								<th lang="my">သုံးစွဲငွေ</th>
 								<th lang="my">မှတ်ချက်</th>
 								<th style="display:none">အိုင်ဒီ</th>
-								<!--<th lang ="en" class="dntinclude" style="display:none" >Actions</th>-->
 								<th lang="my" class="dntinclude">လုပ်ဆောင်ချက်များ</th>
 							</tr>
 						</thead>
@@ -587,17 +632,13 @@
 						<thead>
 							<tr>
 								<th lang="my">စဥ်</th>
-							   <!-- <th lang ="en" style="display:none" class="dntinclude">Name</th>-->
 								<th lang="my">နေ့စွဲ</th>
 
-							   <!-- <th lang ="en" style="display:none" class="dntinclude">Address</th>-->
 								<th lang="my">အကြောင်းအရာ</th>
 
-							   <!-- <th lang ="en" style="display:none" class="dntinclude">Phone</th>-->
 								<th lang="my">သုံးစွဲငွေ</th>
 								<th lang="my">မှတ်ချက်</th>
 								<th style="display:none">အိုင်ဒီ</th>
-								<!--<th lang ="en" class="dntinclude" style="display:none" >Actions</th>-->
 								<th lang="my" class="dntinclude">လုပ်ဆောင်ချက်များ</th>
 							</tr>
 						</thead>
@@ -636,17 +677,13 @@
 						<thead>
 							<tr>
 								<th lang="my">စဥ်</th>
-							   <!-- <th lang ="en" style="display:none" class="dntinclude">Name</th>-->
 								<th lang="my">နေ့စွဲ</th>
 
-							   <!-- <th lang ="en" style="display:none" class="dntinclude">Address</th>-->
 								<th lang="my">အကြောင်းအရာ</th>
 
-							   <!-- <th lang ="en" style="display:none" class="dntinclude">Phone</th>-->
 								<th lang="my">သုံးစွဲငွေ</th>
 								<th lang="my">မှတ်ချက်</th>
 								<th style="display:none">အိုင်ဒီ</th>
-								<!--<th lang ="en" class="dntinclude" style="display:none" >Actions</th>-->
 								<th lang="my" class="dntinclude">လုပ်ဆောင်ချက်များ</th>
 							</tr>
 						</thead>
@@ -685,17 +722,13 @@
 						<thead>
 							<tr>
 								<th lang="my">စဥ်</th>
-							   <!-- <th lang ="en" style="display:none" class="dntinclude">Name</th>-->
 								<th lang="my">နေ့စွဲ</th>
 
-							   <!-- <th lang ="en" style="display:none" class="dntinclude">Address</th>-->
 								<th lang="my">အကြောင်းအရာ</th>
 
-							   <!-- <th lang ="en" style="display:none" class="dntinclude">Phone</th>-->
 								<th lang="my">သုံးစွဲငွေ</th>
 								<th lang="my">မှတ်ချက်</th>
 								<th style="display:none">အိုင်ဒီ</th>
-								<!--<th lang ="en" class="dntinclude" style="display:none" >Actions</th>-->
 								<th lang="my" class="dntinclude">လုပ်ဆောင်ချက်များ</th>
 							</tr>
 						</thead>
@@ -709,7 +742,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div>-->
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->

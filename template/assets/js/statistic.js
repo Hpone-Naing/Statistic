@@ -42,7 +42,35 @@ $(document).ready(function(){
 	//$('[data-toggle="tooltip"]').tooltip();
 		// Append table with add row form on add new button click
     $(".add-new").click(function(){
-		paginationDestory(current_statistic_table);
+		
+		$(this).attr("disabled", "disabled");
+		var index = $(".table tbody tr:last-child").index();
+		var theadLength = $(".table thead tr th").length;
+		var tr = '<tr>'
+		for(var i=0;i<theadLength-2;i++) {
+			tr += `<td data-tbody-index=${i}><input type="text" class="form-control" data-tbody-index=${i}></td>`
+		}
+		tr +='<td data-tbody-index="id"><input type="text" class="form-control" data-tbody-index="id" value="newData"></td>'
+		tr +='<td class="dntinclude">' +
+                            '<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>' +
+                            '<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>' +
+                            '<a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>' +
+                        '</td></tr>'
+		$(".table tbody").append(tr);
+		$(".table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+		
+		
+		$(".table thead th").each(function(index, thead) {
+			console.log("thead value: " + $(thead).html());
+			if($(thead).html()==='နေ့စွဲ' || $(thead).html()==='ရက်စွဲ' || $(thead).html()==='ဒိတ်' || $(thead).html()==='date') {
+				console.log("here match: " + index);
+				$('.table td:nth-child('+(index+1)+')').children().addClass("datepicker");
+
+			}
+		});
+			$(".datepicker").datepicker();
+
+		/*paginationDestory(current_statistic_table);
 		console.log("here add new button ..")
 		$(this).attr("disabled", "disabled");
 		var index = $("#"+current_statistic_table.attr("id") +" tbody tr:last-child").index();
@@ -63,7 +91,7 @@ $(document).ready(function(){
 		$("#"+current_statistic_table.attr("id") +" tbody tr").eq(index + 1).find(".add, .edit").toggle();
 		$("#date").datepicker();
 		//$("#" + current_statistic_table.attr("id") +"tbody tr").eq(index + 1).find(".add, .edit").toggle();
-        //$('[data-toggle="tooltip"]').tooltip();
+        //$('[data-toggle="tooltip"]').tooltip();*/
     });
 	// Add row on add button click
 	$(document).on("click", ".add", function(){
@@ -97,9 +125,9 @@ $(document).ready(function(){
 			console.log(updatedStatistic);
 			console.log("current table id: " + current_statistic_table.attr("id"));
 			if(id === 'newData') {
-				save(getPath(), updatedStatistic);
+				//save(getPath(), updatedStatistic);
 			} else {
-				update(updatedStatistic,getPath(),updatedStatistic.elementId);
+				//update(updatedStatistic,getPath(),updatedStatistic.elementId);
 			}
 			
 			input.each(function(){
@@ -565,6 +593,143 @@ function handleTouchMove(evt) {
     xDown = null;
     yDown = null;                                             
 };
+
+function displayTableArea() { 
+	$('.table-area').show();
+	$('div[name="displayTableBtn"]').hide();
+}
+
+function addTitle(title) {
+	console.log("here addtitle..........")
+	newTitle = $(title);
+	console.log("value: " + newTitle.val());
+	newTitle.parent().html(newTitle.val());
+}
+
+$(document).ready(function(){
+	$(".change-title").click(function(){
+		$(this).parent().find(".title").html("<input type='text' class='form-control' style='width:auto; display:inline' onblur='addTitle(this)'>");
+		
+	});
+});
+
+
+var showColumnId = 1;
+var hideColumnId = 1;
+
+function prepareTableHeading() {
+	var tableHeadCreateBtn =  `<th>
+									<a class="showColumn" title="activate" data-toggle="tooltip" data-show-column=${showColumnId++} onclick="showColumn(this)"  style="display:none"><i class="material-icons">done</i></a>
+									<a class="hideColumn" title="Inactivate" data-toggle="tooltip" data-hide-column=${hideColumnId++} onclick="hideColumn(this)"><i class="material-icons">&#xE872;</i></a>
+									<input class="form-control theadValue" type="text" placeholder="ခေါင်းစဥ်ထည့်ရန်" required>
+								</th>`
+	$(".theadCreationRow").append(tableHeadCreateBtn);
+	$("theadCreationRow th").find(".edit, .delete").toggle();
+	//$("#tableHeadCreation").html(tr);	
+}
+
+function hideColumn(hideColumn) {
+	console.log("heelo hide");
+	var hideColumnId = $(hideColumn).attr("data-hide-column");
+	console.log("id: " +hideColumnId );
+	$('.table td:nth-child('+hideColumnId+'),.table th:nth-child('+hideColumnId+')').hide();
+	$(hideColumn).hide();
+	$(hideColumn).parent().find(".showColumn").show();
+}
+
+function showColumn(showColumn) {
+	console.log("heelo show");
+	var showColumnId = $(showColumn).attr("data-show-column");
+	console.log("id: " +showColumnId );
+	$('.table td:nth-child('+showColumnId+'),.table th:nth-child('+showColumnId+')').show();
+	$(showColumn).hide();
+	$(showColumn).parent().find(".hideColumn").show();
+}
+
+function createTableHeading() {
+	$(".show-more").show();
+	$(".thead-creation-area").hide();
+	var oldTheadLength = $(".table thead tr th").length; 
+	$(".table thead").find("tr").remove();
+	let theadRow ="<tr>";
+	$(".theadValue").each(function(index, thead) {
+			const theadValue = $(thead).val();
+			theadRow += `<th data-thead-index=th${index}>${theadValue}</th>`
+	});
+	theadRow += '<th data-thead-index=thid">id</th>	<th lang="my" class="dntinclude">လုပ်ဆောင်ချက်များ</th></tr>';
+	$('.table thead').append(theadRow);
+	console.log("tbody length: " + $('.table tbody tr').length);
+	var newTheadLength = $(".table thead tr th").length; 
+	
+	if($('.table tbody tr').length > 0) {
+		var theadLength = $(".table thead tr th").length;
+		var existingTdValue = "";
+		console.log("old thead length: " + oldTheadLength);
+		$('.table tbody').find("tr").each(function(){
+			var tr = '<tr>'
+			for(var j=0;j<theadLength-2;j++) {
+				if(j<oldTheadLength-2) {
+					if($(this).children("td").find("input").length ===0) {
+						existingTdValue = $(this).find("td").eq(j).html();
+						console.log("existing val without child textbox: " + existingTdValue);
+					} else {
+						existingTdValue = $(this).find("td").eq(j).children("input").val();
+						console.log("existing val with child textbox: " + existingTdValue);
+					}
+				} else {
+					existingTdValue = "";
+				}
+				console.log("existing value: " + existingTdValue)
+				tr += `<td data-tbody-index=${j}><input type="text" class="form-control" data-tbody-index=${j} value=${existingTdValue}></td>`
+			}
+			if($(this).children("td").find("input").length ===0) {
+				id = $(this).find("td").eq(oldTheadLength-2).html();
+			} else {
+				id = $(this).find("td").eq(oldTheadLength-2).children("input").val();
+			}
+			tr += `<td data-tbody-index="id"><input type="text" class="form-control" data-tbody-index="id" value=${id}></td>`
+			tr +='<td class="dntinclude">' +
+								'<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>' +
+								'<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>' +
+								'<a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>' +
+							'</td></tr>'
+			
+			$(this).remove();
+			$(".table tbody").append(tr);
+		});		
+		var index = $(".table tbody tr:last-child").index();
+		$(".table tbody tr").children().find(".add, .edit").toggle();
+	}	
+}
+
+function addNewSelect() {
+	var item = `<a class="dropdown-item preview-item" >
+                    <div class="preview-thumbnail">
+                      <div class="preview-icon bg-dark rounded-circle">
+                        <i class="mdi mdi-close-circle-outline text-danger"></i>
+                      </div>
+                    </div>
+                    <div class="preview-item-content">
+                      <p class="text-muted ellipsis mb-0 selected">
+									<input class="form-control selected-item" type="text" placeholder="ဖိုနာမည်" required onblur="addItem(this)">
+								</th>
+					  </p>
+                    </div>
+                  </a>
+                  <div class="dropdown-divider"></div>`
+	//$('.dropdown-menu').append(item);
+	$(item).insertBefore('.addNewItem');
+}
+
+function addItem(item) {
+	newItem = $(item);
+	newItem.parent().html(newItem.val());
+}
+
+function showStatisticCreationArea() {
+	$(".show-more").hide();
+	$(".thead-creation-area").show();
+}
 
 var statistic_table = $(".statistic-table");
 var current_statistic_container = $('.current');

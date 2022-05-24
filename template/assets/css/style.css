@@ -21616,3 +21616,52 @@ for cross button in configuration page
   font-size: 36px;
   color: #3e85c4;
 }
+
+/*
+for plus button in statistic menu
+*/
+.displaytablebtn-plus {
+  --b:4px; /* the thickness */
+  width:40px; /* the size */
+  aspect-ratio:1/1;
+  border:10px solid #000; /* the outer space */
+  background:
+    conic-gradient(from 90deg at var(--b) var(--b),#000 90deg,#fff 0) 
+    calc(100% + var(--b)/2) calc(100% + var(--b)/2)/
+    calc(50%  + var(--b))   calc(50%  + var(--b));
+  display:inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+.createtheadbtn-plus {
+	--b:3px; /* the thickness */
+  width:30px; /* the size */
+  aspect-ratio:1/1;
+  border:10px solid #00ac4a; /* the outer space */
+  background:
+    conic-gradient(from 90deg at var(--b) var(--b),#4d9d65 90deg,#fff 0) 
+    calc(100% + var(--b)/2) calc(100% + var(--b)/2)/
+    calc(50%  + var(--b))   calc(50%  + var(--b));
+  display:inline-block;
+}
+.radius {
+  border-radius:50%;
+}
+
+.theadValue {
+	  width: 120px;
+  border-color: black;
+  border-radius: 6px;
+  color:black;
+    font-family: 'Roboto';
+}
+
+.theadCreationRow{
+	display: block;
+	width: 100%;
+	overflow-x: auto;
+}
