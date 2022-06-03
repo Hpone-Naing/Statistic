@@ -8828,7 +8828,7 @@ pre {
 .tt-query,
 .tt-hint {
   display: block;
-  width: 100%;
+  /*width: 100%;*/
   height: 2.875rem;
   padding: 0.56rem 0.75rem;
   font-size: 0.875rem;

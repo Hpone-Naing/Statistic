@@ -1,7 +1,29 @@
-function loadStatisticList() {
+function loadBrickKilns() {
+	getCollection(getPath(null,"selectBoxData")).orderByChild('status').equalTo('active').once('value', (snapshot) => {
+		snapshot.forEach((child) => {
+			var id = child.key;
+			var brickKilnNumber = child.val().selectBoxIndex;
+			var brickKilnName = child.val().selectBoxValue;
+			var item = `<a class="dropdown-item preview-item" onclick="chooseItem(this)">
+                    <div class="preview-thumbnail">
+                      <div class="preview-icon bg-dark rounded-circle">
+                        <i class="mdi mdi-close-circle-outline text-danger"></i>
+                      </div>
+                    </div>
+                    <div class="preview-item-content">
+                      <p class="text-muted ellipsis mb-0 select-item"  data-select-id = ${id} data-select-number = ${brickKilnNumber}>${brickKilnName}</p>
+                    </div>
+                  </a>
+                  <div class="dropdown-divider"></div>`
+			$(item).insertBefore('.addNewItem');
+		});
+	});
+}
+
+/*function loadStatisticList() {
 	//console.log("select brick kiln: " + selectedBrickKiln);
-	paginationDestory(current_statistic_table);
-	var currentTableRow = $('#'+current_statistic_table_id+' tbody');
+	//paginationDestory(current_statistic_table);
+	//var currentTableRow = $('#'+current_statistic_table_id+' tbody');
 	currentTableRow.find("tr").remove();
 	var number = 1;
 
@@ -35,7 +57,7 @@ function loadStatisticList() {
                     $('#'+current_statistic_table_id).DataTable();
          });
 	})
-}
+}*/
 
 
 $(document).ready(function(){
@@ -48,9 +70,9 @@ $(document).ready(function(){
 		var theadLength = $(".table thead tr th").length;
 		var tr = '<tr>'
 		for(var i=0;i<theadLength-2;i++) {
-			tr += `<td data-tbody-index=${i}><input type="text" class="form-control" data-tbody-index=${i}></td>`
+			tr += `<td data-column-index=${i}><input type="text" class="form-control" data-column-index=${i}></td>`
 		}
-		tr +='<td data-tbody-index="id"><input type="text" class="form-control" data-tbody-index="id" value="newData"></td>'
+		tr +='<td data-column-index="id" style="display:none"><input type="text" class="form-control" data-column-index="id" value="newData"></td>'
 		tr +='<td class="dntinclude">' +
                             '<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>' +
                             '<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>' +
@@ -69,83 +91,58 @@ $(document).ready(function(){
 		});
 			$(".datepicker").datepicker();
 
-		/*paginationDestory(current_statistic_table);
-		console.log("here add new button ..")
-		$(this).attr("disabled", "disabled");
-		var index = $("#"+current_statistic_table.attr("id") +" tbody tr:last-child").index();
-        var row = '<tr>' +
-            '<td data-statistic-attr="id" style="display:none"><input type="text" class="form-control" data-statistic-attr="id" value="newData"></td>' +
-            '<td data-statistic-attr="number"><input type="text" class="form-control" data-statistic-attr="number"></td>' +
-            '<td data-statistic-attr="date"><input type="text" id="date" class="form-control" data-statistic-attr="date"  placeholder="yy-mm-dd"></td>' +
-            '<td data-statistic-attr="subject"><input type="text" class="form-control" data-statistic-attr="subject"></td>' +
-			'<td data-statistic-attr="cost"><input type="text" class="form-control" data-statistic-attr="cost" onclick="calculateCost(this)"></td>' +
-			'<td data-statistic-attr="note"><input type="text" class="form-control" data-statistic-attr="note"></td>' +
-			'<td class="dntinclude">' +
-                            '<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>' +
-                            '<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>' +
-                            '<a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>' +
-                        '</td>' +
-        '</tr>';
-    	current_statistic_table.append(row);
-		$("#"+current_statistic_table.attr("id") +" tbody tr").eq(index + 1).find(".add, .edit").toggle();
-		$("#date").datepicker();
-		//$("#" + current_statistic_table.attr("id") +"tbody tr").eq(index + 1).find(".add, .edit").toggle();
-        //$('[data-toggle="tooltip"]').tooltip();*/
     });
 	// Add row on add button click
 	$(document).on("click", ".add", function(){
+		path = selectItemPath + "/" +chosenTablePath;
+		var tbodyValueIndex = 0;
 		console.log("here add button click:..........................");
 		var updatedStatistic = new Object();
 		var empty = false;
 		var input = $(this).parents("tr").find('input[type="text"]');
-		var id, date, subject, cost, note;
         input.each(function(){
 			if(!$(this).val()){
 				$(this).addClass("error");
 				empty = true;
 			} else{
                 $(this).removeClass("error");
-				date = $(this).parents("tr").find('input[type="text"][data-statistic-attr="date"]').val();
-				subject = $(this).parents("tr").find('input[type="text"][data-statistic-attr="subject"]').val();
-				cost = $(this).parents("tr").find('input[type="text"][data-statistic-attr="cost"]').val();
-				note = $(this).parents("tr").find('input[type="text"][data-statistic-attr="note"]').val();
-				id = $(this).parents("tr").find('input[type="text"][data-statistic-attr="id"]').val();
-				
             }
 		});
 		$(this).parents("tr").find(".error").first().focus();
 		if(!empty){
-			updatedStatistic.elementId = id;
-			updatedStatistic.date = date;
-			updatedStatistic.subject = subject;
-			updatedStatistic.cost = cost;
-			updatedStatistic.note = note;
+			input.each(function(){
+				updatedStatistic[$(this).attr('data-column-index')] = $(this).val();
+				$(this).parent("td").html($(this).val());
+			});		
+			
+			$('.table tbody tr').each(function(){
+				$(this).find("td:not(:last-child)").each(function(){
+					//updatedStatistic[$(this).attr('data-column-index')] = $(this).html();
+				});	
+			});	
 			updatedStatistic.status = 'active';
 			console.log(updatedStatistic);
-			console.log("current table id: " + current_statistic_table.attr("id"));
-			if(id === 'newData') {
-				//save(getPath(), updatedStatistic);
+			if(updatedStatistic.id === 'newData') {
+				save(getPath(path,"tableBody"), updatedStatistic);
 			} else {
-				//update(updatedStatistic,getPath(),updatedStatistic.elementId);
+				update(updatedStatistic, getPath(path,"tableBody"), updatedStatistic.id);
 			}
 			
-			input.each(function(){
-				$(this).parent("td").html($(this).val());
-			});			
+			
 			$(this).parents("tr").find(".add, .edit").toggle();
 			$(".add-new").removeAttr("disabled");
 		}	
-		loadStatisticList();
+		//loadStatisticList();
 		//$('#'+current_statistic_table_id).DataTable();
     });
 	// Edit row on edit button click
 	$(document).on("click", ".edit", function(){		
         $(this).parents("tr").find("td:not(:last-child)").each(function(){
-			if($(this).attr("data-statistic-attr") === 'cost') {
+			/*if($(this).attr("data-statistic-attr") === 'cost') {
 					$(this).html('<input type="text" class="form-control" value="' + $(this).text() +'" data-statistic-attr="'+$(this).attr("data-statistic-attr")+'" onclick="calculateCost(this)">');
-			}else {
-				$(this).html('<input type="text" class="form-control" value="' + $(this).text() +'" data-statistic-attr="'+$(this).attr("data-statistic-attr")+'">');
-			}
+			}else {*/
+				$(this).html('<input type="text" class="form-control" value="' + $(this).text() +'" data-column-index="'+$(this).attr("data-column-index")+'">');
+			//}
 		});		
 		$(this).parents("tr").find(".add, .edit").toggle();
 		$(".add-new").attr("disabled", "disabled");
@@ -153,21 +150,19 @@ $(document).ready(function(){
     });
 	// Delete row on delete button click
 	$(document).on("click", ".delete", function(){
-		//$('#statisticTableId').DataTable();
-		paginationDestory(current_statistic_table);
+		//paginationDestory(current_statistic_table);
+		path = selectItemPath + "/" +chosenTablePath;
 		var deletedStatistic = new Object();
+		$(this).parents('tr').find('td[data-column-index="id"]').css('background','red');
+		var id = $(this).parents('tr').find('td[data-column-index="id"]').html();
+		deletedStatistic.elementId = id;
         $(this).parents("tr").remove();
-		deletedStatistic.date = $(this).parents("tr").find('[data-statistic-attr="date"]').html();
-		deletedStatistic.subject = $(this).parents("tr").find('[data-statistic-attr="subject"]').html();
-		deletedStatistic.cost = $(this).parents("tr").find('[data-statistic-attr="cost"]').html();
-		deletedStatistic.note = $(this).parents("tr").find('[data-statistic-attr="note"]').html();
-		deletedStatistic.elementId = $(this).parents("tr").find('[data-statistic-attr="id"]').html();
 		deletedStatistic.status = 'inactive';
 		console.log(deletedStatistic);
 		//var path = 'statistic/'+current_statistic_table_id;
-		update(deletedStatistic, getPath(), deletedStatistic.elementId);		
+		deleteObj(getPath(path,"tableBody"), deletedStatistic.elementId, 'status');		
 		$(".add-new").removeAttr("disabled");
-		$('#'+current_statistic_table_id).DataTable();
+	//	$('#'+current_statistic_table_id).DataTable();
     });
 });
 
@@ -295,7 +290,7 @@ var ExcelToJSON = function(path) {
 			  
         }
       })
-	  loadStatisticList(current_statistic_table.attr("id"));		
+	 // loadStatisticList(current_statistic_table.attr("id"));		
     };
     reader.onerror = function(ex) {
       console.log(ex);
@@ -368,7 +363,7 @@ function moveRightNextTable() {
 	next.addClass("current");
 	current_statistic_table = next.find("table");
 	current_statistic_table_id = current_statistic_table.attr("id");
-	loadStatisticList();
+	//loadStatisticList();
 	
 }
 
@@ -387,11 +382,16 @@ function changeBrickKiln(selectElement) {
 	current_statistic_container = $('.current');
 	current_statistic_table = current_statistic_container.find("table");
 	current_statistic_table_id = current_statistic_table.attr("id");
-	loadStatisticList();
+	//loadStatisticList();
 }
 
-function getPath() {
-	return 'statistic/'+selectedBrickKiln+'/'+current_statistic_table_id;
+function getPath(path, options) {
+	console.log("here getpath............");
+	console.log("path / option: " + path + " / " + options)
+	if(path === undefined || path === null) {
+		return 'statistic'+"/"+options;
+	}
+	return 'statistic/'+path + "/" + options; 
 }
 /*
 convert table to excel original code
@@ -409,9 +409,9 @@ function HtmlTOExcel(type, fun, dl) {
 */
 
 function HtmlTOExcel(type, fun) {
-	paginationDestory(current_statistic_table);
-    var table = document.getElementById(current_statistic_table_id);
-	console.log("current table id: " + $(table).attr("id"));
+	//paginationDestory(current_statistic_table);
+    var table = document.getElementById("statistic");
+	//console.log("current table id: " + $(table).attr("id"));
 	
 	var thlastChild = $(table).find('thead th:last-child');
 	var actionButtons = thlastChild.html();
@@ -423,7 +423,6 @@ function HtmlTOExcel(type, fun) {
     var wb = XLSX.utils.table_to_book(table, { sheet: "sheet1" });
     XLSX.writeFile(wb, fun || (getPath() + "_"+ getDate() + "." + (type || 'xlsx')));
 	var trLength = $("#"+current_statistic_table_id +" tbody tr").length;
-	console.log("trLength: "+ trLength);
 	
 	var th = `<th lang="my" class="dntinclude">လုပ်ဆောင်ချက်များ</th>`
 	
@@ -440,7 +439,7 @@ function HtmlTOExcel(type, fun) {
 
 function tableToCSV() {
             // Variable to store the final csv data
-			paginationDestory(current_statistic_table);
+			//paginationDestory(current_statistic_table);
             var csv_data = [];
 			csv_data.push(
 				[
@@ -593,34 +592,47 @@ function handleTouchMove(evt) {
     yDown = null;                                             
 };
 
+var tableTotal = 0;
 function displayTableArea() { 
 	$('.table-area').show();
+	$('.table').attr("data-table-number",tableTotal++);
 	$('div[name="displayTableBtn"]').hide();
 }
 
-function addTitle(title) {
-	console.log("here addtitle..........")
+function addTitle(title) {	
+	path = selectItemPath + "/" +chosenTablePath;
+	console.log("path: " + path);
 	newTitle = $(title);
-	console.log("value: " + newTitle.val());
+	id = newTitle.parent().attr("data-title-id");;
+	value = newTitle.val();
 	newTitle.parent().html(newTitle.val());
+	var tableTitle = {};
+	tableTitle.id = id;
+	tableTitle.value = value;
+	if(tableTitle.id === 'newData') {
+		save(getPath(path,"tableTitle"), tableTitle);
+	} else {
+		update(tableTitle, getPath(path,"tableTitle"), tableTitle.id);
+	}
+	$('.show-more').show();
+	$('.add-row').show();
 }
 
 $(document).ready(function(){
 	$(".change-title").click(function(){
-		$(this).parent().find(".title").html("<input type='text' class='form-control' style='width:auto; display:inline' onblur='addTitle(this)'>");
+		$(this).parent().find(".title-table").html("<input type='text' class='form-control' style='width:auto; display:inline' onblur='addTitle(this)'>");
 		
 	});
 });
 
 
-var showColumnId = 1;
-var hideColumnId = 1;
 
+var headingIndex = 0;
 function prepareTableHeading() {
 	var tableHeadCreateBtn =  `<th>
-									<a class="showColumn" title="activate" data-toggle="tooltip" data-show-column=${showColumnId++} onclick="showColumn(this)"  style="display:none"><i class="material-icons">done</i></a>
-									<a class="hideColumn" title="Inactivate" data-toggle="tooltip" data-hide-column=${hideColumnId++} onclick="hideColumn(this)"><i class="material-icons">&#xE872;</i></a>
-									<input class="form-control theadValue" type="text" placeholder="ခေါင်းစဥ်ထည့်ရန်" required>
+									<a class="showColumn" title="activate" data-toggle="tooltip" onclick="showColumn(this)"  style="display:none"><i class="material-icons">done</i></a>
+									<a class="hideColumn" title="Inactivate" data-toggle="tooltip" onclick="hideColumn(this)"><i class="material-icons">&#xE872;</i></a>
+									<input class="form-control theadValue" type="text" data-thead-id = "newData" data-heading-index=${headingIndex++} placeholder="ခေါင်းစဥ်ထည့်ရန်" required>
 								</th>`
 	$(".theadCreationRow").append(tableHeadCreateBtn);
 	$("theadCreationRow th").find(".edit, .delete").toggle();
@@ -628,24 +640,36 @@ function prepareTableHeading() {
 }
 
 function hideColumn(hideColumn) {
+	path = selectItemPath + "/" +chosenTablePath;
 	console.log("heelo hide");
-	var hideColumnId = $(hideColumn).attr("data-hide-column");
-	console.log("id: " +hideColumnId );
-	$('.table td:nth-child('+hideColumnId+'),.table th:nth-child('+hideColumnId+')').hide();
+	var hideColumnIndex = $(hideColumn).parent().children("input").attr("data-heading-index");
+	console.log("id: " +hideColumnIndex );
+	//$('.table td:nth-child('+(hideColumnIndex)+'),.table th:nth-child('+(hideColumnIndex)+')').hide();
+	$('table').find(`[data-column-index='${hideColumnIndex}']`).hide();
+	$('table').find(`[data-thead-index='${hideColumnIndex}']`).hide();
+	var id = $('[data-thead-index="'+(hideColumnIndex)+'"]').attr('data-thead-id');
+	deleteObj(getPath(path,"tableHeading"),id,"status");
 	$(hideColumn).hide();
 	$(hideColumn).parent().find(".showColumn").show();
 }
 
 function showColumn(showColumn) {
 	console.log("heelo show");
-	var showColumnId = $(showColumn).attr("data-show-column");
+	var showColumnId = $(showColumn).parent().children("input").attr("data-heading-index");
 	console.log("id: " +showColumnId );
-	$('.table td:nth-child('+showColumnId+'),.table th:nth-child('+showColumnId+')').show();
+	//$('.table td:nth-child('+(showColumnId)+'),.table th:nth-child('+(showColumnId)+')').show();
+		$('table').find(`[data-column-index='${showColumnId}']`).show();
+	$('table').find(`[data-thead-index='${showColumnId}']`).show();
+	var id = $(showColumn).parent().children("input").attr('data-thead-id');
+	activeObject(getPath(path,"tableHeading"),id,"status");
 	$(showColumn).hide();
 	$(showColumn).parent().find(".hideColumn").show();
 }
 
 function createTableHeading() {
+	path = selectItemPath + "/" +chosenTablePath;
+	var tableHeadDataList = [];
+	var tableHeadData = {};
 	$(".show-more").show();
 	$(".thead-creation-area").hide();
 	var oldTheadLength = $(".table thead tr th").length; 
@@ -653,40 +677,54 @@ function createTableHeading() {
 	let theadRow ="<tr>";
 	$(".theadValue").each(function(index, thead) {
 			const theadValue = $(thead).val();
-			theadRow += `<th data-thead-index=th${index}>${theadValue}</th>`
+			var index = $(thead).attr("data-heading-index");
+			var value = theadValue;
+			var id = $(thead).attr('data-thead-id');
+			tableHeadData.id = id;
+			tableHeadData.index = index;
+			tableHeadData.value = value;
+			tableHeadData.status = 'active';
+				if(tableHeadData.id === 'newData') {
+					save(getPath(path,"tableHeading"), tableHeadData);
+				} else {
+					update(tableHeadData, getPath(path,"tableHeading"), tableHeadData.id);
+				}
+			theadRow += `<th data-thead-index=${index} id=${id}>${theadValue}</th>`
 	});
-	theadRow += '<th data-thead-index=thid">id</th>	<th lang="my" class="dntinclude">လုပ်ဆောင်ချက်များ</th></tr>';
+	theadRow += '<th style="display:none"></th><th lang="my" class="dntinclude">လုပ်ဆောင်ချက်များ</th></tr>';
 	$('.table thead').append(theadRow);
-	console.log("tbody length: " + $('.table tbody tr').length);
-	var newTheadLength = $(".table thead tr th").length; 
 	
+
 	if($('.table tbody tr').length > 0) {
-		var theadLength = $(".table thead tr th").length;
+		console.log("tbody tr length: " + $('.table tbody tr').length);
+		var newTheadLength = $(".table thead tr th").length;
 		var existingTdValue = "";
 		console.log("old thead length: " + oldTheadLength);
-		$('.table tbody').find("tr").each(function(){
-			var tr = '<tr>'
-			for(var j=0;j<theadLength-2;j++) {
+				console.log("new thead length: " + newTheadLength);
+		$('.table tbody tr').each(function(){	
+			var tr = '<tr>';
+			for(var j=0;j<newTheadLength-2;j++) {
 				if(j<oldTheadLength-2) {
 					if($(this).children("td").find("input").length ===0) {
 						existingTdValue = $(this).find("td").eq(j).html();
-						console.log("existing val without child textbox: " + existingTdValue);
 					} else {
 						existingTdValue = $(this).find("td").eq(j).children("input").val();
-						console.log("existing val with child textbox: " + existingTdValue);
 					}
+					tr += `<td data-column-index=${j}><input type="text" class="form-control" data-column-index=${j} value=${existingTdValue}></td>`
+
 				} else {
 					existingTdValue = "";
+					tr += `<td data-column-index=${j}><input type="text" class="form-control" data-column-index=${j} value=${existingTdValue}></td>`
+
 				}
-				console.log("existing value: " + existingTdValue)
-				tr += `<td data-tbody-index=${j}><input type="text" class="form-control" data-tbody-index=${j} value=${existingTdValue}></td>`
+				//console.log("existing value: " + existingTdValue)
 			}
 			if($(this).children("td").find("input").length ===0) {
 				id = $(this).find("td").eq(oldTheadLength-2).html();
 			} else {
 				id = $(this).find("td").eq(oldTheadLength-2).children("input").val();
 			}
-			tr += `<td data-tbody-index="id"><input type="text" class="form-control" data-tbody-index="id" value=${id}></td>`
+			tr += `<td data-column-index="id" style="display:none"><input type="text" class="form-control" data-column-index="id" value=${id}></td>`
 			tr +='<td class="dntinclude">' +
 								'<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>' +
 								'<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>' +
@@ -695,21 +733,21 @@ function createTableHeading() {
 			
 			$(this).remove();
 			$(".table tbody").append(tr);
-		});		
+		});			
 		var index = $(".table tbody tr:last-child").index();
 		$(".table tbody tr").children().find(".add, .edit").toggle();
 	}	
 }
 
 function addNewSelect() {
-	var item = `<a class="dropdown-item preview-item" >
+	var item = `<a class="dropdown-item preview-item" onclick="chooseItem(this)">
                     <div class="preview-thumbnail">
                       <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-close-circle-outline text-danger"></i>
                       </div>
                     </div>
                     <div class="preview-item-content">
-                      <p class="text-muted ellipsis mb-0 selected">
+                      <p class="text-muted ellipsis mb-0 select-item" data-select-id = "newData">
 									<input class="form-control selected-item" type="text" placeholder="ဖိုနာမည်" required onblur="addItem(this)">
 								</th>
 					  </p>
@@ -720,9 +758,19 @@ function addNewSelect() {
 	$(item).insertBefore('.addNewItem');
 }
 
+var selectBoxtotal = 0;
 function addItem(item) {
 	newItem = $(item);
+	parentNode = newItem.parent();
+	newItem.parent().attr("data-select-number", selectBoxtotal++);
 	newItem.parent().html(newItem.val());
+	var formData = {};
+	formData.id = parentNode.attr("data-select-id");
+	formData.selectBoxIndex = parentNode.attr("data-select-number");
+	formData.selectBoxValue = parentNode.html();
+	formData.status = 'active';
+	console.log(formData);
+	save(getPath(null,"selectBoxData"), formData)
 }
 
 function showStatisticCreationArea() {
@@ -730,8 +778,133 @@ function showStatisticCreationArea() {
 	$(".thead-creation-area").show();
 }
 
+function defaultStatisticPageUi() {
+	$('.displaytablebtn-plus').hide();
+	$('.table-area').hide();
+	$('.add-row').hide();
+	$('.show-more').hide();
+	$('.thead-creation-area').hide();
+	$('.table thead tr').remove();
+	$('.table tbody tr').remove();
+	$('.theadCreationRow').children('th').remove();
+	$('.title-table').html('ခေါင်းစဥ်ထည့်ရန်');
+}
+
+function dataExitStatisticPageUi() {
+	$('.displaytablebtn-plus').hide();
+	$('.table-area').show();
+	$('.add-row').show();
+	$('.show-more').show();
+	$('.thead-creation-area').hide();
+
+
+}
+
+function chooseItem(i) {
+	defaultStatisticPageUi();
+	console.log("here choose item.......................");
+	$('.selected').removeClass("selected");
+	$(i).children(".preview-item-content").find("p").addClass("selected");
+	selectItemPath = $('.selected').attr('data-select-number');
+	$('.displaytablebtn-plus').show();
+	//$(".show-selected-content").html($('.selected').html());
+	console.log("selectItemPath: " + selectItemPath);
+	path = selectItemPath + "/" +chosenTablePath;
+	loadTableData(path);
+}
+
+function loadTableData(path) {
+	getCollection(getPath(path,"tableTitle")).once('value', (snapshot) => {  
+		snapshot.forEach((child) => {
+			var id = child.key;
+			var value = child.val().value;
+			$('.title-table').attr('data-title-id',id);
+			$('.title-table').html(value);
+		});	
+	});
+	getCollection(getPath(path,"tableHeading")).once('value', (snapshot) => {
+	console.log("There are "+snapshot.numChildren()+" datas");
+	$('.theadCreationRow th').remove();
+	$(".table thead").find("tr").remove();
+	var tr = '<tr></tr>'
+	var inactiveTheadIndexList = [];
+	$('.table thead').append(tr);
+	if(snapshot.numChildren() > 0) {
+		dataExitStatisticPageUi();
+		snapshot.forEach((child) => {
+				var id = child.key;
+				var index = child.val().index;
+				var value = child.val().value;
+				var status = child.val().status;
+				headingIndex = parseInt(index)+1;
+				var theadRow = "";
+				var tableHeadCreateBtn = "";
+			if(status === 'active') {		
+				theadRow += `<th data-thead-id=${id} data-thead-index=${index}>${value}</th>`
+				tableHeadCreateBtn =  `<th>
+											<a class="showColumn" title="activate" data-toggle="tooltip" onclick="showColumn(this)"  style="display:none"><i class="material-icons">done</i></a>
+											<a class="hideColumn" title="Inactivate" data-toggle="tooltip" onclick="hideColumn(this)"><i class="material-icons">&#xE872;</i></a>
+											<input class="form-control theadValue" type="text" data-thead-id = ${id} data-heading-index=${index}  placeholder="ခေါင်းစဥ်ထည့်ရန်" value=${value} required>
+										</th>`
+			$(".theadCreationRow").append(tableHeadCreateBtn);
+			} else {
+				tableHeadCreateBtn =  `<th>
+											<a class="showColumn" title="activate" data-toggle="tooltip"onclick="showColumn(this)" ><i class="material-icons">done</i></a>
+											<a class="hideColumn" title="Inactivate" data-toggle="tooltip" onclick="hideColumn(this)"  style="display:none"><i class="material-icons">&#xE872;</i></a>
+											<input class="form-control theadValue" type="text" data-thead-id = ${id} data-heading-index=${index}  placeholder="ခေါင်းစဥ်ထည့်ရန်" value=${value} required>
+										</th>`
+			$(".theadCreationRow").append(tableHeadCreateBtn);
+				inactiveTheadIndexList.push(index);
+			}
+			
+			$('.table thead tr').append(theadRow);
+		});
+			$(document).ready(function() {
+				console.log(inactiveTheadIndexList);		
+				var defaultTheead ='<th style="display:none"></th><th lang="my" class="dntinclude">လုပ်ဆောင်ချက်များ</th>';
+				$('.table thead tr').append(defaultTheead);
+				getCollection(getPath(path,"tableBody")).orderByChild('status').equalTo('active').once('value', (snapshot) => {
+					var tbodyDatas = snapshot.val();
+					var i = 0;
+					for(let index in tbodyDatas){
+						keys = Object.keys(tbodyDatas[index])
+						var tr = "<tr>"
+						for(var i =0;i<keys.length-2;i++) {
+						//$.each(keys, function( i, key ) {
+						//for(let key in keys) {
+							 tr += `<td data-column-index=${i}>${tbodyDatas[index][keys[i]]}</td>`
+						///});
+						}
+						tr += `<td data-column-index='id' style="display:none">${index}</td><td class="dntinclude">'
+											<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+											<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+											<a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+										</td></tr>`
+						$('.table tbody').append(tr);
+						console.log("after append tr....................")
+					}
+					for(var hideIndex =0; hideIndex<inactiveTheadIndexList.length; hideIndex++) {
+								console.log("here loop..........................")
+								console.log("hideIndex: " + hideIndex);
+								$('table').find(`[data-column-index='${inactiveTheadIndexList[hideIndex]}']`).hide();
+					}
+				});
+				$(document).ready(function() {
+					
+				});
+			});
+		} else {
+			console.log("no data to load!");
+		}
+	});
+}
+
 var statistic_table = $(".statistic-table");
-var current_statistic_container = $('.current');
+var selectItemPath = $('.selected').attr('data-select-number');
+var chosenTablePath = 0;
+var current_statistic_table = $("table");
+
+/*var current_statistic_container = $('.current');
 var current_statistic_table = current_statistic_container.find("table");
 var current_statistic_table_id = current_statistic_table.attr("id");
-var selectedBrickKiln = $(".selected").attr("data-selected-value");
+var selectedBrickKiln = $(".selected").attr("data-selected-value");*/

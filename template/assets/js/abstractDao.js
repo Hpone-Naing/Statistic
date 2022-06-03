@@ -10,12 +10,19 @@ var config = {
 };
 firebase.initializeApp(config);
 
-function getCollection(path, key) {
+function getCollection(path, key, optionalChildKey) {
 	console.log("get collection path: " + path);
-	if(key == null || key === '' || key == undefined) {
+	if(((key == null || key === '' || key == undefined) && (optionalChildKey == null || optionalChildKey === '' || optionalChildKey == undefined))) {
+		console.log("here  key and optionChildKey null....")
 		return firebase.database().ref(`/${path}`);
-	} else {
+	} 
+	if(optionalChildKey == null || optionalChildKey === '' || optionalChildKey == undefined) {
+		console.log("here optionChildKey null....")
 		return  firebase.database().ref(`/${path}/${key}`)
+	}
+	else {
+		console.log("here  not  null....")
+		return  firebase.database().ref(`/${path}/${key}/${optionalChildKey}`)
 	}
 }
 
@@ -32,6 +39,15 @@ function update(object, path, id) {
 		getCollection(path, id).set(object);
 }
 
+function deleteObj(path, id, optionalChildKey) {
+		console.log("update path / id " + path + " / " + id);
+		getCollection(path, id, optionalChildKey).set("inactive");
+}
+
+function activeObject(path, id, optionalChildKey) {
+		console.log("activeobj path / id " + path + " / " + id + " / " + optionalChildKey);
+		getCollection(path, id, optionalChildKey).set("active");
+}
 function getData(path){
         return getCollection(path)
             .once("value", snapshot=>{
