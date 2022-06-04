@@ -350,21 +350,24 @@ function paginationDestory(table) {
 
 
 function moveRightNextTable() {
-	current_statistic_container = $('.current');
-	var next = current_statistic_container.next();
-	if(current_statistic_container.hasClass("last")) {
-		next = $('[data-table-index="first"]')
-	} else {
-		current_statistic_container = $('.current');
+	headingIndex = 0;
+	chosenTablePath +=1;
+	path = selectItemPath + "/" +chosenTablePath;
+	defaultStatisticPageUi();
+	loadTableData(path);
+	$('.displaytablebtn-plus').show();
+}
+
+function moveLeftNextTable() {
+	headingIndex = 0;
+	if(chosenTablePath > 0 ) {
+		chosenTablePath -=1;
 	}
-	current_statistic_container.hide();
-	next.show();
-	current_statistic_container.removeClass("current");
-	next.addClass("current");
-	current_statistic_table = next.find("table");
-	current_statistic_table_id = current_statistic_table.attr("id");
-	//loadStatisticList();
-	
+	path = selectItemPath + "/" +chosenTablePath;
+	defaultStatisticPageUi();
+	loadTableData(path);
+	$('.displaytablebtn-plus').show();
+
 }
 
 function changeBrickKiln(selectElement) {
@@ -676,6 +679,8 @@ function createTableHeading() {
 	$(".table thead").find("tr").remove();
 	let theadRow ="<tr>";
 	$(".theadValue").each(function(index, thead) {
+			console.log("this thead is hide: " + $(thead).is(":hidden"))
+			console.log("this thead is hide: " + $(thead).is(":visible"))
 			const theadValue = $(thead).val();
 			var index = $(thead).attr("data-heading-index");
 			var value = theadValue;
@@ -685,9 +690,9 @@ function createTableHeading() {
 			tableHeadData.value = value;
 			tableHeadData.status = 'active';
 				if(tableHeadData.id === 'newData') {
-					save(getPath(path,"tableHeading"), tableHeadData);
+					//save(getPath(path,"tableHeading"), tableHeadData);
 				} else {
-					update(tableHeadData, getPath(path,"tableHeading"), tableHeadData.id);
+					//update(tableHeadData, getPath(path,"tableHeading"), tableHeadData.id);
 				}
 			theadRow += `<th data-thead-index=${index} id=${id}>${theadValue}</th>`
 	});
@@ -802,6 +807,10 @@ function dataExitStatisticPageUi() {
 
 function chooseItem(i) {
 	defaultStatisticPageUi();
+	$('.change-right-next-btn').show();
+	$('.change-left-next-btn').show();
+	headingIndex = 0;
+	chosenTablePath = 0;
 	console.log("here choose item.......................");
 	$('.selected').removeClass("selected");
 	$(i).children(".preview-item-content").find("p").addClass("selected");
