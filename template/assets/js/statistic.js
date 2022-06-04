@@ -690,9 +690,9 @@ function createTableHeading() {
 			tableHeadData.value = value;
 			tableHeadData.status = 'active';
 				if(tableHeadData.id === 'newData') {
-					//save(getPath(path,"tableHeading"), tableHeadData);
+					save(getPath(path,"tableHeading"), tableHeadData);
 				} else {
-					//update(tableHeadData, getPath(path,"tableHeading"), tableHeadData.id);
+					update(tableHeadData, getPath(path,"tableHeading"), tableHeadData.id);
 				}
 			theadRow += `<th data-thead-index=${index} id=${id}>${theadValue}</th>`
 	});
