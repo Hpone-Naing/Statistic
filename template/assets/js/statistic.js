@@ -234,7 +234,7 @@ searchStatistics1 = function(search1) {
 						if (attrib.value === "my") {
 						  $(currentElement).show();
 						} else if (attrib.value === "en") {
-						  $(currentElement).hide();
+						  $(currentElement).hide('slow');
 						}
 					}
 				  });
@@ -309,7 +309,7 @@ function handleFileSelect(evt) {
   console.log("file extensions:  " + fileExtension)
   var path = files[0].name.split('_').slice(0,3).join("/");
   if(fileExtension === "xlsx" || fileExtension === "xls") {
-			errMsg.hide();
+			errMsg.hide('slow');
 			console.log("this is excel file");
 			var xl2json = new ExcelToJSON(path);
 			xl2json.parseExcel(files[0]);
@@ -379,7 +379,7 @@ function changeBrickKiln(selectElement) {
 	var currentContainer = current_statistic_container.next();
 	var topTable = $('[data-table-index="first"]');
 	currentContainer.removeClass("current");
-	currentContainer.hide();
+	currentContainer.hide('slow');
 	topTable.addClass("current");
 	topTable.show();
 	current_statistic_container = $('.current');
@@ -511,7 +511,7 @@ setInterval(blinker, 500);
 function calculateCost(calculateBtn) {
 		console.log("here calculate cost......................................");
 		$(".calculator").show();
-		$(".card").hide();
+		$(".card").hide('slow');
 }
 
 
@@ -531,7 +531,7 @@ function e() {
 			console.log("final res: " + $("#d").html())
 			c(eval($("#d").html()))
 			$('td [data-statistic-attr="cost"]').val(eval($("#d").html()));
-			$('.calculator').hide();
+			$('.calculator').hide('slow');
 			$('.card').show();
         }  
         catch(e)  
@@ -599,7 +599,7 @@ var tableTotal = 0;
 function displayTableArea() { 
 	$('.table-area').show();
 	$('.table').attr("data-table-number",tableTotal++);
-	$('div[name="displayTableBtn"]').hide();
+	$('div[name="displayTableBtn"]').hide('slow');
 }
 
 function addTitle(title) {	
@@ -647,12 +647,14 @@ function hideColumn(hideColumn) {
 	console.log("heelo hide");
 	var hideColumnIndex = $(hideColumn).parent().children("input").attr("data-heading-index");
 	console.log("id: " +hideColumnIndex );
+	$(hideColumn).parent().children("input").prop("disabled",true);
 	//$('.table td:nth-child('+(hideColumnIndex)+'),.table th:nth-child('+(hideColumnIndex)+')').hide();
-	$('table').find(`[data-column-index='${hideColumnIndex}']`).hide();
-	$('table').find(`[data-thead-index='${hideColumnIndex}']`).hide();
-	var id = $('[data-thead-index="'+(hideColumnIndex)+'"]').attr('data-thead-id');
+	$('table').find(`[data-column-index='${hideColumnIndex}']`).hide('slow');
+	$('table').find(`[data-thead-index='${hideColumnIndex}']`).hide('slow');
+	//var id = $('[data-thead-index="'+(hideColumnIndex)+'"]').attr('data-thead-id');
+	var id = $(hideColumn).parent().children("input").attr('data-thead-id');
 	deleteObj(getPath(path,"tableHeading"),id,"status");
-	$(hideColumn).hide();
+	$(hideColumn).hide('slow');
 	$(hideColumn).parent().find(".showColumn").show();
 }
 
@@ -660,12 +662,13 @@ function showColumn(showColumn) {
 	console.log("heelo show");
 	var showColumnId = $(showColumn).parent().children("input").attr("data-heading-index");
 	console.log("id: " +showColumnId );
+	$(showColumn).parent().children("input").prop("disabled",false);
 	//$('.table td:nth-child('+(showColumnId)+'),.table th:nth-child('+(showColumnId)+')').show();
-		$('table').find(`[data-column-index='${showColumnId}']`).show();
+	$('table').find(`[data-column-index='${showColumnId}']`).show();
 	$('table').find(`[data-thead-index='${showColumnId}']`).show();
 	var id = $(showColumn).parent().children("input").attr('data-thead-id');
 	activeObject(getPath(path,"tableHeading"),id,"status");
-	$(showColumn).hide();
+	$(showColumn).hide('slow');
 	$(showColumn).parent().find(".hideColumn").show();
 }
 
@@ -674,13 +677,12 @@ function createTableHeading() {
 	var tableHeadDataList = [];
 	var tableHeadData = {};
 	$(".show-more").show();
-	$(".thead-creation-area").hide();
+	$(".thead-creation-area").hide('slow');
 	var oldTheadLength = $(".table thead tr th").length; 
 	$(".table thead").find("tr").remove();
 	let theadRow ="<tr>";
-	$(".theadValue").each(function(index, thead) {
-			console.log("this thead is hide: " + $(thead).is(":hidden"))
-			console.log("this thead is hide: " + $(thead).is(":visible"))
+	var inactiveTheadIndexList = [];
+	$(".theadValue").each(function(index, thead) {			
 			const theadValue = $(thead).val();
 			var index = $(thead).attr("data-heading-index");
 			var value = theadValue;
@@ -688,17 +690,25 @@ function createTableHeading() {
 			tableHeadData.id = id;
 			tableHeadData.index = index;
 			tableHeadData.value = value;
-			tableHeadData.status = 'active';
+			if($(thead).prop('disabled')) {
+				inactiveTheadIndexList.push(index);
+				tableHeadData.status = 'inactive';
+				theadRow += `<th data-thead-index=${index} id=${id} style="display:none">${theadValue}</th>`
+			} else {
+				tableHeadData.status = 'active';
+				theadRow += `<th data-thead-index=${index} id=${id}>${theadValue}</th>`
+			}
 				if(tableHeadData.id === 'newData') {
 					save(getPath(path,"tableHeading"), tableHeadData);
 				} else {
 					update(tableHeadData, getPath(path,"tableHeading"), tableHeadData.id);
 				}
-			theadRow += `<th data-thead-index=${index} id=${id}>${theadValue}</th>`
+			//theadRow += `<th data-thead-index=${index} id=${id}>${theadValue}</th>`
 	});
 	theadRow += '<th style="display:none"></th><th lang="my" class="dntinclude">လုပ်ဆောင်ချက်များ</th></tr>';
 	$('.table thead').append(theadRow);
 	
+	console.log(inactiveTheadIndexList);
 
 	if($('.table tbody tr').length > 0) {
 		console.log("tbody tr length: " + $('.table tbody tr').length);
@@ -739,6 +749,12 @@ function createTableHeading() {
 			$(this).remove();
 			$(".table tbody").append(tr);
 		});			
+		for(var hideIndex =0; hideIndex<inactiveTheadIndexList.length; hideIndex++) {
+								console.log("here loop..........................")
+								console.log("hideIndex: " + hideIndex);
+								$('table').find(`[data-column-index='${inactiveTheadIndexList[hideIndex]}']`).hide('slow');
+								$('table').find(`[data-thead-index='${inactiveTheadIndexList[hideIndex]}']`).hide('slow');
+		}
 		var index = $(".table tbody tr:last-child").index();
 		$(".table tbody tr").children().find(".add, .edit").toggle();
 	}	
@@ -779,7 +795,7 @@ function addItem(item) {
 }
 
 function showStatisticCreationArea() {
-	$(".show-more").hide();
+	$(".show-more").hide('slow');
 	$(".thead-creation-area").show();
 }
 
@@ -796,11 +812,11 @@ function defaultStatisticPageUi() {
 }
 
 function dataExitStatisticPageUi() {
-	$('.displaytablebtn-plus').hide();
+	$('.displaytablebtn-plus').hide('slow');
 	$('.table-area').show();
 	$('.add-row').show();
 	$('.show-more').show();
-	$('.thead-creation-area').hide();
+	$('.thead-creation-area').hide('slow');
 
 
 }
@@ -857,10 +873,11 @@ function loadTableData(path) {
 										</th>`
 			$(".theadCreationRow").append(tableHeadCreateBtn);
 			} else {
+				theadRow += `<th data-thead-id=${id} data-thead-index=${index} style="display:none">${value}</th>`
 				tableHeadCreateBtn =  `<th>
 											<a class="showColumn" title="activate" data-toggle="tooltip"onclick="showColumn(this)" ><i class="material-icons">done</i></a>
 											<a class="hideColumn" title="Inactivate" data-toggle="tooltip" onclick="hideColumn(this)"  style="display:none"><i class="material-icons">&#xE872;</i></a>
-											<input class="form-control theadValue" type="text" data-thead-id = ${id} data-heading-index=${index}  placeholder="ခေါင်းစဥ်ထည့်ရန်" value=${value} required>
+											<input class="form-control theadValue" type="text" data-thead-id = ${id} data-heading-index=${index}  placeholder="ခေါင်းစဥ်ထည့်ရန်" value=${value}  disabled>
 										</th>`
 			$(".theadCreationRow").append(tableHeadCreateBtn);
 				inactiveTheadIndexList.push(index);
@@ -895,7 +912,7 @@ function loadTableData(path) {
 					for(var hideIndex =0; hideIndex<inactiveTheadIndexList.length; hideIndex++) {
 								console.log("here loop..........................")
 								console.log("hideIndex: " + hideIndex);
-								$('table').find(`[data-column-index='${inactiveTheadIndexList[hideIndex]}']`).hide();
+								$('table').find(`[data-column-index='${inactiveTheadIndexList[hideIndex]}']`).hide('slow');
 					}
 				});
 				$(document).ready(function() {
@@ -906,6 +923,12 @@ function loadTableData(path) {
 			console.log("no data to load!");
 		}
 	});
+}
+
+function hideTheadCreationAarea() {
+	//$(".thead-creation-area").hide();
+	$(".thead-creation-area").hide('slow'); 
+	$('.show-more').show();
 }
 
 var statistic_table = $(".statistic-table");
