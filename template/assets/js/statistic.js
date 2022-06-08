@@ -84,8 +84,12 @@ $(document).ready(function(){
 		$(".table thead th").each(function(index, thead) {
 			console.log("thead value: " + $(thead).html());
 			if($(thead).html().replace("\u200B", "") === new String("နေ့စွဲ").replace("\u200B", "") || $(thead).html()==='ရက်စွဲ' || $(thead).html()==='ဒိတ်' || $(thead).html()==='date') {
-				console.log("here match: " + index);
 				$('.table td:nth-child('+(index+1)+')').children().addClass("datepicker");
+
+			}
+			if($(thead).html().replace("\u200B", "") === new String("ကုန်ကျစရိတ်").replace("\u200B", "") || $(thead).html()==='သုံးစွဲငွေ' || $(thead).html()==='သုံးငွေ' || $(thead).html()==='cost') {
+				$('.table td:nth-child('+(index+1)+')').children().attr("data-statistic-attr", "cost");
+				$('.table td:nth-child('+(index+1)+')').children().click(calculateCost);
 
 			}
 		});
@@ -146,7 +150,21 @@ $(document).ready(function(){
 		});		
 		$(this).parents("tr").find(".add, .edit").toggle();
 		$(".add-new").attr("disabled", "disabled");
-		$('[data-statistic-attr="date"]').datepicker();
+		$(".table thead th").each(function(index, thead) {
+			console.log("thead value: " + $(thead).html());
+			if($(thead).html().replace("\u200B", "") === new String("နေ့စွဲ").replace("\u200B", "") || $(thead).html()==='ရက်စွဲ' || $(thead).html()==='ဒိတ်' || $(thead).html()==='date') {
+				$('.table td:nth-child('+(index+1)+')').children().addClass("datepicker");
+
+			}
+			if($(thead).html().replace("\u200B", "") === new String("ကုန်ကျစရိတ်").replace("\u200B", "") || $(thead).html()==='သုံးစွဲငွေ' || $(thead).html()==='သုံးငွေ' || $(thead).html()==='cost') {
+				$('.table td:nth-child('+(index+1)+')').children().attr("data-statistic-attr", "cost");
+				$('.table td:nth-child('+(index+1)+')').children().click(calculateCost);
+
+			}
+		});
+			$(".datepicker").datepicker();
+			
+		//$('[data-statistic-attr="date"]').datepicker();
     });
 	// Delete row on delete button click
 	$(document).on("click", ".delete", function(){
@@ -757,6 +775,20 @@ function createTableHeading() {
 		}
 		var index = $(".table tbody tr:last-child").index();
 		$(".table tbody tr").children().find(".add, .edit").toggle();
+		
+		$(".table thead th").each(function(index, thead) {
+			console.log("thead value: " + $(thead).html());
+			if($(thead).html().replace("\u200B", "") === new String("နေ့စွဲ").replace("\u200B", "") || $(thead).html()==='ရက်စွဲ' || $(thead).html()==='ဒိတ်' || $(thead).html()==='date') {
+				$('.table td:nth-child('+(index+1)+')').children().addClass("datepicker");
+
+			}
+			if($(thead).html().replace("\u200B", "") === new String("ကုန်ကျစရိတ်").replace("\u200B", "") || $(thead).html()==='သုံးစွဲငွေ' || $(thead).html()==='သုံးငွေ' || $(thead).html()==='cost') {
+				$('.table td:nth-child('+(index+1)+')').children().attr("data-statistic-attr", "cost");
+				$('.table td:nth-child('+(index+1)+')').children().click(calculateCost);
+
+			}
+		});
+			$(".datepicker").datepicker();
 	}	
 }
 
