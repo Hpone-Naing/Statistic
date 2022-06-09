@@ -526,12 +526,15 @@ function blinker() {
 }
 setInterval(blinker, 500);
 
-function calculateCost(calculateBtn) {
+showResult;
+function calculateCost() {
 		console.log("here calculate cost......................................");
 		$(".calculator").show();
 		$(".card").hide('slow');
+		showResult = $(this);
+		console.log("val: " + showResult.val())
+		return showResult;
 }
-
 
 
 function c(val) {  
@@ -548,13 +551,18 @@ function e() {
         {
 			console.log("final res: " + $("#d").html())
 			c(eval($("#d").html()))
-			$('td [data-statistic-attr="cost"]').val(eval($("#d").html()));
+			//$('td [data-statistic-attr="cost"]').val(eval($("#d").html()));
+			//showRes = calculateCost();
+			console.log(showResult.val());
+			showResult.val(eval($("#d").html()));
 			$('.calculator').hide('slow');
 			$('.card').show();
         }  
         catch(e)  
         {  
-         c('Error') }  
+			c('Error') 
+			console.log(e);
+		}  
 } 
 
 function backspace() {
