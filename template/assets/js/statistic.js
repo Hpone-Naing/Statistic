@@ -22,8 +22,8 @@ function loadBrickKilns() {
 
 /*function loadStatisticList() {
 	//console.log("select brick kiln: " + selectedBrickKiln);
-	//paginationDestory(current_statistic_table);
-	//var currentTableRow = $('#'+current_statistic_table_id+' tbody');
+	//paginationDestory(getTable());
+	//var currentTableRow = $('#'+getTableById()+' tbody');
 	currentTableRow.find("tr").remove();
 	var number = 1;
 
@@ -54,7 +54,7 @@ function loadBrickKilns() {
 			currentTableRow.append(tr);
 		});
 		 $(document).ready(function() {
-                    $('#'+current_statistic_table_id).DataTable();
+                    $('#'+getTableById()).DataTable();
          });
 	})
 }*/
@@ -137,7 +137,7 @@ $(document).ready(function(){
 			$(".add-new").removeAttr("disabled");
 		}	
 		//loadStatisticList();
-		//$('#'+current_statistic_table_id).DataTable();
+		$('#'+getTableById()).DataTable();
     });
 	// Edit row on edit button click
 	$(document).on("click", ".edit", function(){		
@@ -168,7 +168,7 @@ $(document).ready(function(){
     });
 	// Delete row on delete button click
 	$(document).on("click", ".delete", function(){
-		//paginationDestory(current_statistic_table);
+		paginationDestory(getTable());
 		path = selectItemPath + "/" +chosenTablePath;
 		var deletedStatistic = new Object();
 		$(this).parents('tr').find('td[data-column-index="id"]').css('background','red');
@@ -177,29 +177,29 @@ $(document).ready(function(){
         $(this).parents("tr").remove();
 		deletedStatistic.status = 'inactive';
 		console.log(deletedStatistic);
-		//var path = 'statistic/'+current_statistic_table_id;
+		//var path = 'statistic/'+getTableById();
 		deleteObj(getPath(path,"tableBody"), deletedStatistic.elementId, 'status');		
 		$(".add-new").removeAttr("disabled");
-	//	$('#'+current_statistic_table_id).DataTable();
+		$('#'+getTableById()).DataTable();
     });
 });
 
 searchStatistics = function(search) {
 	console.log("here search statistic:...................");
 	var matchRow = 0;
-	paginationDestory(current_statistic_table);
+	//paginationDestory(getTable());
 	var searchBtn = $(search);	
-		current_statistic_table.find("tbody, tr").show();	
+		getTable().find("tbody, tr").show();	
 		let searchString = "";
 		var searchKey = searchBtn.val().trim();
 		//console.log("search key: " + searchKey);
 		if(searchKey === "" || searchKey === null) {
-				$('#' +current_statistic_table.attr('id')).DataTable();
+				$('#' +getTable().attr('id')).DataTable();
 			
 		}
 	    $("document").ready(function() {
 			//$('.statistic-table > tbody  > tr').each(function(trIndex, trElement) {
-			current_statistic_table.find("tbody > tr").each(function(trIndex, trElement) {
+			getTable().find("tbody > tr").each(function(trIndex, trElement) {
 				$(trElement).find('td').each(function(index, element) {   
 					var colVal = $(element).text();
 					//console.log("colval: " + colVal);
@@ -215,7 +215,7 @@ searchStatistics = function(search) {
 						else {
 									console.log("match: searchKey / searchString: " + searchKey + " / " + searchString);
 									if(matchRow++ >= 9) {
-										$('#' +current_statistic_table.attr('id')).DataTable();
+										$('#' +getTable().attr('id')).DataTable();
 									}
 						}
 						searchString = "";
@@ -271,7 +271,7 @@ function convertDateToSpecificFormat(Date) {
 }
 var ExcelToJSON = function(path) {
 	console.log("save excel file path: " + path)
-	var actions = $("#"+current_statistic_table.attr("id")+" td:last-child").html();
+	var actions = $("#"+getTable().attr("id")+" td:last-child").html();
 	this.parseExcel = function(file) {
     var reader = new FileReader();
 
@@ -284,11 +284,24 @@ var ExcelToJSON = function(path) {
         var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
         var productList = JSON.parse(JSON.stringify(XL_row_object));
 		console.log(productList);
+		var tableHeading = [];
+		var tableBodyData = [];
         // console.log(productList)
         for (i = 0; i < productList.length; i++) {
 			var statistic = new Object();
-			  var columns = Object.values(productList[i])
-			  var date = ExcelDateToDate(columns[1], "/");
+			//statistic[$(this).attr('data-column-index')] = $(this).val();
+			tableHeading = Object.keys(productList[i]).slice(0, Object.values(productList[i]).length);
+			//var rows = Object.keys(productList[i]);
+			var columns = Object.values(productList[i]);
+			jQuery.each(columns, function(index, tbodyData) {
+				if(index === columns.length-1) {
+					statistic['id'] = tbodyData;
+				} else {
+				statistic[index] = tbodyData;
+				}
+			});
+			tableBodyData.push(statistic);
+			 /* var date = ExcelDateToDate(columns[1], "/");
 			  var subject = columns[2];
 			  var cost = columns[3];
 			  var note = columns[4];
@@ -304,11 +317,14 @@ var ExcelToJSON = function(path) {
 			  }
 			  statistic.status = 'active';
 			  console.log(statistic);
-			  choosePathToSaveExcelFile(path, statistic);
+			  //choosePathToSaveExcelFile(path, statistic);*/
 			  
         }
+		console.log(tableHeading);
+		console.log(tableBodyData);
+		choosePathToSaveExcelFile(path, tableHeading, tableBodyData);
       })
-	 // loadStatisticList(current_statistic_table.attr("id"));		
+	 // loadStatisticList(getTable().attr("id"));		
     };
     reader.onerror = function(ex) {
       console.log(ex);
@@ -319,13 +335,13 @@ var ExcelToJSON = function(path) {
 };
 
 function handleFileSelect(evt) {
-	paginationDestory(current_statistic_table);
+	//paginationDestory(getTable());
   var errMsg = $('span[name="errormsg"]');
   var files = evt.target.files; // FileList object
   console.log("files..................." + files[0].name)
   var fileExtension = files[0].name.split('.')[1];
   console.log("file extensions:  " + fileExtension)
-  var path = files[0].name.split('_').slice(0,3).join("/");
+  var path = selectItemPath + "/" +chosenTablePath;//files[0].name.split('_').slice(0,3).join("/");
   if(fileExtension === "xlsx" || fileExtension === "xls") {
 			errMsg.hide('slow');
 			console.log("this is excel file");
@@ -336,19 +352,57 @@ function handleFileSelect(evt) {
 			console.log("this is not excel file")
 			errMsg.html("Please select excel file.");
 	}
-	 $('#'+current_statistic_table_id).DataTable();
+	 $('#'+getTableById()).DataTable();
 }
 
 document.getElementById('excel-file-upload').addEventListener('change', handleFileSelect, false);
 
-function choosePathToSaveExcelFile(path, statistic) {
-		if(statistic.id === 'newData') {
+function choosePathToSaveExcelFile(path, theadList, tbodyList) {
+		var newTheadIndex = 0;
+		getCollection(getPath(path,"tableHeading")).once('value', (snapshot) => { 
+			var existingTheadData="";
+			snapshot.forEach((child) => {
+				newTheadIndex++;
+				existingTheadData = existingTheadData.concat("/",child.val().value.trim());
+			});	
+			console.log("exitingTheaddata: " + existingTheadData);
+			jQuery.each(theadList, function(index, tHeadData) {
+					if(! existingTheadData.toLowerCase().match(tHeadData.toLowerCase(), 'g')) {
+						console.log("not match thead data..............");
+						var statistic = {};
+						var index  = newTheadIndex ++;
+						var value = tHeadData;
+						var id = 'newData';
+						statistic.index = index;
+						statistic.value = value;
+						statistic.id = id;
+						statistic.status = 'active';
+						console.log(statistic);
+						save(getPath(path,"tableHeading"), statistic);
+					}					
+			});
+				$(document).ready(function(){
+					jQuery.each(tbodyList, function(index, tBodyData) {
+							console.log("tbodyId: " + tBodyData.id);
+							if(tBodyData.id === 'new' || tBodyData.id === "newData") {
+								console.log(tBodyData);
+								tBodyData.status = 'active';
+								save(getPath(path,"tableBody"), tBodyData);
+							} else {
+								tBodyData.status = 'active';
+								update(tBodyData, getPath(path,"tableBody"), tBodyData.id);
+							}							
+					});
+				});
+		});
+		
+		/*if(statistic.id === 'newData') {
 			console.log("new Data.")
 			save(path, statistic);
 		} else {
 			console.log("existing Data.")
 			update(statistic, path, statistic.id);
-		}
+		}*/
 }
 
 function paginationDestory(table) {
@@ -401,8 +455,8 @@ function changeBrickKiln(selectElement) {
 	topTable.addClass("current");
 	topTable.show();
 	current_statistic_container = $('.current');
-	current_statistic_table = current_statistic_container.find("table");
-	current_statistic_table_id = current_statistic_table.attr("id");
+	getTable() = current_statistic_container.find("table");
+	getTableById() = getTable().attr("id");
 	//loadStatisticList();
 }
 
@@ -418,7 +472,7 @@ function getPath(path, options) {
 convert table to excel original code
 
 function HtmlTOExcel(type, fun, dl) {
-    var table = document.getElementById(current_statistic_table_id);
+    var table = document.getElementById(getTableById());
 	var actionButtons = $(table).find('tbody td:last-child');
 	$(actionButtons).remove();
     var wb = XLSX.utils.table_to_book(table, { sheet: "sheet1" });
@@ -430,7 +484,32 @@ function HtmlTOExcel(type, fun, dl) {
 */
 
 function HtmlTOExcel(type, fun) {
-	//paginationDestory(current_statistic_table);
+	
+	var statisticList = [];
+	getTable().find("tbody > tr").each(function(trIndex, trElement) {
+				var statistic = {};
+				$(trElement).find('td:not(:last-child)').each(function(index, element) {
+					
+					if($(element).is(":visible")){
+						var key = $('[data-thead-index="'+$(element).attr("data-column-index")+'"]').text();
+						var value = $(element).text();
+						statistic[key] = value;
+					}					
+				});
+				statisticList.push(statistic);
+			});
+	console.log(statisticList)
+	
+	var wb = XLSX.utils.book_new();
+    var wsStatistic = XLSX.utils.json_to_sheet(statisticList);
+    XLSX.utils.book_append_sheet(wb, wsStatistic, "statistics");
+    const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const data1 = new Blob([excelBuffer], { type: fileType });
+    saveAs(data1, "BookDetail Summary.xlsx"); 
+	
+	
+	/*paginationDestory(getTable());
     var table = document.getElementById("statistic");
 	//console.log("current table id: " + $(table).attr("id"));
 	
@@ -441,9 +520,10 @@ function HtmlTOExcel(type, fun) {
 	var lastChild = $(table).find('tbody td:last-child');
 	var actionButtons = lastChild.html();
 	$(lastChild).remove();
-    var wb = XLSX.utils.table_to_book(table, { sheet: "sheet1" });
+    var wb = XLSX.utils.table_to_book(table, { sheet: "sheet1", display:true });
+	console.log(wb);
     XLSX.writeFile(wb, fun || (getPath() + "_"+ getDate() + "." + (type || 'xlsx')));
-	var trLength = $("#"+current_statistic_table_id +" tbody tr").length;
+	var trLength = $("#"+getTableById() +" tbody tr").length;
 	
 	var th = `<th lang="my" class="dntinclude">လုပ်ဆောင်ချက်များ</th>`
 	
@@ -455,12 +535,12 @@ function HtmlTOExcel(type, fun) {
 									
 	$(table).find('thead th:last-child').parent().append(th);
 	$(table).find('tbody td:last-child').parent().append(td);
-	 $('#'+current_statistic_table_id).DataTable();
+	 $('#'+getTableById()).DataTable();*/
 }
 
 function tableToCSV() {
             // Variable to store the final csv data
-			//paginationDestory(current_statistic_table);
+			paginationDestory(getTable());
             var csv_data = [];
 			csv_data.push(
 				[
@@ -472,7 +552,7 @@ function tableToCSV() {
 				]
 			)
             // Get each row data
-			current_statistic_table.find("tr").each(function(trIndex, trElement) {
+			getTable().find("tr").each(function(trIndex, trElement) {
 				var csvrow = [];
 				$(trElement).find('td').each(function(index, element) { 
 					let classAttributeValue = $(element).attr("class");
@@ -490,7 +570,7 @@ function tableToCSV() {
             csv_data = csv_data.join('\n');
  
             // Call this function to download csv file 
-			 $('#'+current_statistic_table_id).DataTable();
+			 $('#'+getTableById()).DataTable();
             downloadCSVFile(csv_data);
  
 }
@@ -802,12 +882,12 @@ function createTableHeading() {
 
 function addNewSelect() {
 	var item = `<a class="dropdown-item preview-item" onclick="chooseItem(this)">
-                    <div class="preview-thumbnail">
+                    <div class="preview-thumbnail" >
                       <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-close-circle-outline text-danger"></i>
                       </div>
                     </div>
-                    <div class="preview-item-content">
+                    <div class="preview-item-content" >
                       <p class="text-muted ellipsis mb-0 select-item" data-select-id = "newData">
 									<input class="form-control selected-item" type="text" placeholder="ဖိုနာမည်" required onblur="addItem(this)">
 								</th>
@@ -817,6 +897,10 @@ function addNewSelect() {
                   <div class="dropdown-divider"></div>`
 	//$('.dropdown-menu').append(item);
 	$(item).insertBefore('.addNewItem');
+}
+
+function deleteItem() {
+  console.log("here delete Item..........");	
 }
 
 var selectBoxtotal = 0;
@@ -845,6 +929,7 @@ function defaultStatisticPageUi() {
 	$('.add-row').hide();
 	$('.show-more').hide();
 	$('.thead-creation-area').hide();
+	//paginationDestory(getTable());
 	$('.table thead tr').remove();
 	$('.table tbody tr').remove();
 	$('.theadCreationRow').children('th').remove();
@@ -872,7 +957,7 @@ function chooseItem(i) {
 	$(i).children(".preview-item-content").find("p").addClass("selected");
 	selectItemPath = $('.selected').attr('data-select-number');
 	$('.displaytablebtn-plus').show();
-	//$(".show-selected-content").html($('.selected').html());
+	$(".show-selected-content").html($(i).children(".preview-item-content").find("p").text());
 	console.log("selectItemPath: " + selectItemPath);
 	path = selectItemPath + "/" +chosenTablePath;
 	loadTableData(path);
@@ -888,6 +973,7 @@ function loadTableData(path) {
 		});	
 	});
 	getCollection(getPath(path,"tableHeading")).once('value', (snapshot) => {
+	//paginationDestory(getTable());
 	console.log("There are "+snapshot.numChildren()+" datas");
 	$('.theadCreationRow th').remove();
 	$(".table thead").find("tr").remove();
@@ -954,8 +1040,9 @@ function loadTableData(path) {
 								console.log("hideIndex: " + hideIndex);
 								$('table').find(`[data-column-index='${inactiveTheadIndexList[hideIndex]}']`).hide('slow');
 					}
-				});
-				$(document).ready(function() {
+					//$(document).ready(function() {
+						//$('#'+getTableById()).DataTable();
+					//});
 					
 				});
 			});
@@ -971,12 +1058,37 @@ function hideTheadCreationAarea() {
 	$('.show-more').show();
 }
 
+function excelDateToJSDate(serial) {
+    const utc_days  = Math.floor(serial - 25569);
+    const utc_value = utc_days * 86400;                                        
+    const date_info = new Date(utc_value * 1000);
+ 
+    const fractional_day = serial - Math.floor(serial) + 0.0000001;
+ 
+    let total_seconds = Math.floor(86400 * fractional_day);
+ 
+    const seconds = total_seconds % 60;
+ 
+    total_seconds -= seconds;
+ 
+    const hours = Math.floor(total_seconds / (60 * 60));
+    const minutes = Math.floor(total_seconds / 60) % 60;
+    return new Date(date_info.getFullYear(), date_info.getMonth(), date_info.getDate(), hours, 
+         minutes, seconds);
+}
+  
 var statistic_table = $(".statistic-table");
 var selectItemPath = $('.selected').attr('data-select-number');
 var chosenTablePath = 0;
-var current_statistic_table = $("table");
+table = $(".table");
+function getTable() {
+	return $('table');
+}
 
+function getTableById() {
+	return 'statistic';
+}
 /*var current_statistic_container = $('.current');
-var current_statistic_table = current_statistic_container.find("table");
-var current_statistic_table_id = current_statistic_table.attr("id");
+var getTable() = current_statistic_container.find("table");
+var getTableById() = getTable().attr("id");
 var selectedBrickKiln = $(".selected").attr("data-selected-value");*/

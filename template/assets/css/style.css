@@ -17708,8 +17708,10 @@ div.tagsinput {
     position: relative; }
     .preview-list .preview-item .preview-thumbnail img,
     .preview-list .preview-item .preview-thumbnail .preview-icon {
-      width: 40px;
-      height: 40px;
+      /*width: 40px;
+      height: 40px;*/
+	  width: 30px;
+      height: 30px;
       text-align: center;
       display: -webkit-flex;
       display: flex;
