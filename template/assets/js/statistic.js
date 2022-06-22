@@ -505,9 +505,10 @@ function HtmlTOExcel(type, fun) {
     XLSX.utils.book_append_sheet(wb, wsStatistic, "statistics");
     const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
     const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    const data1 = new Blob([excelBuffer], { type: fileType });
-    saveAs(data1, "BookDetail Summary.xlsx"); 
+   // const data1 = new Blob([excelBuffer], { type: fileType });
+    //saveAs(data1, getPath() + "_"+ getDate() + ".xlsx"); 
 	
+	downloadExcelFile(excelBuffer);
 	
 	/*paginationDestory(getTable());
     var table = document.getElementById("statistic");
@@ -600,6 +601,32 @@ function downloadCSVFile(csv_data) {
             temp_link.click();
             document.body.removeChild(temp_link);
 }
+
+function downloadExcelFile(excel_data) {
+            // Create CSV file object and feed
+            // our csv_data into it
+           excelFile = new Blob([excel_data], {
+                type: "text/csv"
+            });
+ 
+            // Create to temporary link to initiate
+            // download process
+            var temp_link = document.createElement('a');
+ 
+            // Download csv file
+            temp_link.download =  getPath() + getDate() + ".xlsx";
+            var url = window.URL.createObjectURL(excelFile);
+            temp_link.href = url;
+ 
+            // This link should not be displayed
+            temp_link.style.display = "none";
+            document.body.appendChild(temp_link);
+ 
+            // Automatically click the link to
+            // trigger download
+            temp_link.click();
+			 document.body.removeChild(temp_link);
+}    
 function blinker() {
     $('.blink-me').fadeOut(200);
     $('.blink-me').fadeIn(200);
