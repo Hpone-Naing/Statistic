@@ -300,25 +300,7 @@ var ExcelToJSON = function(path) {
 				statistic[index] = tbodyData;
 				}
 			});
-			tableBodyData.push(statistic);
-			 /* var date = ExcelDateToDate(columns[1], "/");
-			  var subject = columns[2];
-			  var cost = columns[3];
-			  var note = columns[4];
-			  var id = columns[5];
-			  statistic.date = date;
-			  statistic.subject =subject;
-			  statistic.cost = cost;
-			  statistic.note = note;
-			  if(id === undefined) {
-				  statistic.id = 'newData';
-			  }else {
-				  statistic.id = id;
-			  }
-			  statistic.status = 'active';
-			  console.log(statistic);
-			  //choosePathToSaveExcelFile(path, statistic);*/
-			  
+			tableBodyData.push(statistic);			  
         }
 		console.log(tableHeading);
 		console.log(tableBodyData);
@@ -505,10 +487,9 @@ function HtmlTOExcel(type, fun) {
     XLSX.utils.book_append_sheet(wb, wsStatistic, "statistics");
     const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
     const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-   // const data1 = new Blob([excelBuffer], { type: fileType });
-    //saveAs(data1, getPath() + "_"+ getDate() + ".xlsx"); 
-	
-	downloadExcelFile(excelBuffer);
+    const data1 = new Blob([excelBuffer], { type: fileType });
+    saveAs(data1, getPath() + "_"+ getDate() + ".xlsx"); 
+
 	
 	/*paginationDestory(getTable());
     var table = document.getElementById("statistic");
@@ -754,8 +735,14 @@ function addTitle(title) {
 	$('.add-row').show();
 }
 
+function changeTitle(title) {
+	console.log("here change=title click........");
+		$(title).parent().find(".title-table").html("<input type='text' class='form-control' style='width:auto; display:inline' onblur='addTitle(this)'>");
+		
+}
 $(document).ready(function(){
 	$(".change-title").click(function(){
+		console.log("here change=title click........");
 		$(this).parent().find(".title-table").html("<input type='text' class='form-control' style='width:auto; display:inline' onblur='addTitle(this)'>");
 		
 	});
@@ -1051,6 +1038,7 @@ function loadTableData(path) {
 						for(var i =0;i<keys.length-2;i++) {
 						//$.each(keys, function( i, key ) {
 						//for(let key in keys) {
+							console.log("tbody datas: " + tbodyDatas[index][keys[i]]);
 							 tr += `<td data-column-index=${i}>${tbodyDatas[index][keys[i]]}</td>`
 						///});
 						}
