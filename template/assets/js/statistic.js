@@ -1,3 +1,4 @@
+var selectBoxtotal = 0;
 function loadBrickKilns() {
 	getCollection(getPath(null,"selectBoxData")).orderByChild('status').equalTo('active').once('value', (snapshot) => {
 		snapshot.forEach((child) => {
@@ -64,12 +65,12 @@ $(document).ready(function(){
 	//$('[data-toggle="tooltip"]').tooltip();
 		// Append table with add row form on add new button click
     $(".add-new").click(function(){
-		
+		paginationDestory(getTable());
 		$(this).attr("disabled", "disabled");
 		var index = $(".table tbody tr:last-child").index();
-		var theadLength = $(".table thead tr th").length;
+		var theadLength = $(".table thead tr th:visible").length;
 		var tr = '<tr>'
-		for(var i=0;i<theadLength-2;i++) {
+		for(var i=0;i<theadLength-1;i++) {
 			tr += `<td data-column-index=${i}><input type="text" class="form-control" data-column-index=${i}></td>`
 		}
 		tr +='<td data-column-index="id" style="display:none"><input type="text" class="form-control" data-column-index="id" value="newData"></td>'
@@ -98,6 +99,7 @@ $(document).ready(function(){
     });
 	// Add row on add button click
 	$(document).on("click", ".add", function(){
+		//paginationDestory(getTable());
 		path = selectItemPath + "/" +chosenTablePath;
 		var tbodyValueIndex = 0;
 		console.log("here add button click:..........................");
@@ -118,7 +120,6 @@ $(document).ready(function(){
 				updatedStatistic[$(this).attr('data-column-index')] = $(this).val();
 				$(this).parent("td").html($(this).val());
 			});		
-			
 			$('.table tbody tr').each(function(){
 				$(this).find("td:not(:last-child)").each(function(){
 					//updatedStatistic[$(this).attr('data-column-index')] = $(this).html();
@@ -135,9 +136,13 @@ $(document).ready(function(){
 			
 			$(this).parents("tr").find(".add, .edit").toggle();
 			$(".add-new").removeAttr("disabled");
+					console.log("length1: " +  $('table tbody tr').length);
+
+			//$('#'+getTableById()).DataTable();
 		}	
+		console.log("length2: " +  $('table tbody tr').length);
 		//loadStatisticList();
-		$('#'+getTableById()).DataTable();
+		
     });
 	// Edit row on edit button click
 	$(document).on("click", ".edit", function(){		
@@ -180,6 +185,7 @@ $(document).ready(function(){
 		//var path = 'statistic/'+getTableById();
 		deleteObj(getPath(path,"tableBody"), deletedStatistic.elementId, 'status');		
 		$(".add-new").removeAttr("disabled");
+		console.log("table row count: " + $('table td tr').length);
 		$('#'+getTableById()).DataTable();
     });
 });
@@ -716,7 +722,10 @@ function displayTableArea() {
 	$('div[name="displayTableBtn"]').hide('slow');
 }
 
-function addTitle(title) {	
+function addTitle(title) {
+		console.log("selectItemPath"+$('.selected').attr('data-select-number'));
+$('.show-more').show();
+	$('.add-row').show();
 	path = selectItemPath + "/" +chosenTablePath;
 	console.log("path: " + path);
 	newTitle = $(title);
@@ -731,8 +740,6 @@ function addTitle(title) {
 	} else {
 		update(tableTitle, getPath(path,"tableTitle"), tableTitle.id);
 	}
-	$('.show-more').show();
-	$('.add-row').show();
 }
 
 function changeTitle(title) {
@@ -752,6 +759,7 @@ $(document).ready(function(){
 
 var headingIndex = 0;
 function prepareTableHeading() {
+	$('.add-row').hide();
 	var tableHeadCreateBtn =  `<th>
 									<a class="showColumn" title="activate" data-toggle="tooltip" onclick="showColumn(this)"  style="display:none"><i class="material-icons">done</i></a>
 									<a class="hideColumn" title="Inactivate" data-toggle="tooltip" onclick="hideColumn(this)"><i class="material-icons">&#xE872;</i></a>
@@ -765,6 +773,7 @@ function prepareTableHeading() {
 function hideColumn(hideColumn) {
 	path = selectItemPath + "/" +chosenTablePath;
 	console.log("heelo hide");
+	$('.add-row').hide();
 	var hideColumnIndex = $(hideColumn).parent().children("input").attr("data-heading-index");
 	console.log("id: " +hideColumnIndex );
 	$(hideColumn).parent().children("input").prop("disabled",true);
@@ -780,6 +789,7 @@ function hideColumn(hideColumn) {
 
 function showColumn(showColumn) {
 	console.log("heelo show");
+	$('.add-row').hide();
 	var showColumnId = $(showColumn).parent().children("input").attr("data-heading-index");
 	console.log("id: " +showColumnId );
 	$(showColumn).parent().children("input").prop("disabled",false);
@@ -796,6 +806,7 @@ function createTableHeading() {
 	path = selectItemPath + "/" +chosenTablePath;
 	var tableHeadDataList = [];
 	var tableHeadData = {};
+	$('.add-row').show();
 	$(".show-more").show();
 	$(".thead-creation-area").hide('slow');
 	var oldTheadLength = $(".table thead tr th").length; 
@@ -916,13 +927,13 @@ function addNewSelect() {
 function deleteItem() {
   console.log("here delete Item..........");	
 }
-
-var selectBoxtotal = 0;
 function addItem(item) {
+	console.log(" before selectBox total: ", selectBoxtotal)
 	newItem = $(item);
 	parentNode = newItem.parent();
-	newItem.parent().attr("data-select-number", selectBoxtotal++);
-	newItem.parent().html(newItem.val());
+	parentNode.attr("data-select-number", selectBoxtotal++);
+	console.log(" after selectBox total: ", selectBoxtotal)
+	parentNode.html(newItem.val());
 	var formData = {};
 	formData.id = parentNode.attr("data-select-id");
 	formData.selectBoxIndex = parentNode.attr("data-select-number");
@@ -1095,6 +1106,7 @@ function excelDateToJSDate(serial) {
 var statistic_table = $(".statistic-table");
 var selectItemPath = $('.selected').attr('data-select-number');
 var chosenTablePath = 0;
+
 table = $(".table");
 function getTable() {
 	return $('table');
