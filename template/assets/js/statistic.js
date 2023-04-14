@@ -413,6 +413,7 @@ function moveRightNextTable() {
 	headingIndex = 0;
 	chosenTablePath +=1;
 	path = selectItemPath + "/" +chosenTablePath;
+	console.log("path: " + path)
 	defaultStatisticPageUi();
 	loadTableData(path);
 	$('.displaytablebtn-plus').show();
@@ -425,6 +426,7 @@ function moveLeftNextTable() {
 	}
 	path = selectItemPath + "/" +chosenTablePath;
 	defaultStatisticPageUi();
+	console.log("path: " + path)
 	loadTableData(path);
 	$('.displaytablebtn-plus').show();
 
@@ -620,7 +622,7 @@ function blinker() {
 }
 setInterval(blinker, 500);
 
-showResult;
+var showResult;
 function calculateCost() {
 		console.log("here calculate cost......................................");
 		$(".calculator").show();
